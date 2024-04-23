@@ -1,8 +1,7 @@
 'use client';
 
-import { AuthContext } from '@/context/authContext';
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useFetch = (p: any) => {
     const [route, setRoute] = useState(p?.route || '');
@@ -14,14 +13,7 @@ export const useFetch = (p: any) => {
     const [error, setError] = useState<any>(null);
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(true);
-
-    const { jwt } = useContext(AuthContext);
-    const api = axios.create({
-        baseURL: `${process.env.NEXT_PUBLIC_SERVER_URI}/`,
-        headers: {
-            Authorization: `Bearer ${jwt}`
-        }
-    });
+    const api = axios.create();
 
     api.interceptors.request.use((config) => {
         setLoading(true);

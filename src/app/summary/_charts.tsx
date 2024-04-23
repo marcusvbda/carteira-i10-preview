@@ -6,7 +6,6 @@ import BarChart from '@/components/charts/barChart';
 import { useContext, useEffect, useMemo, useState } from 'react';
 // import Dropdown from '@/components/common/dropdown';
 import Icon from '@/components/common/icon';
-import { backend, makeUrl } from '@/constants/backend';
 import { useFetch } from '@/hooks/fetch';
 import { WalletContext } from '@/context/walletContext';
 import { Dropdown } from 'primereact/dropdown';
@@ -63,25 +62,12 @@ export default function Charts(): JSX.Element {
     const [qtyMonths, setQtyMonths] = useState<any>(qtyMonthOptions[1] as any);
     const [type, setType] = useState<any>(typesOptions[0] as any);
 
-    const routeDonutChart = useMemo(
-        () => makeUrl(backend.routeSummaryDonutChart, { walletId }),
-        [walletId]
-    );
-
-    const {
-        data: donutChartData,
-        loading: donutChartLoading,
-        fetch: fetchDonutChart
-    } = useFetch({
-        route: routeDonutChart
+    const { data: donutChartData, loading: donutChartLoading } = useFetch({
+        route: `api/wallet/${walletId}/charts/types`
     });
 
     const routeBarChart = useMemo(() => {
-        return makeUrl(backend.routeSummaryEvolutionChart, {
-            walletId,
-            qtyMonths: qtyMonths.id,
-            type: type.id
-        });
+        return `api/wallet/${walletId}/charts/evolution/${qtyMonths.id}/${type.id}`;
     }, [walletId, qtyMonths, type]);
 
     const {

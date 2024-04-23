@@ -8,7 +8,6 @@ import { useContext, useEffect } from 'react';
 import { WalletContext } from '@/context/walletContext';
 import { useFetch } from '@/hooks/fetch';
 import { useHelpers } from '@/hooks/helpers';
-import { backend, makeUrl } from '@/constants/backend';
 
 export default function Metrics(): JSX.Element {
     const helpers = useHelpers();
@@ -18,7 +17,7 @@ export default function Metrics(): JSX.Element {
         data: metricsData,
         fetch: fetchMetricsData
     } = useFetch({
-        route: makeUrl(backend.routeSummaryBanners, { walletId }),
+        route: `/api/wallet/${walletId}/banner`,
         autoDispatch: false
     });
 
@@ -27,16 +26,16 @@ export default function Metrics(): JSX.Element {
         data: alertsData,
         fetch: fetchAlerts
     } = useFetch({
-        route: makeUrl(backend.routeSummaryAlerts, { walletId }),
+        route: `/api/wallet/${walletId}/alert-banner`,
         autoDispatch: false
     });
 
     useEffect(() => {
         fetchMetricsData({
-            route: makeUrl(backend.routeSummaryBanners, { walletId })
+            route: `/api/wallet/${walletId}/banner`
         });
         fetchAlerts({
-            route: makeUrl(backend.routeSummaryAlerts, { walletId })
+            route: `/api/wallet/${walletId}/alert-banner`
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [walletId]);

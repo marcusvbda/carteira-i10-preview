@@ -4,7 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 
 const checkToken = async (token: string) => {
     try {
-        const checkRoute = `${process.env.NEXT_PUBLIC_SERVER_URI}/check-wallet-token/${token}`;
+        const checkRoute = `${process.env.NEXT_PUBLIC_SERVER_URI}/api/check-wallet-token/${token}`;
         const response = await axios.get(checkRoute);
         return response.data;
     } catch (error) {
@@ -31,6 +31,7 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async session({ session, user, token }: any) {
+            // console.log(token)
             if (token.error) return {};
             return {
                 ...session,

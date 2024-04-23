@@ -2,7 +2,6 @@
 
 import { useContext, useMemo, useState } from 'react';
 import { useFetch } from '@/hooks/fetch';
-import { backend, makeUrl } from '@/constants/backend';
 import { WalletContext } from '@/context/walletContext';
 import CollapseDatatable from './_collapseDatatable';
 import YesOrNo from '@/components/common/yesOrNo';
@@ -14,31 +13,19 @@ export default function Datatables() {
     const helpers = useHelpers();
     const { walletId } = useContext(WalletContext);
     const { loading: tickerLoading, data: tickerData } = useFetch({
-        route: makeUrl(backend.routeSummaryDatatable, {
-            walletId,
-            type: 'Ticker'
-        })
+        route: `api/wallet/${walletId}/datatables/Ticker`
     });
 
     const { loading: fiiLoading, data: fiiData } = useFetch({
-        route: makeUrl(backend.routeSummaryDatatable, {
-            walletId,
-            type: 'Fii'
-        })
+        route: `api/wallet/${walletId}/datatables/Fii`
     });
 
     const { loading: cryptoLoading, data: cryptoData } = useFetch({
-        route: makeUrl(backend.routeSummaryDatatable, {
-            walletId,
-            type: 'Crypto'
-        })
+        route: `api/wallet/${walletId}/datatables/Crypto`
     });
 
     const { loading: fundLoading, data: fundData } = useFetch({
-        route: makeUrl(backend.routeSummaryDatatable, {
-            walletId,
-            type: 'Fund'
-        })
+        route: `api/wallet/${walletId}/datatables/Fund`
     });
 
     const totalFund = useMemo(() => {
