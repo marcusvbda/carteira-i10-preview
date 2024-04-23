@@ -1,0 +1,9 @@
+.chartbar {
+    display: flex;
+    flex-direction: column;
+
+    .chartbar-content {
+        padding-top: 20px;
+        margin-bottom: 50px;
+    }
+}

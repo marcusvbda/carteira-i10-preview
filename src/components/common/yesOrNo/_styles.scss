@@ -1,0 +1,16 @@
+.yes-or-no {
+    color: var(--text-title-card);
+    font-family: var(--font-figtree);
+    background-color: var(--body-bg);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 114.286% */
+    border-radius: 8px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+}

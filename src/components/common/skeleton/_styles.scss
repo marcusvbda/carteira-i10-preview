@@ -1,0 +1,20 @@
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.skeleton {
+    animation: pulse 3s infinite;
+    background-color: #96969645;
+    border-radius: 4px;
+    display: inline-block;
+    height: 1em;
+    width: 100%;
+}

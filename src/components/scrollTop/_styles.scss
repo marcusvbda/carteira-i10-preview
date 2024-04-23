@@ -1,0 +1,22 @@
+button.scroll-top {
+    box-shadow: 0px 2px 10px 0px rgba(8, 33, 69, 0.25);
+    background-color: var(--bg-btn-gray);
+    border: 2px solid var(--divisor-collor);
+    border-radius: 100%;
+    height: 50px;
+    width: 50px;
+    background-image: url(/images/theme/arrow-up.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25px;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.5s;
+
+    &:hover {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,96 @@
+.default-dropdown {
+    button {
+        cursor: pointer;
+
+        &.default-dropdown--default-btn {
+            background-color: unset;
+            border: unset;
+        }
+
+        &.default-dropdown--btn {
+            transition: 0.5s;
+            padding: 12px 0;
+            border: unset;
+            color: var(--text-in-dark);
+            display: flex;
+            background-color: transparent;
+            gap: 12px;
+            align-items: center;
+            font-family: var(--font-figtree);
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 120%;
+
+            .default-dropdown--btn-arrow {
+                position: relative;
+                width: 12px;
+                height: 10px;
+                background-image: url(/images/theme/arrow-down.svg);
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        }
+    }
+
+    .default-dropdown--items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .default-dropdown--item {
+            width: 100%;
+            display: flex;
+            gap: 12px;
+            padding: 15px;
+            background-color: var(--border-color);
+            border-radius: 10px;
+            font-family: var(--font-figtree);
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.5s;
+
+            &:hover {
+                filter: brightness(0.8);
+                transform: scale(1.03);
+            }
+        }
+    }
+
+    .modal-component .modal-component--content .default-card {
+        width: 700px;
+    }
+}
+
+html[screen-format='tablet'] {
+    .default-dropdown {
+        .modal-component .modal-component--content .default-card {
+            width: 70%;
+        }
+    }
+}
+
+html[screen-format='mobile'] {
+    .default-dropdown {
+        button {
+            .default-dropdown--btn {
+                font-size: 16px;
+            }
+        }
+
+        .modal-component .modal-component--content .default-card {
+            width: 90%;
+        }
+    }
+}
+
+html[data-theme='dark'] {
+    .default-dropdown {
+        .default-dropdown--items {
+            .default-dropdown--item {
+                color: var(--text-in-dark);
+            }
+        }
+    }
+}

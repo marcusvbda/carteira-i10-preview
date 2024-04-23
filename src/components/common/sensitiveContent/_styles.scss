@@ -1,0 +1,11 @@
+.sensitive-content {
+    position: relative;
+    .sensitive-content--overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        cursor: not-allowed;
+        z-index: 1;
+        backdrop-filter: blur(4px);
+    }
+}

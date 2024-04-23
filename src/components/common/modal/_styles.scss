@@ -1,0 +1,27 @@
+.modal-component {
+    .modal-component--source {
+        cursor: pointer;
+        transition: 0.5s;
+        &:hover {
+            filter: brightness(0.8);
+        }
+    }
+
+    .modal-component--content {
+        padding-top: 30px;
+        position: fixed;
+        z-index: 10;
+        background-color: #2c3a5372;
+        inset: 0;
+        animation: fade 0.3s;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+}
+
+html[data-theme='dark'] {
+    .modal-component .modal-component--content {
+        background-color: #adadad4d;
+    }
+}
