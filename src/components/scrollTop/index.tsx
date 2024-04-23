@@ -1,5 +1,4 @@
 'use client';
-import { useTheme } from '@/hooks/theme';
 import './_styles.scss';
 import { useContext, useMemo } from 'react';
 import { ThemeContext } from '@/context/themeContext';
