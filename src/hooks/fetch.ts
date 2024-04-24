@@ -10,7 +10,6 @@ export const useFetch = (p: any) => {
     const autoDispatch =
         p?.autoDispatch === undefined || p?.autoDispatch === true;
 
-    const [error, setError] = useState<any>(null);
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const api = axios.create();
@@ -36,11 +35,9 @@ export const useFetch = (p: any) => {
         setParams(newRoute);
         x.route && setRoute(x.route);
         x.params && setRoute(x.params);
-        try {
-            (api as any)?.[newMethod](newRoute, { ...newParams });
-        } catch (e) {
-            setError(e);
-        }
+        (api as any)?.[(newMethod || '').toLowerCase()](newRoute, {
+            ...newParams
+        });
     };
 
     useEffect(() => {
@@ -50,6 +47,8 @@ export const useFetch = (p: any) => {
                 route: route,
                 params: params
             });
+        } else {
+            setLoading(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -61,6 +60,6 @@ export const useFetch = (p: any) => {
         setRoute,
         setMethod,
         setParams,
-        error
+        setData
     };
 };

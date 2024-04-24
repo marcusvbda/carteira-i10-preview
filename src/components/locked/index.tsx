@@ -1,12 +1,17 @@
+'use client';
 import './_styles.scss';
 interface IProps {
     children: any;
 }
 
 export default function LockedComponent({ children }: IProps) {
+    const goToPage = (e: any) => {
+        e.stopPropagation();
+        window.location.href = `${process.env.NEXT_PUBLIC_SERVER_URI}/assine8-v4-black`;
+    };
     return (
         <div className="flex">
-            <div className="locked-component">
+            <div className="locked-component" onClick={goToPage}>
                 <div className="content">
                     Ver
                     <svg

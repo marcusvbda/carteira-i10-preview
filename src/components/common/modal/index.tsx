@@ -13,6 +13,7 @@ interface IProps {
     size?: string;
     tabletSize?: string;
     mobileSize?: string;
+    type?: string;
 }
 
 export default function Modal({
@@ -23,7 +24,8 @@ export default function Modal({
     size,
     tabletSize,
     mobileSize,
-    hideHeader
+    hideHeader,
+    type
 }: IProps): JSX.Element {
     const [visible, setVisible] = useState(false);
     (Modal as any).setVisible = setVisible;
@@ -43,7 +45,7 @@ export default function Modal({
     }, [visible, setShowContent]);
 
     return (
-        <div className="modal-component">
+        <div className={`modal-component ${type ? type : 'center'}`}>
             <div className="modal-component--source" onClick={handleClick}>
                 {source}
             </div>

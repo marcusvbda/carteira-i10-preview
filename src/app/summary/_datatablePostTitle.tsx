@@ -4,7 +4,7 @@ import DonutChart from '@/components/charts/donutChart';
 import Icon from '@/components/common/icon';
 import If from '@/components/common/if';
 import Modal from '@/components/common/modal';
-import ModalActive from '@/components/modalActive';
+import ModalEntries from '@/components/modalEntries';
 import { seo } from '@/constants/seo';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
@@ -92,6 +92,7 @@ const EditColumns = ({ columns, onChange }: any) => {
             tabletSize="80%"
             mobileSize="90%"
             title="Editar colunas"
+            type="side right"
             source={
                 <button className="btn small no-shadow">
                     <Icon icon="/images/theme/table-columns.svg" width="16px" />
@@ -101,7 +102,7 @@ const EditColumns = ({ columns, onChange }: any) => {
             content={
                 <div className="fields-edit-list">
                     {Object.keys(columnsGrouped).map((group, index) => (
-                        <div key={index}>
+                        <div key={index} style={{ marginBottom: 50 }}>
                             <h6>{group}</h6>
                             <div className="input-list">
                                 {columnsGrouped[group].map(
@@ -177,7 +178,7 @@ export default function DatatablePostTitle({
                 }
             />
             <EditColumns columns={columns} onChange={onChange} />
-            <ModalActive className="small" />
+            <ModalEntries className="small" />
         </>
     );
 }

@@ -4,7 +4,6 @@ import DonutChart from '@/components/charts/donutChart';
 import './_styles.scss';
 import BarChart from '@/components/charts/barChart';
 import { useContext, useEffect, useMemo, useState } from 'react';
-// import Dropdown from '@/components/common/dropdown';
 import Icon from '@/components/common/icon';
 import { useFetch } from '@/hooks/fetch';
 import { WalletContext } from '@/context/walletContext';
@@ -66,21 +65,18 @@ export default function Charts(): JSX.Element {
         route: `api/wallet/${walletId}/charts/types`
     });
 
-    const routeBarChart = useMemo(() => {
-        return `api/wallet/${walletId}/charts/evolution/${qtyMonths.id}/${type.id}`;
-    }, [walletId, qtyMonths, type]);
-
     const {
         data: barChartData,
         loading: barChartLoading,
         fetch: fetchBarChart
     } = useFetch({
-        route: routeBarChart,
         autoDispatch: false
     });
 
     useEffect(() => {
-        fetchBarChart({ route: routeBarChart });
+        fetchBarChart({
+            route: `api/wallet/${walletId}/charts/evolution/${qtyMonths.id}/${type.id}`
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [qtyMonths, type]);
 

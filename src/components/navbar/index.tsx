@@ -9,7 +9,7 @@ import Icon from '../common/icon';
 import { useContext } from 'react';
 import { WalletContext } from '@/context/walletContext';
 import B3Integration from '../b3Integration';
-import ModalActive from '../modalActive';
+import ModalEntries from '../modalEntries';
 
 const Logo = (): JSX.Element => {
     return (
@@ -45,7 +45,7 @@ export const NavBar = (): JSX.Element => {
                 <MenuItems />
                 <div className="create-btns hide-on-mobile hide-on-tablet">
                     <B3Integration />
-                    <ModalActive />
+                    <ModalEntries />
                 </div>
             </div>
         </nav>

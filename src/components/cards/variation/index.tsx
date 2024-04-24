@@ -43,14 +43,14 @@ const Title = ({ title, icon }: any): JSX.Element => {
 const Content = ({ profit, variation, variationAmount }: any): JSX.Element => {
     const helpers = useHelpers();
     let varitionTrendClass = '';
-    if (variation.includes('-')) {
+    if (variation?.includes('-')) {
         varitionTrendClass = 'negative';
     } else if (variation != '0%') {
         varitionTrendClass = 'positive';
     }
 
     let profitTrendClass = '';
-    if (profit.includes('-')) {
+    if (profit?.includes('-')) {
         profitTrendClass = 'negative';
     } else if (profit != '0') {
         profitTrendClass = 'positive';
@@ -69,7 +69,7 @@ const Content = ({ profit, variation, variationAmount }: any): JSX.Element => {
             )}`;
         }
     }
-    const formatedVariation = variation.replace('-', '');
+    const formatedVariation = variation?.replace('-', '');
     return (
         <div className="card-variation--content">
             <div className="card-variation--content-col">

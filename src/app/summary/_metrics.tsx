@@ -17,7 +17,6 @@ export default function Metrics(): JSX.Element {
         data: metricsData,
         fetch: fetchMetricsData
     } = useFetch({
-        route: `/api/wallet/${walletId}/banner`,
         autoDispatch: false
     });
 
@@ -26,7 +25,6 @@ export default function Metrics(): JSX.Element {
         data: alertsData,
         fetch: fetchAlerts
     } = useFetch({
-        route: `/api/wallet/${walletId}/alert-banner`,
         autoDispatch: false
     });
 

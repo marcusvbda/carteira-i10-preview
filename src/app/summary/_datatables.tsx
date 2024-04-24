@@ -8,6 +8,7 @@ import YesOrNo from '@/components/common/yesOrNo';
 import ScoreComponent from '@/components/score';
 import Trend from '@/components/common/trend';
 import { useHelpers } from '@/hooks/helpers';
+import LockedComponent from '@/components/locked';
 
 export default function Datatables() {
     const helpers = useHelpers();
@@ -152,16 +153,17 @@ export default function Datatables() {
                 );
             }
         },
-        // {
-        //     field: 'bazin',
-        // visible: true,
-        //     title: 'Preço Justo Bazin',
-        //     body: (row: any): JSX.Element => (
-        //         <LockedComponent>
-        //             {helpers.formatMoney(row.bazin)}
-        //         </LockedComponent>
-        //     )
-        // },
+        {
+            field: 'bazin',
+            visible: true,
+            title: 'Preço Justo Bazin',
+            group: 'Dados básicos',
+            body: (row: any): JSX.Element => (
+                <LockedComponent>
+                    {helpers.formatMoney(row.bazin)}
+                </LockedComponent>
+            )
+        },
         {
             field: 'score',
             title: 'Nota',
@@ -195,6 +197,76 @@ export default function Datatables() {
                 const valueBool = value === 'SIM';
                 return <YesOrNo value={valueBool} />;
             }
+        },
+        {
+            field: 'payout',
+            title: 'payout',
+            group: 'Dados fundamentais',
+            visible: false,
+            body: (row: any) => `${row.payout}%`
+        },
+        {
+            field: 'gnp',
+            title: 'CAGR Lucros (5 anos)',
+            visible: false,
+            group: 'Dados fundamentais',
+            body: (row: any) => `${row.gnp}%`
+        },
+        {
+            field: 'dy',
+            title: 'DY',
+            visible: false,
+            group: 'Dados fundamentais',
+            body: (row: any) => `${row.dy}%`
+        },
+        {
+            field: 'pvp',
+            title: 'P/VP',
+            visible: false,
+            group: 'Dados fundamentais',
+            body: (row: any) => `${row.p_vp}%`
+        },
+        {
+            field: 'p_l',
+            title: 'P/L',
+            visible: false,
+            group: 'Dados fundamentais',
+            body: (row: any) => `${row.p_l}%`
+        },
+        {
+            field: 'yoc',
+            title: 'Yield On Cost (YOC)',
+            visible: false,
+            group: 'Dados fundamentais',
+            body: (row: any) => `${row.yoc}%`
+        },
+        {
+            field: 'net_margin',
+            title: 'Margem Líquida',
+            visible: false,
+            group: 'Dados fundamentais',
+            body: (row: any) => `${row.net_margin}%`
+        },
+        {
+            field: 'roe',
+            title: 'ROE',
+            visible: false,
+            group: 'Dados fundamentais',
+            body: (row: any) => `${row.roe}%`
+        },
+        {
+            field: 'gross_margin',
+            title: 'Margem Bruta',
+            visible: false,
+            group: 'Dados fundamentais',
+            body: (row: any) => `${row.gross_margin}%`
+        },
+        {
+            field: 'gnr',
+            title: 'CAGR Receitas (5 anos) ',
+            visible: false,
+            group: 'Dados fundamentais',
+            body: (row: any) => `${row.gnr}%`
         }
         // {
         //     field: 'options',

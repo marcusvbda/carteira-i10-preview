@@ -18,6 +18,24 @@
         align-items: flex-start;
         justify-content: center;
     }
+
+    &.side {
+        .default-card {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+            border-radius: unset;
+        }
+
+        &.right .default-card {
+            right: 0;
+        }
+
+        &.left .default-card {
+            left: 0;
+        }
+    }
 }
 
 html[data-theme='dark'] {
