@@ -13,6 +13,7 @@ interface IProps {
     total: number;
     title: string;
     icon: string;
+    tickerType: string;
     darkIcon: string;
     columns: any[];
     onChangeColumn: any;
@@ -27,7 +28,8 @@ export default function CollapseDatatable({
     darkIcon,
     defaultCollapsed,
     columns,
-    onChangeColumn
+    onChangeColumn,
+    tickerType
 }: IProps): JSX.Element {
     const totalAmount = useMemo(() => {
         return (rows || []).reduce((acc: number, row: any) => {
@@ -61,6 +63,7 @@ export default function CollapseDatatable({
                     rows={rows}
                     columns={columns}
                     onChange={onChangeColumn}
+                    tickerType={tickerType}
                 />
             }
             summary={

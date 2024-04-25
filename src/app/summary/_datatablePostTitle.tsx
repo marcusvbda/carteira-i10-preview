@@ -13,6 +13,7 @@ interface IProps {
     rows: any[];
     columns: any[];
     onChange: any;
+    tickerType: string;
 }
 
 const ColumnSwitch = ({ index, columns, column, onClick }: any) => {
@@ -114,9 +115,6 @@ const EditColumns = ({ columns, onChange }: any) => {
                                             onClick={() =>
                                                 handleSetEditableColumns(column)
                                             }
-                                            // setEditableColumns={
-                                            //     setEditableColumns
-                                            // }
                                         />
                                     )
                                 )}
@@ -132,7 +130,8 @@ const EditColumns = ({ columns, onChange }: any) => {
 export default function DatatablePostTitle({
     rows,
     columns,
-    onChange
+    onChange,
+    tickerType
 }: IProps): JSX.Element {
     const router = useRouter();
     const goToEntries = (e: any) => {
@@ -178,7 +177,7 @@ export default function DatatablePostTitle({
                 }
             />
             <EditColumns columns={columns} onChange={onChange} />
-            <ModalEntries className="small" />
+            <ModalEntries className="small" tickerType={tickerType} />
         </>
     );
 }

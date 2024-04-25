@@ -303,6 +303,7 @@ export default function Datatables() {
                 total={totalTicker}
                 columns={columns}
                 onChangeColumn={changeColumn}
+                tickerType="Ticker"
             />
             <CollapseDatatable
                 title="Fundos imobiliários"
@@ -313,6 +314,7 @@ export default function Datatables() {
                 total={totalFiis}
                 columns={columns}
                 onChangeColumn={changeColumn}
+                tickerType="Fii"
             />
             <CollapseDatatable
                 title="Criptomoedas"
@@ -323,6 +325,7 @@ export default function Datatables() {
                 total={totalCrypto}
                 columns={columns}
                 onChangeColumn={changeColumn}
+                tickerType="Crypto"
             />
             <CollapseDatatable
                 title="Investimentos"
@@ -333,6 +336,7 @@ export default function Datatables() {
                 total={totalFund}
                 columns={columns}
                 onChangeColumn={changeColumn}
+                tickerType="Fund"
             />
         </section>
     );

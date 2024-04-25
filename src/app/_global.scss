@@ -102,6 +102,10 @@ body:has(.lock-mouse) {
     opacity: 0.3;
 }
 
+.select2 {
+    width: 100%;
+}
+
 .btn-close {
     cursor: pointer;
     background-image: url('/images/theme/close.svg');

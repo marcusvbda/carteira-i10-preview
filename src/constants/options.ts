@@ -4,18 +4,45 @@ export const typeOptions: any[] = [
 ];
 
 export const tickerTypeOptions: any[] = [
-    { value: 'Ticker', name: 'Ações' },
-    { value: 'Fund', name: 'Fundos de Investimentos' },
-    { value: 'Fii', name: 'FIIs' },
-    { value: 'Crypto', name: 'Criptomoedas' },
-    { value: 'Stock', name: 'Stock' },
-    { value: 'Reit', name: 'Reit' },
-    { value: 'StockBdr', name: 'BDRs' },
-    { value: 'Etf', name: 'ETFs' },
-    { value: 'EtfInternational', name: 'ETFs Internacionais' },
-    { value: 'Treasure', name: 'Tesouro Direto' },
-    { value: 'FixedIncome', name: 'Renda Fixa (CDB/LCI/LCA/LC/LF/RDB)' },
-    { value: 'Other', name: 'Outros' }
+    {
+        value: 'Ticker',
+        name: 'Ações',
+        fields: ['qty', 'cost']
+    },
+    {
+        value: 'Fund',
+        name: 'Fundos de Investimentos',
+        fields: ['applid', 'cost']
+    },
+    { value: 'Fii', name: 'FIIs', fields: ['applid', 'cost'] },
+    {
+        value: 'Crypto',
+        name: 'Criptomoedas',
+        fields: ['applid', 'cost', 'price']
+    },
+    { value: 'Stock', name: 'Stock', fields: ['applid', 'cost'] },
+    { value: 'Reit', name: 'Reit', fields: ['applid', 'cost'] },
+    { value: 'StockBdr', name: 'BDRs', fields: ['applid', 'cost'] },
+    { value: 'Etf', name: 'ETFs', fields: ['applid', 'cost'] },
+    {
+        value: 'EtfInternational',
+        name: 'ETFs Internacionais',
+        fields: ['applid', 'cost']
+    },
+    { value: 'Treasure', name: 'Tesouro Direto', fields: ['applid', 'cost'] },
+    {
+        value: 'FixedIncome',
+        name: 'Renda Fixa (CDB/LCI/LCA/LC/LF/RDB)',
+        fields: [
+            'emitter',
+            'investment_type',
+            'rate_type',
+            'indexer',
+            'due_date',
+            'percentage_cdi'
+        ]
+    },
+    { value: 'Other', name: 'Outros', fields: [] }
 ];
 
 export const currencyOptions: any[] = [

@@ -7,6 +7,7 @@ import DefaultCard from '@/components/cards/default';
 interface IProps {
     source: JSX.Element;
     content: JSX.Element;
+    modalVisible?: boolean;
     closeOnClick?: boolean;
     hideHeader?: boolean;
     title?: string;
@@ -14,6 +15,7 @@ interface IProps {
     tabletSize?: string;
     mobileSize?: string;
     type?: string;
+    setModalVisible?: any;
 }
 
 export default function Modal({
@@ -25,10 +27,22 @@ export default function Modal({
     tabletSize,
     mobileSize,
     hideHeader,
-    type
+    type,
+    modalVisible,
+    setModalVisible
 }: IProps): JSX.Element {
     const [visible, setVisible] = useState(false);
-    (Modal as any).setVisible = setVisible;
+    useEffect(() => {
+        if (modalVisible !== undefined) {
+            setVisible(modalVisible);
+        }
+    }, [modalVisible]);
+    useEffect(() => {
+        if (setModalVisible !== undefined) {
+            setModalVisible(visible);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [visible]);
     const [showContent, setShowContent] = useState(false);
     const closable = closeOnClick !== undefined ? closeOnClick : true;
     const handleClick = useCallback(

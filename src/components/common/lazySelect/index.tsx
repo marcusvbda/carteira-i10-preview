@@ -8,15 +8,26 @@ interface IProps {
     url: string;
     value: any;
     onSelect: (e: any) => void;
+    setOptionsData?: any;
 }
 
-export default function LazySelect({ url, value, onSelect }: IProps) {
+export default function LazySelect({
+    url,
+    value,
+    onSelect,
+    setOptionsData
+}: IProps) {
     const [v, setV] = useState(value);
     const { data, setData } = useFetch({
         autoDispatch: false
     });
 
-    (LazySelect as any).setData = setData;
+    useEffect(() => {
+        if (setOptionsData) {
+            setOptionsData(data);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data]);
 
     const handleSelect = (e: any) => {
         const _value = e.target.value;
