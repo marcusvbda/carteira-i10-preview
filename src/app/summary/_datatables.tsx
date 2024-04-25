@@ -9,6 +9,7 @@ import ScoreComponent from '@/components/score';
 import Trend from '@/components/common/trend';
 import { useHelpers } from '@/hooks/helpers';
 import LockedComponent from '@/components/locked';
+import SensitiveContent from '@/components/common/sensitiveContent';
 
 export default function Datatables() {
     const helpers = useHelpers();
@@ -93,7 +94,12 @@ export default function Datatables() {
             field: 'quantity',
             group: 'Dados básicos',
             title: 'Quantidade',
-            visible: true
+            visible: true,
+            body: (row: any): JSX.Element => (
+                <div className="datatable-cell-row">
+                    <SensitiveContent>{row.quantity}</SensitiveContent>
+                </div>
+            )
         },
         {
             field: 'avg_price',
@@ -103,7 +109,9 @@ export default function Datatables() {
             body: (row: any): JSX.Element => {
                 return (
                     <div className="datatable-cell-row">
-                        {helpers.formatMoney(row.avg_price)}
+                        <SensitiveContent>
+                            {helpers.formatMoney(row.avg_price)}
+                        </SensitiveContent>
                     </div>
                 );
             }
@@ -116,7 +124,9 @@ export default function Datatables() {
             body: (row: any): JSX.Element => {
                 return (
                     <div className="datatable-cell-row">
-                        {helpers.formatMoney(row.current_price)}
+                        <SensitiveContent>
+                            {helpers.formatMoney(row.current_price)}
+                        </SensitiveContent>
                     </div>
                 );
             }
@@ -148,7 +158,9 @@ export default function Datatables() {
             body: (row: any): JSX.Element => {
                 return (
                     <div className="datatable-cell-row">
-                        {helpers.formatMoney(row.equity_total)}
+                        <SensitiveContent>
+                            {helpers.formatMoney(row.equity_total)}
+                        </SensitiveContent>
                     </div>
                 );
             }

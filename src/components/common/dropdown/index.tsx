@@ -1,6 +1,7 @@
 import './_styles.scss';
 import Modal from '../modal';
 import If from '../if';
+import { useState } from 'react';
 
 interface IItem {
     id: any;
@@ -62,14 +63,16 @@ export default function Dropdown({
     action,
     modalTitle
 }: IProps) {
+    const [modalVisible, setModalVisible] = useState(false);
     const handleAction = (item: any) => {
         action && action(item);
-        (Modal as any)?.setVisible(false);
+        setModalVisible(false);
     };
 
     return (
         <div className="default-dropdown">
             <Modal
+                setModalVisible={setModalVisible}
                 title={modalTitle ? modalTitle : ''}
                 source={
                     <DropdownSource title={title} btnContent={btnContent} />

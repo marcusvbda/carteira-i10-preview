@@ -1,3 +1,4 @@
+import SensitiveContent from '@/components/common/sensitiveContent';
 import Trend from '@/components/common/trend';
 import { useHelpers } from '@/hooks/helpers';
 
@@ -22,7 +23,11 @@ export default function DatatableFooter({
             </div>
             <div className="datatable-footer__item">
                 <strong>Valor total</strong>
-                <div>{helpers.formatMoney(totalAmount)}</div>
+                <div>
+                    <SensitiveContent>
+                        {helpers.formatMoney(totalAmount)}
+                    </SensitiveContent>
+                </div>
             </div>
             {/* <div className="datatable-footer__item">
                 <strong>Rentabilidade</strong>

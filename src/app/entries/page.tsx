@@ -6,7 +6,7 @@ export const metadata: Metadata = seo.releases;
 export default function EntriesPage(): JSX.Element {
     return (
         <>
-            <div className="page-container">Entries</div>;
+            <div className="page-container">Entries</div>
         </>
     );
 }

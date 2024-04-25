@@ -42,7 +42,11 @@ const DatatableContent = ({
 }: any): JSX.Element => {
     return (
         <>
-            <DataTable value={rows} className="theme-datatable">
+            <DataTable
+                value={rows}
+                className="theme-datatable"
+                emptyMessage="Nenhum registro."
+            >
                 {(columns || []).map((row: any, index: number) => (
                     <Column
                         key={index}

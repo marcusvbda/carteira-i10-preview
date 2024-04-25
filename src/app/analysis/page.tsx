@@ -6,7 +6,7 @@ export const metadata: Metadata = seo.analysis;
 export default function AnalysisPage(): JSX.Element {
     return (
         <>
-            <div className="page-container">Analysis</div>;
+            <div className="page-container">Analysis</div>
         </>
     );
 }

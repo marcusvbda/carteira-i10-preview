@@ -4,7 +4,8 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 
 const checkToken = async (token: string) => {
     try {
-        const checkRoute = `${process.env.NEXT_PUBLIC_SERVER_URI}/api/check-wallet-token/${token}`;
+        const encodedToken = encodeURIComponent(token);
+        const checkRoute = `${process.env.NEXT_PUBLIC_SERVER_URI}/api/check-wallet-token/${encodedToken}`;
         const response = await axios.get(checkRoute);
         return response.data;
     } catch (error) {
@@ -31,34 +32,22 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async session({ session, user, token }: any) {
-            // console.log(token)
-            if (token.error) return {};
+            const _user = token?.user || user;
+            if (!_user) return {};
             return {
                 ...session,
-                user: token?.user || user
+                user: _user
             };
         },
         async jwt({ token, user }: any) {
-            if (user) {
+            if (user && !token?.user?.user) {
                 token.user = user;
-            }
-
-            const jwtToken = token?.user?.jwt || '';
-            if (token.exp && token.exp * 1000 < Date.now()) {
-                return {
-                    ...token,
-                    error: 'Token expired'
-                };
-            }
-            const authData = await checkToken(jwtToken);
-            if (authData) {
-                if (token.error) delete token.error;
-                token.user = authData;
             } else {
-                return {
-                    ...token,
-                    error: 'Invalid token'
-                };
+                if (!token?.user?.user) {
+                    const jwtToken = token?.user?.jwt || false;
+                    const authData = await checkToken(jwtToken);
+                    token.user = authData;
+                }
             }
             return token;
         }
