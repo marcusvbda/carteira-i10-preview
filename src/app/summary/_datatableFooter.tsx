@@ -36,7 +36,7 @@ export default function DatatableFooter({
                         type="positive"
                         size="16px"
                         value="16,34%"
-                        transparent={true}
+                        transparent
                     />
                 </div>
             </div> */}

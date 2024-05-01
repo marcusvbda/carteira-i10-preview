@@ -1,15 +1,13 @@
 import './_styles.scss';
-import Dropdown from '@/components/common/dropdown';
 import Actions from './_actions';
 import ProfileDropdown from './_profileDropdown';
 import MenuItems from './_menuItems';
 import { seo } from '@/constants/seo';
 import Link from 'next/link';
 import Icon from '../common/icon';
-import { useContext } from 'react';
-import { WalletContext } from '@/context/walletContext';
 import B3Integration from '../b3Integration';
 import ModalEntries from '../modalEntries';
+import SelectWallet from './_selectWallet';
 
 const Logo = (): JSX.Element => {
     return (
@@ -20,26 +18,29 @@ const Logo = (): JSX.Element => {
 };
 
 export const NavBar = (): JSX.Element => {
-    const { setWalletId, selectedWallet, wallets } = useContext(WalletContext);
-    const selectWallet = (item: any) => {
-        setWalletId(item.id);
-    };
+    // const selectWallet = (item: any) => {
+    //     setWalletId(item.id);
+    // };
 
     return (
         <nav className="default-navbar">
             <div className="primary-row container">
                 <Logo />
                 <div className="divisor" />
-                <Dropdown
+                <SelectWallet />
+                {/* <Dropdown
                     modalTitle="Outras carteiras"
                     title={selectedWallet?.name || ''}
                     options={wallets.filter(
                         (wallet: any) => wallet.id !== selectedWallet?.id
                     )}
                     action={selectWallet}
-                />
+                /> */}
                 <Actions />
                 <ProfileDropdown />
+                <div className="btn-plus hide-on-desktop hide-on-tablet">
+                    <ModalEntries className="very-small" hideText />
+                </div>
             </div>
             <div className="secondary-row container">
                 <MenuItems />

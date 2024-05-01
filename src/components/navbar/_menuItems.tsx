@@ -19,7 +19,7 @@ const MenuItem = ({ icon, label, route }: MenuItemProps): JSX.Element => {
     return (
         <Link
             href={route}
-            className={`menu-item ${isCurrentRoute ? 'active' : ''} `}
+            className={`menu-item ${isCurrentRoute && 'active'} `}
         >
             <Icon
                 icon={`/images/theme/${icon}.svg`}

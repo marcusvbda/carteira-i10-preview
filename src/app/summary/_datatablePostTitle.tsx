@@ -6,52 +6,31 @@ import If from '@/components/common/if';
 import Modal from '@/components/common/modal';
 import ModalEntries from '@/components/modalEntries';
 import { seo } from '@/constants/seo';
+import { useHelpers } from '@/hooks/helpers';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 interface IProps {
     rows: any[];
     columns: any[];
-    onChange: any;
+    setColumns: any;
     tickerType: string;
+    defaultColumns: string[];
 }
 
-const ColumnSwitch = ({ index, columns, column, onClick }: any) => {
-    // const toggleVisible = useCallback(() => {
-    //     const _columns = columns;
-    //     _columns[index].visible = !_columns[index].visible;
-    //     // setColumns(_columns);
-    // }, [columns, index, setColumns]);
+const ColumnSwitch = ({ column, onClick }: any) => {
+    const handleClick = () => {
+        if (column.locked) return;
+        onClick(column);
+    };
 
     return (
         <label
-            className={`column-switch ${column.visible ? 'active' : ''}`}
-            onClick={onClick}
+            className={`column-switch ${column.visible && 'active'} ${
+                column.locked && 'locked'
+            }`}
+            onClick={handleClick}
         >
-            <If condition={column.visible}>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                >
-                    <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M8.05859 16.9068V16.9068C3.95432 16.086 0.999994 12.4823 1 8.29671V5.44445C1 2.98985 2.98985 1 5.44444 1H12.5556C15.0102 1 17 2.98985 17 5.44445V8.29669C17 12.4822 14.0458 16.0858 9.94161 16.9067H9.9414C9.31996 17.0311 8.68004 17.0311 8.05859 16.9068V16.9068Z"
-                        stroke="#D3B583"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                    <path
-                        d="M7.09662 10.5556C7.448 11.2768 8.19922 11.7154 9 11.6667C9.97736 11.7734 10.8628 11.0847 11 10.1112V10.1112C11 9.43925 10.5257 8.86075 9.86689 8.72898L8.13311 8.38222C7.47425 8.25045 7 7.67195 7 7.00004V7.00004C7.13717 6.02649 8.02264 5.33779 9 5.44449C9.80078 5.39585 10.552 5.83439 10.9034 6.5556"
-                        stroke="#C5CBD3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            </If>
             {column.title}
             <If condition={column.visible}>
                 <svg
@@ -71,20 +50,62 @@ const ColumnSwitch = ({ index, columns, column, onClick }: any) => {
     );
 };
 
-const EditColumns = ({ columns, onChange }: any) => {
-    const columnsGrouped = useMemo(() => {
-        const result = columns.reduce((acc: any, column: any) => {
+const EditColumns = ({ columns, setColumns, defaultColumns }: any) => {
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const closeModal = () => {
+        setModalVisible(false);
+    };
+
+    const [columnsGrouped, setColumnsGrouped] = useState(
+        (columns || []).reduce((acc: any, column: any) => {
             if (!acc[column.group]) {
                 acc[column.group] = [];
             }
             acc[column.group].push(column);
             return acc;
-        }, {});
-        return result;
-    }, [columns]);
+        }, {})
+    );
 
-    const handleSetEditableColumns = (column: any) => {
-        onChange(column.field, !column.visible);
+    const clicked = (group: string, column: any) => {
+        const newColumns = columnsGrouped[group].map((c: any) => {
+            if (c.field === column.field) {
+                c.visible = !c.visible;
+            }
+            return c;
+        });
+        setColumnsGrouped({
+            ...columnsGrouped,
+            [group]: newColumns
+        });
+    };
+
+    const saveColumnsChange = (column: any) => {
+        const unGroupedColumns = Object.keys(columnsGrouped).reduce(
+            (acc: any, group: any) => {
+                return acc.concat(columnsGrouped[group]);
+            },
+            []
+        );
+        setColumns && setColumns(unGroupedColumns as any);
+        closeModal();
+    };
+
+    const reset = (e: any) => {
+        e.preventDefault();
+        const unGroupedColumns = Object.keys(columnsGrouped).reduce(
+            (acc: any, group: any) => {
+                return acc.concat(columnsGrouped[group]);
+            },
+            []
+        );
+
+        unGroupedColumns.forEach((column: any) => {
+            column.visible = defaultColumns.includes(column.field);
+        });
+
+        setColumns && setColumns(unGroupedColumns as any);
+        closeModal();
     };
 
     return (
@@ -94,34 +115,50 @@ const EditColumns = ({ columns, onChange }: any) => {
             mobileSize="90%"
             title="Editar colunas"
             type="side right"
+            setModalVisible={setModalVisible}
+            modalVisible={modalVisible}
             source={
                 <button className="btn small no-shadow">
                     <Icon icon="/images/theme/table-columns.svg" width="16px" />
-                    Editar colunas
+                    <label> Editar colunas</label>
                 </button>
             }
             content={
-                <div className="fields-edit-list">
-                    {Object.keys(columnsGrouped).map((group, index) => (
-                        <div key={index} style={{ marginBottom: 50 }}>
-                            <h6>{group}</h6>
-                            <div className="input-list">
-                                {columnsGrouped[group].map(
-                                    (column: any, index: number) => (
-                                        <ColumnSwitch
-                                            key={index}
-                                            column={column}
-                                            columns={columns}
-                                            onClick={() =>
-                                                handleSetEditableColumns(column)
-                                            }
-                                        />
-                                    )
-                                )}
+                <>
+                    <div className="fields-edit-list">
+                        {Object.keys(columnsGrouped).map((group, index) => (
+                            <div key={index} style={{ marginBottom: 50 }}>
+                                <h6>{group}</h6>
+                                <div className="input-list">
+                                    {columnsGrouped[group].map(
+                                        (column: any, index: number) => (
+                                            <ColumnSwitch
+                                                key={index}
+                                                column={column}
+                                                onClick={(field: any) =>
+                                                    clicked(group, field)
+                                                }
+                                            />
+                                        )
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                </>
+            }
+            footer={
+                <>
+                    <a className="btn small link" href="#" onClick={reset}>
+                        Restaurar padrão
+                    </a>
+                    <button
+                        onClick={saveColumnsChange}
+                        className="btn small primary"
+                    >
+                        Salvar
+                    </button>
+                </>
             }
         />
     );
@@ -130,9 +167,11 @@ const EditColumns = ({ columns, onChange }: any) => {
 export default function DatatablePostTitle({
     rows,
     columns,
-    onChange,
-    tickerType
+    setColumns,
+    tickerType,
+    defaultColumns
 }: IProps): JSX.Element {
+    const { formatMoney } = useHelpers();
     const router = useRouter();
     const goToEntries = (e: any) => {
         e.stopPropagation();
@@ -150,13 +189,17 @@ export default function DatatablePostTitle({
         return value;
     }, [rows]);
 
+    const customLegendDonut = (item: any) => {
+        return `${item.name}: ${formatMoney(item.value)}`;
+    };
+
     return (
         <>
             <button
                 onClick={goToEntries}
                 className="btn small no-shadow no-border"
             >
-                Lançamentos
+                <label>Lançamentos</label>
                 <Icon icon="/images/theme/link.svg" width="16px" />
             </button>
             <Modal
@@ -164,19 +207,24 @@ export default function DatatablePostTitle({
                 source={
                     <button className="btn small no-shadow">
                         <Icon icon="/images/theme/bar-chart.svg" width="16px" />
-                        Gráficos
+                        <label>Gráficos</label>
                     </button>
                 }
                 content={
                     <DonutChart
+                        customLegend={customLegendDonut}
                         loading={false}
                         size="299px"
                         data={charData}
-                        noCard={true}
+                        noCard
                     />
                 }
             />
-            <EditColumns columns={columns} onChange={onChange} />
+            <EditColumns
+                columns={columns}
+                setColumns={setColumns}
+                defaultColumns={defaultColumns}
+            />
             <ModalEntries className="small" tickerType={tickerType} />
         </>
     );

@@ -8,6 +8,7 @@ import Icon from '@/components/common/icon';
 import { useFetch } from '@/hooks/fetch';
 import { WalletContext } from '@/context/walletContext';
 import { Dropdown } from 'primereact/dropdown';
+import { useHelpers } from '@/hooks/helpers';
 
 const qtyMonthOptions: any[] = [
     {
@@ -56,6 +57,7 @@ const typesOptions: any[] = [
 ];
 
 export default function Charts(): JSX.Element {
+    const { formatMoney } = useHelpers();
     const { walletId } = useContext(WalletContext);
 
     const [qtyMonths, setQtyMonths] = useState<any>(qtyMonthOptions[1] as any);
@@ -118,6 +120,10 @@ export default function Charts(): JSX.Element {
         };
     }, [barChartData]);
 
+    const customLegendDonut = (item: any) => {
+        return `${item.name} (${item.percent}%)\n ${formatMoney(item.value)}`;
+    };
+
     return (
         <section className="section-charts">
             <BarChart
@@ -164,7 +170,11 @@ export default function Charts(): JSX.Element {
                     </div>
                 </div>
             </BarChart>
-            <DonutChart loading={donutChartLoading} data={donutChartData}>
+            <DonutChart
+                loading={donutChartLoading}
+                data={donutChartData}
+                customLegend={customLegendDonut}
+            >
                 <div className="chart-header">
                     <h4 className="chart-header__title">Ativos na Carteira</h4>
                 </div>

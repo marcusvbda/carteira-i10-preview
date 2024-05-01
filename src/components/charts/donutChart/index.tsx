@@ -5,6 +5,7 @@ import Skeleton from '@/components/common/skeleton';
 import If from '@/components/common/if';
 import ReactECharts from 'echarts-for-react';
 import { ThemeContext } from '@/context/themeContext';
+import { format } from 'path';
 
 interface IProps {
     children?: JSX.Element;
@@ -12,13 +13,13 @@ interface IProps {
     data?: any[];
     loading: boolean;
     noCard?: boolean;
-    title?: string;
+    customLegend?: any;
 }
 
 const Content = ({ loading, children, sizes, options, theme }: any) => {
     return (
         <>
-            {children ? children : <></>}
+            {children && children}
             <If condition={loading}>
                 <Skeleton width="100%" height={sizes[0]} />
             </If>
@@ -37,20 +38,36 @@ export default function DonutChart({
     size,
     loading,
     noCard,
-    title
+    customLegend
 }: IProps): JSX.Element {
     const { theme } = useContext(ThemeContext);
-    const sizes = useMemo(() => [size ? size : '299px'], [size]);
+    const sizes = useMemo(() => [size || '299px'], [size]);
 
     const options = {
         backgroundColor: 'transparent',
         tooltip: {
-            trigger: 'item'
+            trigger: 'item',
+            formatter: (params: any) => {
+                const item = data?.find((x: any) => x.name === params.name);
+                if (customLegend) return customLegend(item);
+                if (item && item.percent) {
+                    return item && `${params.name}: ${item.percent}%`;
+                }
+                return item && `${params.name}: ${item.value}`;
+            }
         },
         legend: {
             orient: 'vertical',
             left: 'right',
-            top: 'center'
+            top: 'center',
+            formatter: (name: any) => {
+                const item = data?.find((x: any) => x.name === name);
+                if (customLegend) return customLegend(item);
+                if (item && item.percent) {
+                    return item && `${name}: ${item.percent}%`;
+                }
+                return item && `${name}: ${item.value}`;
+            }
         },
         series: [
             {
@@ -65,7 +82,6 @@ export default function DonutChart({
                 data: (data || []).map((x: any) => {
                     let value = x?.percent || 0;
                     if (x?.value) value = x.value;
-
                     return {
                         value,
                         name: x.name || ''

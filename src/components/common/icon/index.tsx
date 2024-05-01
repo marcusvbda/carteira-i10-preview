@@ -24,7 +24,7 @@ export default function Icon({
             style={
                 {
                     '--image': `url(${icon})`,
-                    '--dark-image': `url(${darkIcon ? darkIcon : icon})`,
+                    '--dark-image': `url(${darkIcon || icon})`,
                     '--width': width,
                     '--height': height || width,
                     filter: filter || 'none',

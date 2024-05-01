@@ -4,7 +4,7 @@ import { WalletContext } from '@/context/walletContext';
 import { useFetch } from '@/hooks/fetch';
 import { useHelpers } from '@/hooks/helpers';
 import { useSwal } from '@/hooks/swal';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import LazySelect from '../common/lazySelect';
 import {
     currencyOptions,
@@ -47,10 +47,15 @@ const SwitchTypeEntry = ({ options, value, onChange, style }: any) => {
 interface IProps {
     closeModal: any;
     tickerType?: string;
+    refreshForm?: any;
 }
 
-export default function FormEntry({ closeModal, tickerType }: IProps) {
-    const [tickerTypeData, setTickerTypeData] = useState([]);
+export default function FormEntry({
+    closeModal,
+    tickerType,
+    refreshForm
+}: IProps) {
+    const [_tickerTypeData, setTickerTypeData] = useState([]);
     const { toast } = useSwal();
     const { walletId } = useContext(WalletContext);
     const helpers = useHelpers();
@@ -143,7 +148,7 @@ export default function FormEntry({ closeModal, tickerType }: IProps) {
 
     const cancelClick = (e: any) => {
         e.preventDefault();
-        closeModal();
+        closeModal && closeModal();
     };
 
     const onSubmit = (e: any) => {
@@ -176,12 +181,7 @@ export default function FormEntry({ closeModal, tickerType }: IProps) {
     useEffect(() => {
         if (!submitResult) return;
         if (submitResult?.response) {
-            closeModal();
-            return toast(
-                'success',
-                'Ativo adicionado com sucesso!',
-                `Pode levar até 5 minutos até que essa alteração reflita em sua carteira.`
-            );
+            refreshForm && refreshForm();
         }
         if (submitResult?.status === 422) {
             const errors = submitResult?.errors || {};

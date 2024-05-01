@@ -13,6 +13,8 @@ interface IProps {
     btnContent?: JSX.Element;
     options?: IItem[];
     action?: (item: any) => void;
+    type?: string;
+    className?: string;
 }
 
 const DropdownSource = ({ btnContent, title, onClick }: any) => {
@@ -61,7 +63,9 @@ export default function Dropdown({
     btnContent,
     options,
     action,
-    modalTitle
+    modalTitle,
+    type,
+    className
 }: IProps) {
     const [modalVisible, setModalVisible] = useState(false);
     const handleAction = (item: any) => {
@@ -70,10 +74,11 @@ export default function Dropdown({
     };
 
     return (
-        <div className="default-dropdown">
+        <div className={`default-dropdown ${className || ''}`}>
             <Modal
+                type={type}
                 setModalVisible={setModalVisible}
-                title={modalTitle ? modalTitle : ''}
+                title={modalTitle || ''}
                 source={
                     <DropdownSource title={title} btnContent={btnContent} />
                 }

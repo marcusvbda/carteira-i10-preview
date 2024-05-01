@@ -1,7 +1,11 @@
 section.section-metrics {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(300px, 1fr));
     gap: 16px;
+
+    &.trends {
+        overflow-x: auto;
+    }
 }
 
 section.section-charts {
@@ -187,12 +191,18 @@ section.section-actives {
                 }
             }
         }
+
+        &:has(.uncollapsed) {
+            .datatable-title {
+                flex-direction: row !important;
+            }
+        }
     }
 }
 
 html[screen-format='tablet'] {
     section.section-metrics {
-        grid-template-columns: repeat(2, 1fr);
+        padding-bottom: 20px;
     }
     section.section-charts {
         grid-template-columns: 1fr;
@@ -215,10 +225,11 @@ html[screen-format='tablet'] {
 }
 
 html[screen-format='mobile'] {
-    section.section-metrics,
+    section.section-metrics {
+        padding-bottom: 10px;
+    }
     section.section-charts {
         grid-template-columns: 1fr;
-
         .chart-header {
             flex-direction: column;
             .chart-header__filter {
@@ -231,7 +242,15 @@ html[screen-format='mobile'] {
         }
     }
 
-    .datatable-title .modal-component .default-card {
-        width: 90% !important;
+    .datatable-title {
+        .modal-component .default-card {
+            width: 90% !important;
+        }
+
+        .post-title-slot {
+            label {
+                display: none;
+            }
+        }
     }
 }

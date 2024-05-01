@@ -87,7 +87,7 @@ export default function B3Integration() {
             size="840px"
             tabletSize="85%"
             mobileSize="90%"
-            hideHeader={true}
+            hideHeader
             source={
                 <button className="btn">
                     <Icon

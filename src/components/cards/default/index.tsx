@@ -8,6 +8,8 @@ interface IProps {
     padding?: string;
     sizes?: any;
     title?: React.ReactNode;
+    footer?: React.ReactNode;
+    style?: CSSProperties;
 }
 
 export default function DefaultCard({
@@ -16,7 +18,9 @@ export default function DefaultCard({
     onClickHandle,
     padding,
     sizes,
-    title
+    title,
+    footer,
+    style
 }: IProps) {
     const paddingValue = padding ? padding : '12px 24px';
 
@@ -36,15 +40,16 @@ export default function DefaultCard({
 
     return (
         <div
-            className={`default-card ${className ? className : ''}`}
+            className={`default-card ${className || ''}`}
             onClick={onClickHandle ? onClickHandle : null}
             style={
                 {
-                    ...styleSizes
+                    ...styleSizes,
+                    ...(style || {})
                 } as CSSProperties
             }
         >
-            {title ? title : <></>}
+            {title || <></>}
             <div
                 className="modal-content"
                 style={{
@@ -53,6 +58,7 @@ export default function DefaultCard({
             >
                 {children}
             </div>
+            {footer || <></>}
         </div>
     );
 }

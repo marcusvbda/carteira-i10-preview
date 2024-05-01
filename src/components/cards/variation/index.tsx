@@ -78,8 +78,8 @@ const Content = ({ profit, variation, variationAmount }: any): JSX.Element => {
                         type={profitTrendClass}
                         size="20px"
                         value={profit}
-                        transparent={true}
-                        strong={true}
+                        transparent
+                        strong
                     />
                 </SensitiveContent>
                 {/* <div className="description">
@@ -94,9 +94,9 @@ const Content = ({ profit, variation, variationAmount }: any): JSX.Element => {
                         type={varitionTrendClass}
                         size="20px"
                         value={formatedVariation}
-                        transparent={true}
-                        strong={true}
-                        dark={true}
+                        transparent
+                        strong
+                        dark
                     />
                 </SensitiveContent>
                 <div className="description">

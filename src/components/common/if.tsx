@@ -4,5 +4,5 @@ interface IProps {
 }
 
 export default function If({ condition, children }: IProps) {
-    return condition ? children : <></>;
+    return condition && children;
 }

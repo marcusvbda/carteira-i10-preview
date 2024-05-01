@@ -67,7 +67,7 @@ export default function BarChart({
 
     return (
         <DefaultCard className="chartbar" padding="24px 32px">
-            {children ? children : <></>}
+            {children && children}
             <If condition={loading}>
                 <Skeleton width={sizes[0]} height={sizes[1]} />
             </If>

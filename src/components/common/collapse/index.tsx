@@ -14,7 +14,9 @@ interface IProps {
 
 const CollapseBtn = ({ visible }: any) => {
     return (
-        <button className={`collapse-btn ${!visible ? 'collapsed' : ''}`}>
+        <button
+            className={`collapse-btn ${!visible ? 'collapsed' : 'uncollapsed'}`}
+        >
             <Icon icon="/images/theme/secondary-arrow-down.svg" width="16px" />
         </button>
     );

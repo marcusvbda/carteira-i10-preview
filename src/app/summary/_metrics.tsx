@@ -39,13 +39,13 @@ export default function Metrics(): JSX.Element {
     }, [walletId]);
 
     return (
-        <section className="section-metrics">
+        <section className="section-metrics trends">
             <TrendCard
                 title="Patrimônio real"
                 icon="patrimony"
                 amount={metricsData?.equity}
                 investAmount={metricsData?.applied}
-                result={true}
+                result
                 loading={metricsLoading}
             />
             <TrendCard

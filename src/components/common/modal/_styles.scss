@@ -43,3 +43,25 @@ html[data-theme='dark'] {
         background-color: #adadad4d;
     }
 }
+
+.modal-component.dropdown {
+    .modal-component--content {
+        background-color: unset;
+        .default-card {
+            padding: 16px;
+            bottom: unset;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: -4px 10px 20px 0px rgba(47, 49, 55, 0.1);
+            border: 1px solid rgba(128, 128, 128, 0.197);
+        }
+    }
+}
+
+.modal-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--border-card);
+    padding: 16px 24px;
+}
