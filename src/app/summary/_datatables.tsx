@@ -1,15 +1,36 @@
 'use client';
 
-import { useContext, useMemo, useState } from 'react';
+import { useContext, useMemo } from 'react';
 import { useFetch } from '@/hooks/fetch';
 import { WalletContext } from '@/context/walletContext';
 import CollapseDatatable from './_collapseDatatable';
-import YesOrNo from '@/components/common/yesOrNo';
-import ScoreComponent from '@/components/score';
-import Trend from '@/components/common/trend';
-import { useHelpers } from '@/hooks/helpers';
-import LockedComponent from '@/components/locked';
-import SensitiveContent from '@/components/common/sensitiveContent';
+
+const QtyTotal = ({
+    tickerLoading,
+    fiiLoading,
+    cryptoLoading,
+    fundLoading,
+    totalTicker,
+    totalFiis,
+    totalCrypto,
+    totalFund
+}: any) => {
+    const someTableIsLoading = [
+        tickerLoading,
+        fiiLoading,
+        cryptoLoading,
+        fundLoading
+    ].some((loading) => loading);
+    if (someTableIsLoading) {
+        return <h4 className="actives-total">Ativos</h4>;
+    }
+    const total = totalTicker + totalFiis + totalCrypto + totalFund;
+    return (
+        <h4 className="actives-total">
+            Ativos <span>({total})</span>
+        </h4>
+    );
+};
 
 export default function Datatables() {
     const { walletId } = useContext(WalletContext);
@@ -45,27 +66,18 @@ export default function Datatables() {
         return fiiData?.total || 0;
     }, [fiiData]);
 
-    const QtyTotal = () => {
-        const someTableIsLoading = [
-            tickerLoading,
-            fiiLoading,
-            cryptoLoading,
-            fundLoading
-        ].some((loading) => loading);
-        if (someTableIsLoading) {
-            return <h4 className="actives-total">Ativos</h4>;
-        }
-        const total = totalTicker + totalFiis + totalCrypto + totalFund;
-        return (
-            <h4 className="actives-total">
-                Ativos <span>({total})</span>
-            </h4>
-        );
-    };
-
     return (
         <section className="section-actives">
-            <QtyTotal />
+            <QtyTotal
+                tickerLoading={tickerLoading}
+                fiiLoading={fiiLoading}
+                cryptoLoading={cryptoLoading}
+                fundLoading={fundLoading}
+                totalTicker={totalTicker}
+                totalFiis={totalFiis}
+                totalCrypto={totalCrypto}
+                totalFund={totalFund}
+            />
             <CollapseDatatable
                 title="Ações"
                 icon="/images/theme/actions.svg"

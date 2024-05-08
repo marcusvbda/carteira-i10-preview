@@ -1,0 +1,100 @@
+.date-range-input {
+    .fake-input {
+        gap: 12px;
+        display: flex;
+        padding: 8px 16px;
+        justify-content: space-between;
+        align-items: center;
+        align-self: stretch;
+        border-radius: 8px;
+        border: 1px solid var(--border-strong);
+        background-color: transparent;
+        color: var(--bg-neutral);
+        font-family: var(--font-figtree);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px; /* 171.429% */
+
+        .icon {
+            opacity: 0.5 !important;
+            &.arrow {
+                margin-left: 30px;
+            }
+        }
+    }
+
+    .default-card {
+        .modal-footer {
+            background-color: transparent;
+            border-top: 1px solid rgba(0, 0, 0, 0.074);
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            .recents {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                h5 {
+                    color: var(--text-title-card);
+                    font-family: var(--font-figtree);
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 20px; /* 142.857% */
+                    text-transform: uppercase;
+                }
+
+                .recent-tags {
+                    display: flex;
+                    gap: 8px;
+
+                    .tag {
+                        cursor: pointer;
+                        padding: 8px 12px;
+                        border-radius: 100px;
+                        border: 1px solid var(--border-strong);
+                        color: var(--text-title-card);
+                        font-family: var(--font-figtree);
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 16px; /* 114.286% */
+                        background-color: var(--bg-card);
+                        transition: 0.3s;
+                        &:hover {
+                            filter: brightness(0.9);
+                        }
+                    }
+                }
+            }
+
+            .calendaries {
+                display: flex;
+                gap: 16px;
+                justify-content: space-between;
+                @media screen and (max-width: 1015px) {
+                    flex-direction: column;
+                }
+
+                .p-datepicker {
+                    border: none;
+                    .p-datepicker-header {
+                        border: none;
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.selected {
+        .fake-input {
+            color: black;
+        }
+    }
+}

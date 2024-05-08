@@ -73,32 +73,23 @@ const Content = ({ profit, variation, variationAmount }: any): JSX.Element => {
     return (
         <div className="card-variation--content">
             <div className="card-variation--content-col">
-                <SensitiveContent>
-                    <Trend
-                        type={profitTrendClass}
-                        size="20px"
-                        value={profit}
-                        transparent
-                        strong
-                    />
-                </SensitiveContent>
-                {/* <div className="description">
-                    <SensitiveContent>
-                        <small>83% acima do CDI</small>
-                    </SensitiveContent>
-                </div> */}
+                <Trend
+                    type={profitTrendClass}
+                    size="20px"
+                    value={profit}
+                    transparent
+                    strong
+                />
             </div>
             <div className="card-variation--content-col">
-                <SensitiveContent>
-                    <Trend
-                        type={varitionTrendClass}
-                        size="20px"
-                        value={formatedVariation}
-                        transparent
-                        strong
-                        dark
-                    />
-                </SensitiveContent>
+                <Trend
+                    type={varitionTrendClass}
+                    size="20px"
+                    value={formatedVariation}
+                    transparent
+                    strong
+                    dark
+                />
                 <div className="description">
                     <SensitiveContent>
                         <small>{formatedVariationAmount}</small>

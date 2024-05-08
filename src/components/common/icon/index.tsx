@@ -2,6 +2,7 @@ import { CSSProperties } from 'react';
 import './_styles.scss';
 
 interface IProps {
+    className?: string;
     icon: string;
     darkIcon?: string;
     width: string;
@@ -11,6 +12,7 @@ interface IProps {
 }
 
 export default function Icon({
+    className,
     icon,
     width,
     height,
@@ -20,7 +22,7 @@ export default function Icon({
 }: IProps) {
     return (
         <span
-            className="icon"
+            className={`icon ${className || ''}`}
             style={
                 {
                     '--image': `url(${icon})`,

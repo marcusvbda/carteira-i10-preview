@@ -111,6 +111,15 @@ body:has(.lock-mouse) {
     width: 100%;
 }
 
+.gap {
+    gap: 16px;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
 .btn-close {
     cursor: pointer;
     background-image: url('/images/theme/close.svg');
@@ -183,6 +192,11 @@ body:has(.lock-mouse) {
 
 .p-inputtext.p-component {
     height: 42px;
+    font-size: 14px;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .p-inputnumber.p-component.p-inputwrapper {
@@ -204,6 +218,45 @@ body:has(.lock-mouse) {
     @extend .gap-10;
     padding-top: 160px;
     padding-bottom: 40px;
+}
+
+.p-icon-field.p-icon-field-left {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 8px;
+    .pi.pi-search.p-input-icon {
+        opacity: 0.4;
+        background-image: url(/images/theme/filter.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 20px;
+        height: 20px;
+        display: block;
+        content: '';
+        top: 8px;
+    }
+
+    .p-inputtext.p-component {
+        max-height: 24px;
+        padding: 4px 12px;
+        max-height: 34px;
+        padding-left: 45px;
+
+        &::placeholder {
+            font-family: var(--font-figtree);
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px; /* 171.429% */
+            color: var(--bg-neutral);
+            border-color: var(--border-color);
+        }
+    }
+}
+
+.p-inputtext {
+    border-color: var(--border-color);
 }
 
 .btn {

@@ -22,6 +22,7 @@ export const useFetch = (p: any) => {
     api.interceptors.response.use((response) => {
         setLoading(false);
         setData(response?.data);
+        p.setDataState && p.setDataState(response?.data);
         return response;
     });
 

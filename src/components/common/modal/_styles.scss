@@ -36,6 +36,15 @@
             left: 0;
         }
     }
+
+    &.center {
+        .default-card {
+            right: unset !important;
+            left: unset !important;
+            top: unset !important;
+            bottom: unset !important;
+        }
+    }
 }
 
 html[data-theme='dark'] {

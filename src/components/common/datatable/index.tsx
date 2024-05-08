@@ -10,8 +10,8 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import If from '../if';
 
 interface IProps {
-    icon: string;
-    darkIcon: string;
+    icon?: string;
+    darkIcon?: string;
     title: string;
     className?: string;
     defaultCollapsed?: boolean;
@@ -19,13 +19,14 @@ interface IProps {
     summary?: JSX.Element;
     columns: any[];
     rows?: any[];
+    pagination?: boolean;
 }
 
 const Title = ({ title, icon, darkIcon, postTitleSlot }: any) => {
     return (
         <h5 className="datatable-title">
             <div className="title-row">
-                <Icon icon={icon} darkIcon={darkIcon} width="24px" />
+                {icon && <Icon icon={icon} darkIcon={darkIcon} width="24px" />}
                 {title}
             </div>
             <If condition={postTitleSlot}>
@@ -38,7 +39,8 @@ const Title = ({ title, icon, darkIcon, postTitleSlot }: any) => {
 const DatatableContent = ({
     postDatatableSlot,
     columns,
-    rows
+    rows,
+    pagination
 }: any): JSX.Element => {
     return (
         <>
@@ -46,6 +48,9 @@ const DatatableContent = ({
                 value={rows}
                 className="theme-datatable"
                 emptyMessage="Nenhum registro."
+                paginator={pagination ? true : false}
+                rows={10}
+                paginatorTemplate="PrevPageLink PageLinks NextPageLink"
             >
                 {(columns || []).map((row: any, index: number) => (
                     <Column
@@ -74,7 +79,8 @@ export function Datatable({
     actions,
     summary,
     rows,
-    columns
+    columns,
+    pagination
 }: IProps): JSX.Element {
     const [visible, setVisible] = useState(defaultCollapsed ?? false);
 
@@ -96,6 +102,7 @@ export function Datatable({
                 }
                 content={
                     <DatatableContent
+                        pagination={pagination}
                         postDatatableSlot={summary}
                         rows={rows}
                         columns={columns}

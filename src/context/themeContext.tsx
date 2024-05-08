@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useEffect, useState } from 'react';
 import { envoriment } from '@/constants/environment';
+import { usePersistentState } from '@/hooks/persistentState';
 
 export const ThemeContext = createContext<any>({});
 
@@ -11,10 +12,15 @@ export const ThemeProvider = ({ children }: any): JSX.Element => {
     const [screenPosition, setScreenPosition] = useState(0);
     const [screenSize, setScreenSize] = useState(0);
     const [screenFormat, setScreenFormat] = useState('desktop');
-    const [theme, setTheme] = useState(envoriment.defaultTheme || 'light');
+    const [theme, setTheme] = usePersistentState(
+        'theme',
+        envoriment.defaultTheme || 'light'
+    );
 
     const toggleTheme = useCallback(() => {
-        setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+        const value = theme === 'light' ? 'dark' : 'light';
+        setTheme(value);
+        document.documentElement.setAttribute('data-theme', value as string);
     }, []);
 
     useEffect(() => {
@@ -31,63 +37,40 @@ export const ThemeProvider = ({ children }: any): JSX.Element => {
         };
         window.addEventListener('scroll', handlePageScroll);
         handleResize();
-        const localTheme = localStorage.getItem('theme') || theme;
-        setTheme(localTheme);
-        document.documentElement.setAttribute('data-theme', theme as string);
         setInitialized(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        if (!initialized) return;
-        setTimeout(() => {
-            localStorage.setItem('theme', theme as string);
-            document.documentElement.setAttribute(
-                'data-theme',
-                theme as string
-            );
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        document.documentElement.setAttribute('data-theme', theme as string);
     }, [theme]);
 
     useEffect(() => {
-        setTimeout(() => {
-            document.documentElement.setAttribute(
-                'screen-format',
-                screenFormat as string
-            );
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        document.documentElement.setAttribute(
+            'screen-format',
+            screenFormat as string
+        );
     }, [screenFormat]);
 
     useEffect(() => {
-        setTimeout(() => {
-            document.documentElement.setAttribute(
-                'screen-size',
-                `${screenSize}` as string
-            );
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        document.documentElement.setAttribute(
+            'screen-size',
+            `${screenSize}` as string
+        );
     }, [screenSize]);
 
     useEffect(() => {
-        setTimeout(() => {
-            document.documentElement.setAttribute(
-                'is-loading',
-                `${isLoading ? 'true' : 'false'}` as string
-            );
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        document.documentElement.setAttribute(
+            'is-loading',
+            `${isLoading ? 'true' : 'false'}` as string
+        );
     }, [isLoading]);
 
     useEffect(() => {
-        setTimeout(() => {
-            document.documentElement.setAttribute(
-                'screen-position',
-                `${screenPosition}` as string
-            );
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        document.documentElement.setAttribute(
+            'screen-position',
+            `${screenPosition}` as string
+        );
     }, [screenPosition]);
 
     if (!initialized) return <></>;

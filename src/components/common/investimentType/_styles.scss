@@ -1,0 +1,44 @@
+.investiment-type-badge {
+    background-color: red;
+    display: flex;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px;
+    background-color: var(--body-bg);
+    color: var(--text-title-card);
+    font-family: var(--font-figtree);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 114.286% */
+
+    &::before {
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-image: url(/images/theme/badge-fiis.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    &.Ações::before {
+        background-image: url(/images/theme/badge-ticker.svg);
+    }
+
+    &.FIIs::before {
+        background-image: url(/images/theme/badge-fiis.svg);
+    }
+
+    &.b3::before {
+        background-image: url(/images/theme/badge-b3.svg);
+    }
+
+    &.manual {
+        text-transform: capitalize;
+        &::before {
+            display: none;
+        }
+    }
+}
