@@ -78,7 +78,9 @@ export default function CollapseDatatable({
                 field: 'price',
                 title: 'Preço unitário',
                 body: (row: any): JSX.Element => (
-                    <div dangerouslySetInnerHTML={{ __html: row.price }} />
+                    <SensitiveContent>
+                        <div dangerouslySetInnerHTML={{ __html: row.price }} />
+                    </SensitiveContent>
                 )
             },
             {
