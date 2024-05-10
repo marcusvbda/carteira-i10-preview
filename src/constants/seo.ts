@@ -24,6 +24,13 @@ export const seo: ISeo = {
             path: '/'
         }
     },
+    integrationB3: {
+        ...defaultSeo,
+        ...{
+            title: `${envoriment.appName} | Integração B3`,
+            path: '/integration-b3'
+        }
+    },
     earnings: {
         ...defaultSeo,
         ...{

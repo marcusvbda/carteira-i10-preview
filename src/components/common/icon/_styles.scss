@@ -3,7 +3,7 @@
     display: block;
     width: var(--width);
     height: var(--height);
-    background-size: cover;
+    background-size: contain;
     background-image: var(--image);
 }
 

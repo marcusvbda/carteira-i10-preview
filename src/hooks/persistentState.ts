@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 interface IParams {
-    parse?: boolean;
+    expires?: number;
 }
 
 export const usePersistentState = (
@@ -15,7 +15,17 @@ export const usePersistentState = (
         try {
             const item = window.localStorage.getItem(key);
             if (!item) return initialValue;
-            return params?.parse ? JSON.parse(item as string) : item;
+            const parsedItem = JSON.parse(item);
+            if (params?.expires) {
+                const diffTimestampInMinutes =
+                    (new Date().getTime() - parsedItem.timestamp) / 60000;
+                const isExpirated = diffTimestampInMinutes > params.expires;
+                if (isExpirated) {
+                    localStorage.removeItem(key);
+                    return initialValue;
+                }
+            }
+            return parsedItem.value;
         } catch (error) {
             console.error('Error loading localStorage', error);
             return initialValue;
@@ -25,10 +35,11 @@ export const usePersistentState = (
     const setValue = (value: any) => {
         try {
             setStoredValue(value);
-            localStorage.setItem(
-                key,
-                params?.parse ? JSON.stringify(value) : value
-            );
+            const newValue = {
+                value,
+                timestamp: new Date().getTime()
+            };
+            localStorage.setItem(key, JSON.stringify(newValue));
         } catch (error) {
             console.error('Error saving to localStorage', error);
         }

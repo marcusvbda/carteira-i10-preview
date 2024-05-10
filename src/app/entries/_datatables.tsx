@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 import { useFetch } from '@/hooks/fetch';
 import { WalletContext } from '@/context/walletContext';
 import CollapseDatatable from './_collapseDatatable';

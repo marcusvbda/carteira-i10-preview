@@ -12,6 +12,7 @@ html {
     --card-bg-dark: #2c3a53;
     --border-strong: #e3e6ed;
     --total-bg: #e8eef7;
+    --lite-gray: #7d818666;
 }
 
 html[data-theme='light'] {
@@ -303,6 +304,11 @@ body:has(.lock-mouse) {
         background-color: var(--bg-btn-gray);
         border: 0.5px solid var(--btn-secondary-border);
         border-color: var(--bg-btn-gray);
+        color: var(--text-in-dark);
+    }
+
+    &.dark {
+        background-color: var(--bg-btn-gray);
         color: var(--text-in-dark);
     }
 

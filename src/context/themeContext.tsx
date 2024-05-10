@@ -21,7 +21,7 @@ export const ThemeProvider = ({ children }: any): JSX.Element => {
         const value = theme === 'light' ? 'dark' : 'light';
         setTheme(value);
         document.documentElement.setAttribute('data-theme', value as string);
-    }, []);
+    }, [setTheme, theme]);
 
     useEffect(() => {
         const handleResize = () => {
