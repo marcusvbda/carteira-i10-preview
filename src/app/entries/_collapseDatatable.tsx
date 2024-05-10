@@ -6,6 +6,7 @@ import Icon from '@/components/common/icon';
 import InvestmentType from '@/components/common/investimentType';
 import { useMemo } from 'react';
 import TableFilter from './_tableFilter';
+import SensitiveContent from '@/components/common/sensitiveContent';
 interface IProps {
     loading: boolean;
     defaultCollapsed?: boolean;
@@ -84,7 +85,9 @@ export default function CollapseDatatable({
                 field: 'total',
                 title: 'Total',
                 body: (row: any): JSX.Element => (
-                    <div dangerouslySetInnerHTML={{ __html: row.price }} />
+                    <SensitiveContent>
+                        <div dangerouslySetInnerHTML={{ __html: row.total }} />
+                    </SensitiveContent>
                 )
             },
             {
