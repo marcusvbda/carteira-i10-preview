@@ -5,6 +5,7 @@ import If from '@/components/common/if';
 import Icon from '../icon';
 
 interface IProps {
+    className?: string;
     source: JSX.Element;
     content: JSX.Element;
     defaultCollapsed?: boolean;
@@ -23,6 +24,7 @@ const CollapseBtn = ({ visible }: any) => {
 };
 
 export default function Collapse({
+    className,
     source,
     content,
     defaultCollapsed,
@@ -36,7 +38,7 @@ export default function Collapse({
     }, [visible, onChange]);
 
     return (
-        <div className="collapse-component">
+        <div className={`collapse-component ${className || ''}`}>
             <div
                 className="collapse-component--source"
                 onClick={() => setVisible(!visible)}

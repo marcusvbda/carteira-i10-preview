@@ -31,6 +31,27 @@ export const seo: ISeo = {
             path: '/integration-b3'
         }
     },
+    profile: {
+        ...defaultSeo,
+        ...{
+            title: `${envoriment.appName} | Perfil`,
+            path: '/profile'
+        }
+    },
+    walletSettings: {
+        ...defaultSeo,
+        ...{
+            title: `${envoriment.appName} | Configuração da carteira`,
+            path: '/wallet-settings/{walletId}'
+        }
+    },
+    help: {
+        ...defaultSeo,
+        ...{
+            title: `${envoriment.appName} | Ajuda B3`,
+            path: '/help'
+        }
+    },
     earnings: {
         ...defaultSeo,
         ...{

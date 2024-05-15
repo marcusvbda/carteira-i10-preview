@@ -1,11 +1,12 @@
 'use client';
 
-import { CSSProperties, useCallback, useContext } from 'react';
-import Dropdown from '../common/dropdown';
+import { CSSProperties, useCallback, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '@/context/authContext';
 import Modal from '../common/modal';
 import Icon from '../common/icon';
+import { seo } from '@/constants/seo';
+import { WalletContext } from '@/context/walletContext';
 
 const MenuProfileItem = ({ icon, title, handler }: any) => {
     return (
@@ -20,48 +21,74 @@ const MenuProfileItem = ({ icon, title, handler }: any) => {
     );
 };
 
-const ContentSlot = ({ user, avatarUrl }: any) => {
+const ContentSlot = ({ user, avatarUrl, setVisble }: any) => {
+    const { walletId } = useContext(WalletContext);
+
     const router = useRouter();
     const items = [
         {
             icon: 'wallet',
             title: 'Minha carteira',
-            handler: () => router.push('/')
+            handler: () => {
+                router.push('/');
+                setVisble(false);
+            }
         },
-        {
-            icon: 'pro',
-            title: 'Investidor10 PRO',
-            handler: () => router.push('#')
-        },
-        {
-            icon: 'star',
-            title: 'Indique e Ganhe',
-            handler: () => router.push('#')
-        },
-        {
-            icon: 'like',
-            title: 'Ativos que sigo',
-            handler: () => router.push('#')
-        },
-        {
-            icon: 'medal',
-            title: 'Minhas conquistas',
-            handler: () => router.push('#')
-        },
+        // {
+        //     icon: 'pro',
+        //     title: 'Investidor10 PRO',
+        //     handler: () => {
+        //         router.push('#');
+        //         setVisble(false);
+        //     }
+        // },
+        // {
+        //     icon: 'star',
+        //     title: 'Indique e Ganhe',
+        //     handler: () => {
+        //         router.push('#');
+        //         setVisble(false);
+        //     }
+        // },
+        // {
+        //     icon: 'like',
+        //     title: 'Ativos que sigo',
+        //     handler: () => {
+        //         router.push('#');
+        //         setVisble(false);
+        //     }
+        // },
+        // {
+        //     icon: 'medal',
+        //     title: 'Minhas conquistas',
+        //     handler: () => {
+        //         setVisble(false);
+        //         router.push('#');
+        //     }
+        // },
         {
             icon: 'settings',
             title: 'Configurações',
-            handler: () => router.push('#')
-        },
-        {
-            icon: 'help',
-            title: 'Suporte',
-            handler: () => router.push('/help')
+            handler: () => {
+                router.push(
+                    seo.walletSettings.path.replace('{walletId}', walletId)
+                );
+                setVisble(false);
+            }
         }
+        // {
+        //     icon: 'help',
+        //     title: 'Suporte',
+        //     handler: () => {
+        //         router.push(seo.help.path);
+        //         setVisble(false);
+        //     }
+        // }
     ];
 
     const clickProfile = useCallback(() => {
-        router.push('#');
+        router.push(seo.profile.path);
+        setVisble(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -122,11 +149,14 @@ const FooterSlot = () => {
 export default function ProfileDropdown(): JSX.Element {
     const avatarUrl = '/images/theme/avatar-placeholder.webp';
     const { user } = useContext(AuthContext);
+    const [visible, setVisble] = useState(false);
 
     return (
         <Modal
             size="auto"
             type="side right profile-dropdown-modal"
+            modalVisible={visible}
+            setModalVisible={setVisble}
             dropdown
             source={
                 <div className="profile-dropdown">
@@ -142,7 +172,13 @@ export default function ProfileDropdown(): JSX.Element {
                 </div>
             }
             hideHeader
-            content={<ContentSlot avatarUrl={avatarUrl} user={user} />}
+            content={
+                <ContentSlot
+                    avatarUrl={avatarUrl}
+                    user={user}
+                    setVisble={setVisble}
+                />
+            }
             footer={<FooterSlot />}
         />
     );

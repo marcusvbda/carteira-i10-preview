@@ -6,16 +6,29 @@ import { WalletContext } from '@/context/walletContext';
 import Trend from '../common/trend';
 import Select2 from 'react-select2-wrapper';
 import 'react-select2-wrapper/css/select2.css';
+import { seo } from '@/constants/seo';
+import { useRouter } from 'next/navigation';
 
-const WalletItem = ({ wallet, selected, onClick }: any) => {
+const WalletItem = ({ wallet, selected, onClick, closeModal }: any) => {
+    const router = useRouter();
+
+    const goToSettings = (e: any) => {
+        e.stopPropagation();
+        router.push(seo.walletSettings.path.replace('{walletId}', wallet.id));
+        closeModal && closeModal();
+    };
+
     return (
-        <div
-            className={`wallet-item ${selected && 'selected'}`}
-            onClick={onClick && onClick}
-        >
+        <div className={`wallet-item ${selected && 'selected'}`}>
             <h4>
-                <strong>{wallet && wallet.name}</strong>
-                <a href="#" className="settings-icon">
+                <strong onClick={onClick && onClick}>
+                    {wallet && wallet.name}
+                </strong>
+                <a
+                    href="#"
+                    onClick={(e) => goToSettings(e)}
+                    className="settings-icon"
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -60,7 +73,11 @@ const ContentSlot = ({
 
     return (
         <div className="select-wallet-content">
-            <WalletItem wallet={selectedWallet} selected />
+            <WalletItem
+                wallet={selectedWallet}
+                selected
+                closeModal={closeModal}
+            />
             <div className="settings-card">
                 <div className="row-item">
                     <div className="label">URL</div>

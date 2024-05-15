@@ -1,0 +1,145 @@
+.wallet-settings-page {
+    .page-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .content {
+            margin-bottom: 100px;
+            width: min(680px, 100%);
+            h4 {
+                color: var(--text-secondary);
+                font-family: var(--font-figtree);
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 600;
+            }
+
+            .content-card {
+                margin-top: 24px;
+                border-radius: 8px;
+                background: rgb(188 188 192 / 12%);
+                border-radius: 8px;
+                padding: 16px;
+                display: flex;
+                gap: 16px;
+                flex-direction: column;
+
+                h5 {
+                    color: var(--text-secondary);
+                    font-family: var(--font-figtree);
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 16px; /* 100% */
+
+                    &.mt-4 {
+                        margin-top: 20px;
+                    }
+                }
+
+                .form-row {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+
+                    label {
+                        color: var(--text-title-card);
+                        font-family: var(--font-figtree);
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 16px; /* 114.286% */
+                        margin-bottom: 4px;
+                    }
+
+                    span {
+                        color: var(--text-secondary);
+                        font-family: var(--font-figtree);
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 24px; /* 171.429% */
+                    }
+
+                    input,
+                    .p-dropdown.p-inputwrapper {
+                        border-radius: 8px;
+                        border: 1px solid var(--border-strong);
+                        padding: 8px 16px;
+                        color: var(--text-secondary);
+                        font-family: var(--font-figtree);
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 24px; /* 171.429% */
+                        background-color: var(--input-color);
+                    }
+                }
+
+                .form-cols {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 16px;
+                }
+
+                .b3-card {
+                    background-color: var(--input-color);
+                    padding: 16px;
+                    border-radius: 8px;
+                    width: min(326px, 100%);
+                    border: 1px solid #d7dde4;
+
+                    .card--footer {
+                        display: flex;
+                        justify-content: space-between;
+
+                        span {
+                            color: var(--text-title-card);
+                            font-family: var(--font-figtree);
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 16px; /* 114.286% */
+                        }
+                    }
+
+                    .title {
+                        display: flex;
+                        gap: 12px;
+                        margin-bottom: 24px;
+                        span {
+                            width: 40px;
+                            min-width: 40px;
+                        }
+
+                        color: var(--text-secondary);
+                        font-family: var(--font-figtree);
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 20px; /* 166.667% */
+                    }
+                }
+            }
+        }
+    }
+
+    .section-footer {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+
+        a {
+            display: flex;
+            gap: 8px;
+            color: var(--text-title-card);
+            font-family: var(--font-figtree);
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px; /* 114.286% */
+            text-decoration: none;
+        }
+    }
+}
