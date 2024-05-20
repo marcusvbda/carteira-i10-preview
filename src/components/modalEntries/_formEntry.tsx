@@ -4,7 +4,7 @@ import { WalletContext } from '@/context/walletContext';
 import { useFetch } from '@/hooks/fetch';
 import { useHelpers } from '@/hooks/helpers';
 import { useSwal } from '@/hooks/swal';
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import LazySelect from '../common/lazySelect';
 import {
     currencyOptions,
@@ -27,6 +27,7 @@ const SwitchTypeEntry = ({ options, value, onChange, style }: any) => {
         <div className="switch-type-entry" style={{ ...style }}>
             {options.map((option: any, index: number) => (
                 <button
+                    type="button"
                     key={index}
                     className={`switch-type-entry--item ${
                         active === option.value ? 'active' : ''

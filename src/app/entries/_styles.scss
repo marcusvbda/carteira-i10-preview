@@ -32,24 +32,6 @@ section.section-actives {
             }
         }
 
-        .ticker_link {
-            text-decoration: none;
-            font-family: (var(--font-figtree));
-            font-size: 14px;
-            color: var(--text-secondary);
-            .image {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 8px;
-                img {
-                    height: 32px;
-                    width: 32px;
-                }
-            }
-        }
-
         .post-title-slot {
             .modal-component {
                 .default-card {

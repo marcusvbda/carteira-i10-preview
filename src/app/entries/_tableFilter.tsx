@@ -75,10 +75,6 @@ export default function TableFilter(_cx: any) {
     const [filter, setFilter] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
 
-    const closeModal = () => {
-        setModalVisible(false);
-    };
-
     return (
         <div className="post-title-btns">
             <Modal

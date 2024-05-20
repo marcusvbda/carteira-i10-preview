@@ -13,6 +13,7 @@ html {
     --total-bg: #e8eef7;
     --lite-gray: #7d818666;
     --text-danger: #f94b74;
+    --progress-bar-bg: #52607a;
 }
 
 html[data-theme='light'] {
@@ -139,6 +140,21 @@ body:has(.lock-mouse) {
     }
 }
 
+.p-progressbar {
+    background-color: var(--total-bg);
+    height: 4px;
+    border-radius: 100px;
+
+    .p-progressbar-value {
+        border-radius: 100px;
+        background-color: var(--progress-bar-bg);
+    }
+
+    .p-progressbar-label {
+        display: none;
+    }
+}
+
 .flex {
     display: flex;
 }
@@ -202,6 +218,13 @@ body:has(.lock-mouse) {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    height: 42px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
 }
 
 .p-inputnumber.p-component.p-inputwrapper {
@@ -264,6 +287,24 @@ body:has(.lock-mouse) {
     border-color: var(--border-color);
 }
 
+.ticker_link {
+    text-decoration: none;
+    font-family: (var(--font-figtree));
+    font-size: 14px;
+    color: var(--text-secondary);
+    .image {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        img {
+            height: 32px;
+            width: 32px;
+        }
+    }
+}
+
 .btn {
     text-decoration: none;
     display: flex;
@@ -284,6 +325,16 @@ body:has(.lock-mouse) {
     max-height: 42px;
     text-wrap: nowrap;
     width: auto;
+
+    &.root {
+        height: 42px;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        border-color: var(--border-strong);
+        border-radius: 8px;
+        box-shadow: none;
+    }
 
     &.no-shadow {
         box-shadow: none;
@@ -397,5 +448,108 @@ html[screen-format='mobile'] {
     }
     to {
         opacity: 1;
+    }
+}
+
+html[data-theme='dark'] {
+    .select2-selection {
+        background-color: transparent;
+    }
+}
+
+.theme-datatable {
+    thead {
+        tr {
+            th {
+                border-top: 1px solid #5656561c;
+                padding: 16px;
+                font-family: var(--font-figtree);
+                font-size: 14px;
+                font-weight: 400;
+                color: var(--text-title-card);
+                background-color: var(--body-bg);
+                .p-column-header-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                    svg {
+                        height: 11px;
+                        path {
+                            fill: var(--text-title-card);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    tbody {
+        tr {
+            td {
+                padding: 16px;
+                color: var(--text-secondary);
+                font-family: var(--font-figtree);
+                font-size: 14px;
+                font-weight: 400;
+                background-color: var(--bg-card);
+                .datatable-cell-row {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                }
+            }
+        }
+    }
+}
+
+.p-paginator-bottom.p-paginator.p-component {
+    margin-top: 16px;
+    padding-bottom: 16px;
+    background-color: transparent;
+    border-bottom: unset;
+
+    .p-paginator-prev,
+    .p-paginator-next {
+        max-height: 32px;
+        border: 1px solid var(--border-color);
+        border-right: unset;
+        border-radius: 8px 0 0 8px;
+        padding: 5px 12px;
+        svg {
+            display: none;
+        }
+
+        &:after {
+            content: 'Anterior';
+            font-family: var(--font-figtree);
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 16px; /* 114.286% */
+        }
+    }
+
+    .p-paginator-next {
+        border-radius: 0 8px 8px 0;
+        border-right: 1px solid var(--border-color);
+        &:after {
+            content: 'Próxima';
+        }
+    }
+
+    .p-paginator-page {
+        font-family: var(--font-figtree);
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px; /* 114.286% */
+        max-height: 32px;
+        border: 1px solid var(--border-color);
+        border-radius: unset;
+        padding: 5px 12px;
+        border-right: unset;
+
+        &.p-highlight {
+            background-color: var(--text-in-dark);
+        }
     }
 }
