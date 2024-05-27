@@ -4,7 +4,6 @@ import SensitiveContent from '@/components/common/sensitiveContent';
 import DefaultCard from '../default';
 import Icon from '@/components/common/icon';
 import Trend from '@/components/common/trend';
-import { parse } from 'path';
 import { useHelpers } from '@/hooks/helpers';
 
 interface IProps {
@@ -22,7 +21,7 @@ const Title = ({ title, icon }: any): JSX.Element => {
             <Icon
                 icon={`/images/theme/${icon}.svg`}
                 width="14px"
-                opacity="0.7"
+                opacity="0.8"
             />
             {title}
         </h4>

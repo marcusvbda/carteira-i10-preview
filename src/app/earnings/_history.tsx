@@ -41,7 +41,7 @@ export default function Evolution(): JSX.Element {
             <div className="header card-content">
                 <h4>
                     Histórico mensal
-                    <div className="action-btns">
+                    <div className="action-btns history">
                         <Select2
                             style={{ width: 200 }}
                             value={selectedOption}
@@ -63,12 +63,6 @@ export default function Evolution(): JSX.Element {
                             onSelect={setQtyPeriod}
                             data={qtyPeriodOptions}
                         />
-                        <button className="btn root">
-                            <Icon
-                                icon="/images/theme/search.svg"
-                                width="16px"
-                            />
-                        </button>
                     </div>
                 </h4>
             </div>

@@ -1,7 +1,7 @@
 .card-variation {
     h4 {
-        color: var(--text-title-card);
-        font-family: var(--font-figtree);
+        color: var(--text-secondary);
+
         font-size: 14px;
         font-weight: 500;
         display: flex;
@@ -13,8 +13,8 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            color: var(--text-title-card);
-            font-family: var(--font-figtree);
+            color: var(--text-secondary);
+
             font-size: 14px;
             font-weight: 500;
             text-decoration: unset;
@@ -46,8 +46,8 @@
         .card-variation--content-col {
             flex: 1;
             small {
-                color: var(--text-secondary);
-                font-family: var(--font-figtree);
+                color: var(--text-primary);
+
                 font-size: 12px;
                 font-weight: 400;
             }

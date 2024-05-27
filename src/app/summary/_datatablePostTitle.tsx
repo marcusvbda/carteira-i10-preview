@@ -118,7 +118,7 @@ const EditColumns = ({ columns, setColumns, defaultColumns }: any) => {
             setModalVisible={setModalVisible}
             modalVisible={modalVisible}
             source={
-                <button className="btn small no-shadow">
+                <button className="btn small transparent">
                     <Icon icon="/images/theme/table-columns.svg" width="16px" />
                     <label> Editar colunas</label>
                 </button>
@@ -197,15 +197,16 @@ export default function DatatablePostTitle({
         <>
             <button
                 onClick={goToEntries}
-                className="btn small no-shadow no-border"
+                className="btn small no-border transparent"
             >
                 <label>Lançamentos</label>
                 <Icon icon="/images/theme/link.svg" width="16px" />
             </button>
             <Modal
+                size="50%"
                 title="Ativos na Carteira"
                 source={
-                    <button className="btn small no-shadow">
+                    <button className="btn small transparent">
                         <Icon icon="/images/theme/bar-chart.svg" width="16px" />
                         <label>Gráficos</label>
                     </button>

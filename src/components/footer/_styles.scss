@@ -1,5 +1,5 @@
 footer.default-navbar {
-    background-color: var(--bg-surface-primary);
+    background-color: var(--color-Constant-dark);
     padding-top: 24px;
     padding-bottom: 24px;
     justify-content: center;
@@ -61,8 +61,8 @@ footer.default-navbar {
             flex-direction: column;
 
             h4 {
-                color: var(--text-brand);
-                font-family: var(--font-figtree);
+                color: var(--System-Text-text-brand);
+
                 font-size: 16px;
                 font-weight: 600;
                 margin-bottom: 16px;
@@ -73,12 +73,12 @@ footer.default-navbar {
                 flex-direction: column;
                 gap: 8px;
                 a {
-                    color: var(--text-in-dark);
-                    font-family: var(--font-figtree);
+                    color: var(--button-label-white);
                     font-size: 13px;
                     font-weight: 400;
                     text-decoration: unset;
                     display: flex;
+                    line-height: 24px; /* 171.429% */
                     align-items: center;
                     gap: 5px;
                 }
@@ -94,12 +94,12 @@ footer.default-navbar {
         width: 100%;
         border: unset;
         height: 1px;
-        background-color: var(--divisor-collor-secondary);
+        background-color: var(--border-subtle-secondary);
     }
 
     .disclaimer {
-        color: var(--text-in-dark);
-        font-family: var(--font-figtree);
+        color: var(--button-label-white);
+
         font-size: 14px;
         line-height: 24px;
         font-weight: 400;
@@ -117,8 +117,8 @@ footer.default-navbar {
 
             a,
             .separator {
-                color: var(--text-in-dark);
-                font-family: var(--font-figtree);
+                color: var(--button-label-white);
+
                 font-size: 13px;
                 font-style: normal;
                 opacity: 0.4;
@@ -129,8 +129,8 @@ footer.default-navbar {
     }
 
     .copywrite {
-        color: var(--text-in-dark);
-        font-family: var(--font-figtree);
+        color: var(--button-label-white);
+
         font-size: 12px;
         font-weight: 400;
         opacity: 0.4;

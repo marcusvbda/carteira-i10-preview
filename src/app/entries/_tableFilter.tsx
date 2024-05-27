@@ -103,6 +103,7 @@ export default function TableFilter(_cx: any) {
             <IconField iconPosition="left">
                 <InputIcon className="pi pi-search" />
                 <InputText
+                    className="transparent"
                     onClick={(e: any) => e.stopPropagation()}
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}

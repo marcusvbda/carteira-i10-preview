@@ -10,7 +10,10 @@
             height: 30px;
             border: none;
             border-radius: 100%;
-            background-color: var(--body-bg);
+            background-color: var(--border-subtle);
+            html[data-theme='dark'] & {
+                background-color: var(--surface-secondary);
+            }
             display: flex;
             align-items: center;
             justify-content: center;

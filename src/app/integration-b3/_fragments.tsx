@@ -15,7 +15,7 @@ const DisconnectedContent = () => {
                 Conecte sua conta da B3 para ter acesso a todas as suas
                 operações e acompanhar o desempenho de suas carteiras.
             </div>
-            <button className="btn dark">
+            <button className="btn primary">
                 <Icon icon="/images/theme/connect.svg" width="16px" />
                 Conectar com a B3
             </button>
@@ -53,21 +53,15 @@ export default function Fragments(): JSX.Element {
     const [connected, setConnected] = useState(false);
 
     return (
-        <div className="page-container b3">
-            <div className="b3-container">
-                <div className="b3-title">
-                    <h4>Integração B3</h4>
-                </div>
-                <div className={`b3-content ${connected && 'connected'}`}>
-                    <div className="b3-content--card">
-                        {connected ? (
-                            <ConnectedContent />
-                        ) : (
-                            <DisconnectedContent />
-                        )}
-                    </div>
+        <>
+            <div className="b3-title">
+                <h4>Integração B3</h4>
+            </div>
+            <div className={`b3-content ${connected && 'connected'}`}>
+                <div className="b3-content--card">
+                    {connected ? <ConnectedContent /> : <DisconnectedContent />}
                 </div>
             </div>
-        </div>
+        </>
     );
 }

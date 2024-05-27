@@ -1,5 +1,4 @@
 'use client';
-import { ThemeContext } from '@/context/themeContext';
 import { useMemo, useState } from 'react';
 import { DataTable } from 'primereact/datatable';
 import Select2 from 'react-select2-wrapper';

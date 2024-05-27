@@ -15,16 +15,15 @@ section.section-actives {
                 padding-right: 35px;
 
                 strong {
-                    color: var(--text-title-card);
-                    font-family: var(--font-figtree);
+                    color: var(--text-secondary);
+                    margin-bottom: var(--Spacing-System-spacing-xxs);
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 500;
                 }
 
                 div {
-                    color: var(--text-secondary);
-                    font-family: var(--font-figtree);
+                    color: var(--text-primary);
                     font-size: 16px;
                     font-style: normal;
                     font-weight: 500;
@@ -57,7 +56,7 @@ section.section-actives {
 
             .btn-filter-datatable {
                 border-radius: 4px;
-                border: 0.5px solid var(--border-color);
+                border: 0.5px solid var(--border-strong);
                 background-color: transparent;
                 padding: 8px;
                 min-height: 24px;
@@ -78,8 +77,8 @@ section.section-actives {
             flex-direction: column;
 
             h6 {
-                color: var(--text-secondary);
-                font-family: var(--font-figtree);
+                color: var(--text-primary);
+
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 600;
@@ -98,9 +97,9 @@ section.section-actives {
                     justify-content: center;
                     align-items: center;
                     gap: 8px;
-                    color: var(--text-title-card);
-                    border: 1px solid var(--border-color);
-                    font-family: var(--font-figtree);
+                    color: var(--text-secondary);
+                    background-color: var(--surface-secondary);
+                    border: 1px solid var(--border-strong);
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 500;
@@ -109,8 +108,8 @@ section.section-actives {
                     cursor: pointer;
 
                     &.active {
-                        background-color: var(--card-bg-dark);
-                        color: white;
+                        background-color: var(--chips-background-selected);
+                        color: var(--button-label-white);
                     }
                 }
             }

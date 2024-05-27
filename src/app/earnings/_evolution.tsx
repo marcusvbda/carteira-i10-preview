@@ -1,6 +1,6 @@
 'use client';
 import { ThemeContext } from '@/context/themeContext';
-import { useContext, useMemo, useState } from 'react';
+import { CSSProperties, useContext, useMemo, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 import Select2 from 'react-select2-wrapper';
 import 'react-select2-wrapper/css/select2.css';
@@ -107,7 +107,14 @@ export default function Evolution(): JSX.Element {
             <div className="header card-content border-b">
                 <h4>
                     Evolução de Proventos
-                    <div className="action-btns">
+                    <div
+                        className="action-btns"
+                        style={
+                            {
+                                gridTemplateColumns: '2fr 1fr 1fr'
+                            } as CSSProperties
+                        }
+                    >
                         <Select2
                             style={{ width: 200 }}
                             value={selectedOption}

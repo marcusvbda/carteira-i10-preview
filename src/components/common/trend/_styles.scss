@@ -2,13 +2,12 @@
     border-radius: 100px;
     height: 20px;
     padding: 2px 6px;
-    font-family: var(--font-figtree);
     font-size: var(--font-size);
     font-weight: 500;
     gap: 4px;
     display: flex;
     align-items: center;
-    background: var(--badge-warning);
+    background: var(--System-Background-surface-warning);
     color: var(--text-warning);
 
     svg {
@@ -17,7 +16,7 @@
     }
 
     &.positive {
-        background-color: var(--badge-success);
+        background-color: var(--background-success);
         color: var(--text-success);
         svg {
             fill: var(--text-success);
@@ -26,16 +25,15 @@
     }
 
     &.negative {
-        background-color: var(--badge-danger);
-        color: var(--text-danger);
+        background-color: var(--background-error);
+        color: var(--text-error);
         svg {
-            fill: var(--text-danger);
+            fill: var(--text-error);
             transform: rotate(55deg);
         }
     }
 
     &.transparent {
-        background-color: transparent !important;
         padding: 0;
     }
 
@@ -44,9 +42,9 @@
     }
 
     &.dark {
-        color: var(--text-secondary);
+        color: var(--text-primary);
         svg {
-            fill: var(--text-secondary);
+            fill: var(--text-primary);
         }
     }
 }

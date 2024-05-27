@@ -62,10 +62,8 @@ const DatatableContent = ({
                     />
                 ))}
             </DataTable>
-            {postDatatableSlot ? (
+            {postDatatableSlot && (
                 <div className="post-datatable-slot">{postDatatableSlot}</div>
-            ) : (
-                <></>
             )}
         </>
     );

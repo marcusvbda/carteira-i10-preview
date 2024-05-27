@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-    background-color: var(--bg-card);
-    border: 1px solid #5656561c;
+    background-color: var(--surface-primary);
+    border: 1px solid var(--border-subtle);
     border-radius: 8px;
     position: relative;
     width: var(--size);
@@ -19,8 +19,8 @@
         align-items: center;
 
         h4 {
-            color: var(--text-secondary);
-            font-family: var(--font-figtree);
+            color: var(--text-primary);
+
             font-size: 20px;
             font-style: normal;
             font-weight: 600;

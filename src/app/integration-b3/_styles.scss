@@ -11,8 +11,8 @@
 
         .b3-title {
             h4 {
-                color: var(--text-secondary);
-                font-family: var(--font-figtree);
+                color: var(--text-primary);
+
                 text-align: left;
                 font-size: 24px;
                 font-style: normal;
@@ -24,7 +24,8 @@
 
         .b3-content {
             border-radius: 8px;
-            border: 1px solid var(--lite-gray);
+            background-color: var(--surface-primary);
+            border: 1px solid #d7dde4;
             display: flex;
             gap: 16px;
 
@@ -39,8 +40,8 @@
                 .description {
                     margin-top: 24px;
                     margin-bottom: 24px;
-                    color: var(--text-secondary);
-                    font-family: var(--font-figtree);
+                    color: var(--text-primary);
+
                     text-align: center;
                     font-size: 16px;
                     font-style: normal;
@@ -65,7 +66,7 @@
                         border-radius: 8px;
                         background: var(--badge-success);
                         color: var(--text-success);
-                        font-family: var(--font-figtree);
+
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 500;
@@ -78,12 +79,12 @@
                             margin: 0;
                             text-align: left;
                             color: Color System/Text/text-primary;
-                            font-family: var(--font-figtree);
+
                             font-size: 16px;
                             font-style: normal;
                             font-weight: 500;
                             line-height: 24px; /* 150% */
-                            color: var(--text-secondary);
+                            color: var(--text-primary);
                         }
                     }
 
@@ -93,8 +94,8 @@
                         gap: 8px;
                         align-items: center;
                         margin-top: 32px;
-                        color: var(--text-title-card);
-                        font-family: var(--font-figtree);
+                        color: var(--text-secondary);
+
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 500;

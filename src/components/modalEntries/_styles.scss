@@ -8,7 +8,10 @@
         display: flex;
         width: 100%;
         gap: 8px;
-        background-color: var(--body-bg);
+        background-color: var(--surface-secondary);
+        html[data-theme='dark'] & {
+            background-color: var(--Color-Neutrals-neutral-200);
+        }
         padding: 4px;
         border-radius: 12px;
 
@@ -19,21 +22,31 @@
             border-radius: 12px;
             background-color: transparent;
             border: none;
-            font-family: vaR(--font-figtree);
             font-size: 14px;
             font-weight: 500;
-            color: var(--card-bg-dark);
+            color: var(--border-active);
             display: flex;
             align-items: center;
             gap: 8px;
             justify-content: center;
             opacity: 0.5;
             transition: background-color 0.3s, opacity 0.3s;
+            color: var(--button-label-dark);
+
+            html[data-theme='dark'] & {
+                span {
+                    filter: invert(1) !important;
+                }
+                color: var(--button-label-white);
+            }
 
             &.active {
                 border: 1px solid var(--border-card);
                 box-shadow: 0px 4px 8px 0px rgba(42, 46, 55, 0.08);
-                background-color: var(--bg-card);
+                background-color: var(--surface-primary);
+                html[data-theme='dark'] & {
+                    background-color: var(--Color-Neutrals-neutral-300);
+                }
                 opacity: 1;
             }
         }
@@ -55,8 +68,8 @@
 
                 a {
                     cursor: pointer;
-                    color: var(--text-secondary);
-                    font-family: var(--font-figtree);
+                    color: var(--text-primary);
+
                     text-decoration: unset;
                     opacity: 0.7;
                     transition: 0.5s;
@@ -68,8 +81,8 @@
             }
 
             label {
-                color: var(--text-title-card);
-                font-family: var(--font-figtree);
+                color: var(--text-secondary);
+
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 500;
@@ -82,15 +95,18 @@
             }
 
             &.total {
-                background-color: var(--total-bg);
+                background-color: var(---background-information);
+                html[data-theme='dark'] & {
+                    background-color: var(--surface-secondary);
+                }
                 padding: 8px 12px;
                 border-radius: 8px;
                 display: flex;
                 justify-content: space-between;
                 flex-direction: row;
                 div {
-                    color: var(--text-secondary);
-                    font-family: var(--font-figtree);
+                    color: var(--text-primary);
+
                     font-size: 16px;
                     font-style: normal;
                     font-weight: 600;
@@ -105,7 +121,6 @@
         padding: 8px 16px;
 
         .p-dropdown-label.p-inputtext {
-            font-family: var(--font-figtree);
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
@@ -138,7 +153,7 @@
         align-items: center;
         gap: 8px;
         color: var(--text-success);
-        font-family: var(--font-figtree);
+
         font-size: 16px;
         font-style: normal;
         font-weight: 600;
@@ -147,8 +162,8 @@
     }
 
     span {
-        color: var(--text-secondary);
-        font-family: var(--font-figtree);
+        color: var(--text-primary);
+
         font-size: 14px;
         font-style: normal;
         font-weight: 400;

@@ -1,7 +1,9 @@
 .yes-or-no {
-    color: var(--text-title-card);
-    font-family: var(--font-figtree);
-    background-color: var(--body-bg);
+    color: var(--text-secondary);
+    background-color: var(--border-subtle);
+    html[data-theme='dark'] & {
+        background-color: var(--surface-secondary);
+    }
     font-size: 14px;
     font-style: normal;
     font-weight: 500;

@@ -10,7 +10,11 @@
         border: 1px solid var(--border-strong);
         background-color: transparent;
         color: var(--bg-neutral);
-        font-family: var(--font-figtree);
+
+        html[data-theme='dark'] & {
+            color: var(--text-primary);
+        }
+
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -27,7 +31,7 @@
     .default-card {
         .modal-footer {
             background-color: transparent;
-            border-top: 1px solid rgba(0, 0, 0, 0.074);
+            border-top: 1px solid var(--surface-secondary);
         }
 
         .modal-content {
@@ -40,8 +44,8 @@
                 flex-direction: column;
                 gap: 12px;
                 h5 {
-                    color: var(--text-title-card);
-                    font-family: var(--font-figtree);
+                    color: var(--text-secondary);
+
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 500;
@@ -58,13 +62,13 @@
                         padding: 8px 12px;
                         border-radius: 100px;
                         border: 1px solid var(--border-strong);
-                        color: var(--text-title-card);
-                        font-family: var(--font-figtree);
+                        color: var(--text-secondary);
+
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 500;
                         line-height: 16px; /* 114.286% */
-                        background-color: var(--bg-card);
+                        background-color: var(--surface-primary);
                         transition: 0.3s;
                         &:hover {
                             filter: brightness(0.9);

@@ -1,14 +1,13 @@
 .investiment-type-badge {
-    background-color: red;
     display: flex;
     padding: 4px 8px;
     justify-content: center;
     align-items: center;
     gap: 8px;
     border-radius: 4px;
-    background-color: var(--body-bg);
-    color: var(--text-title-card);
-    font-family: var(--font-figtree);
+    background-color: var(--surface-secondary);
+    color: var(--text-secondary);
+
     font-size: 14px;
     font-style: normal;
     font-weight: 500;

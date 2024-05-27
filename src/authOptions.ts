@@ -3,15 +3,15 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 const checkToken = async (token: string) => {
-    try {
+    // try {
         const encodedToken = encodeURIComponent(token);
         const checkRoute = `${process.env.NEXT_PUBLIC_SERVER_URI}/api/check-wallet-token/${encodedToken}`;
         const response = await axios.get(checkRoute);
         return response.data;
-    } catch (error) {
-        // console.error(error);
-        return null;
-    }
+    // } catch (error) {
+    //     // console.error(error);
+    //     return null;
+    // }
 };
 
 export const authOptions: NextAuthOptions = {

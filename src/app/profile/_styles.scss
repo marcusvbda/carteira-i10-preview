@@ -8,8 +8,8 @@
             margin-bottom: 100px;
             width: min(680px, 100%);
             h4 {
-                color: var(--text-secondary);
-                font-family: var(--font-figtree);
+                color: var(--text-primary);
+
                 font-size: 24px;
                 font-style: normal;
                 font-weight: 600;
@@ -21,8 +21,8 @@
                     gap: 12px;
                     display: flex;
                     align-items: center;
-                    color: var(--text-secondary);
-                    font-family: var(--font-figtree);
+                    color: var(--text-primary);
+
                     font-size: 24px;
                     font-style: normal;
                     font-weight: 600;
@@ -48,7 +48,7 @@
                         background-repeat: no-repeat;
 
                         a {
-                            background-color: var(--text-secondary);
+                            background-color: var(--text-primary);
                             height: 32px;
                             width: 32px;
                             border-radius: 100%;
@@ -72,8 +72,8 @@
                     display: flex;
                     align-items: center;
                     gap: 16px;
-                    color: var(--text-secondary);
-                    font-family: var(--font-figtree);
+                    color: var(--text-primary);
+
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 500;
@@ -84,8 +84,8 @@
                 }
 
                 h5 {
-                    color: var(--text-secondary);
-                    font-family: var(--font-figtree);
+                    color: var(--text-primary);
+
                     font-size: 20px;
                     font-style: normal;
                     font-weight: 600;
@@ -110,8 +110,8 @@
 
                     label {
                         margin-bottom: 4px;
-                        color: var(--text-title-card);
-                        font-family: var(--font-figtree);
+                        color: var(--text-secondary);
+
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 400;
@@ -121,12 +121,11 @@
                     input,
                     .p-dropdown {
                         border-radius: 8px;
-                        border: 1px solid var(--border-strong);
                         background-color: transparent;
                         padding: 8px;
 
-                        color: var(--text-secondary);
-                        font-family: var(--font-figtree);
+                        color: var(--text-primary);
+
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 400;
@@ -156,8 +155,8 @@
                         display: flex;
                         align-items: center;
                         gap: 12px;
-                        color: var(--text-secondary);
-                        font-family: var(--font-figtree);
+                        color: var(--text-primary);
+
                         font-size: 16px;
                         font-style: normal;
                         font-weight: 600;
@@ -191,7 +190,7 @@
 
                             .provider-icon {
                                 border-radius: 100px;
-                                background-color: var(--body-bg);
+                                background-color: var(--text-secondary);
                                 height: 20px;
                                 width: 20px;
                                 display: flex;
@@ -209,8 +208,8 @@
                             flex-direction: column;
 
                             .account-name {
-                                color: var(--text-secondary);
-                                font-family: var(--font-figtree);
+                                color: var(--text-primary);
+
                                 font-size: 16px;
                                 font-style: normal;
                                 font-weight: 600;
@@ -218,8 +217,8 @@
                             }
 
                             .provider-name {
-                                color: var(--text-title-card);
-                                font-family: var(--font-figtree);
+                                color: var(--text-secondary);
+
                                 font-size: 16px;
                                 font-style: normal;
                                 font-weight: 300;
@@ -231,7 +230,7 @@
                             cursor: pointer;
                             margin-left: auto;
                             color: var(--text-danger);
-                            font-family: var(--font-figtree);
+
                             font-size: 14px;
                             font-style: normal;
                             font-weight: 500;
@@ -245,7 +244,7 @@
                         text-decoration: none;
                         margin-top: 16px;
                         color: var(--bg-btn-gray);
-                        font-family: var(--font-figtree);
+
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 500;

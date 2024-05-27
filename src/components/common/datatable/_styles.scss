@@ -1,7 +1,5 @@
 .datatable-card {
     h5.datatable-title {
-        color: var(--text-secondary);
-        font-family: var(--font-figtree);
         font-size: 20px;
         font-style: normal;
         font-weight: 600;
@@ -13,6 +11,7 @@
         flex: 1;
 
         .title-row {
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -28,7 +27,7 @@
     }
 
     .post-datatable-slot {
-        border-top: 1px solid var(--border-color);
+        border-top: 1px solid var(--border-strong);
         padding: 12px 24px;
         display: flex;
         justify-content: flex-end;
@@ -57,11 +56,11 @@ html[data-theme='dark'] {
             tr {
                 td {
                     padding: 16px;
-                    color: var(--text-secondary);
-                    font-family: var(--font-figtree);
+                    color: var(--text-primary);
+
                     font-size: 14px;
                     font-weight: 400;
-                    background-color: var(--bg-card);
+                    background-color: var(--surface-primary);
                     .datatable-cell-row {
                         display: flex;
                         align-items: center;

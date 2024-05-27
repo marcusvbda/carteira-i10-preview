@@ -15,7 +15,9 @@ export default function ProfilePage(): JSX.Element {
                     </div>
                     <Profile />
                     <div className="form-footer">
-                        <button className="btn dark">Salvar alterações</button>
+                        <button className="btn primary">
+                            Salvar alterações
+                        </button>
                     </div>
                 </div>
             </div>

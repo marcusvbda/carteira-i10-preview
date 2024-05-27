@@ -1,7 +1,7 @@
 .card-trend {
     h4 {
-        color: var(--text-title-card);
-        font-family: var(--font-figtree);
+        color: var(--text-secondary);
+
         font-size: 14px;
         font-weight: 500;
         display: flex;
@@ -14,8 +14,8 @@
         padding-left: 32px;
         padding-right: 32px;
         strong {
-            color: var(--text-secondary);
-            font-family: var(--font-figtree);
+            color: var(--text-primary);
+
             font-size: 20px;
             font-weight: 600;
             display: flex;
@@ -33,14 +33,12 @@
             small,
             .amount-invested {
                 color: var(--text-secondary);
-                font-family: var(--font-figtree);
-                opacity: 0.5;
                 font-size: 12px;
                 font-weight: 400;
             }
 
             .amount-invested {
-                opacity: 1;
+                color: var(--text-primary);
             }
         }
     }

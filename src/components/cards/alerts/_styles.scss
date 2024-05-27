@@ -1,7 +1,7 @@
 .card-alerts {
     h4 {
-        color: var(--text-title-card);
-        font-family: var(--font-figtree);
+        color: var(--text-secondary);
+
         font-size: 14px;
         font-weight: 500;
         display: flex;
@@ -23,8 +23,8 @@
 
         a {
             margin-left: auto;
-            color: var(--text-title-card);
-            font-family: var(--font-figtree);
+            color: var(--text-secondary);
+
             font-size: 12px;
             font-weight: 500;
             line-height: 16px;
@@ -49,11 +49,10 @@
         .message-item {
             cursor: pointer;
             border-radius: 4px;
-            border-left: 2px solid var(--bg-neutral);
-            background-color: var(--bg-surface-secondary);
+            border-left: 2px solid var(--Color-Neutrals-neutral-400);
+            background-color: var(--surface-secondary);
             padding: 4px 12px;
-            color: var(--text-secondary);
-            font-family: var(--font-figtree);
+            color: var(--text-primary);
             font-size: 12px;
             font-weight: 400;
             text-decoration: unset;
@@ -61,13 +60,13 @@
     }
 }
 
-html[data-theme='dark'] {
-    .card-alerts {
-        h4 {
-            .card-alerts--icon {
-                opacity: 1;
-                filter: brightness(1.5);
-            }
-        }
-    }
-}
+// html[data-theme='dark'] {
+//     .card-alerts {
+//         h4 {
+//             .card-alerts--icon {
+//                 opacity: 1;
+//                 filter: brightness(1.5);
+//             }
+//         }
+//     }
+// }

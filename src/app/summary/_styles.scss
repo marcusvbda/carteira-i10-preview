@@ -20,12 +20,12 @@ section.section-charts {
         align-items: center;
         gap: 16px;
         margin-top: 12px;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-strong);
         padding-bottom: 16px;
 
         .chart-header__title {
-            color: var(--text-secondary);
-            font-family: var(--font-figtree);
+            color: var(--text-primary);
+
             font-size: 18px;
             font-style: normal;
             font-weight: 500;
@@ -38,8 +38,8 @@ section.section-charts {
             align-items: center;
 
             .filter-date {
-                color: var(--text-title-card);
-                font-family: var(--font-figtree);
+                color: var(--text-secondary);
+
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
@@ -59,8 +59,8 @@ section.section-charts {
                 align-items: center;
                 gap: 8px;
 
-                color: var(--text-secondary);
-                font-family: var(--font-figtree);
+                color: var(--text-primary);
+
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
@@ -74,8 +74,8 @@ section.section-charts {
     flex-direction: column;
 
     h6 {
-        color: var(--text-secondary);
-        font-family: var(--font-figtree);
+        color: var(--text-primary);
+
         font-size: 16px;
         font-style: normal;
         font-weight: 600;
@@ -94,9 +94,14 @@ section.section-charts {
             justify-content: center;
             align-items: center;
             gap: 8px;
-            color: var(--text-title-card);
-            border: 1px solid var(--border-color);
-            font-family: var(--font-figtree);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-strong);
+
+            html[data-theme='dark'] & {
+                color: var(--button-label-white);
+                background-color: var(--surface-secondary);
+            }
+
             font-size: 14px;
             font-style: normal;
             font-weight: 500;
@@ -105,7 +110,7 @@ section.section-charts {
             cursor: pointer;
 
             &.active {
-                background-color: var(--card-bg-dark);
+                background-color: var(--chips-background-selected) !important;
                 color: white;
             }
         }
@@ -118,8 +123,7 @@ section.section-actives {
     gap: 24px;
 
     h4.actives-total {
-        color: var(--text-secondary);
-        font-family: var(--font-figtree);
+        color: var(--text-primary);
         font-size: 24px;
         font-style: normal;
         font-weight: 600;
@@ -142,16 +146,15 @@ section.section-actives {
                 padding-right: 35px;
 
                 strong {
-                    color: var(--text-title-card);
-                    font-family: var(--font-figtree);
+                    color: var(--text-secondary);
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 500;
+                    margin-bottom: var(--Spacing-System-spacing-xxs);
                 }
 
                 div {
-                    color: var(--text-secondary);
-                    font-family: var(--font-figtree);
+                    color: var(--text-primary);
                     font-size: 16px;
                     font-style: normal;
                     font-weight: 500;
@@ -161,9 +164,8 @@ section.section-actives {
 
         .ticker_link {
             text-decoration: none;
-            font-family: (var(--font-figtree));
             font-size: 14px;
-            color: var(--text-secondary);
+            color: var(--System-Tex-text-primary);
             .image {
                 display: flex;
                 flex-direction: row;
