@@ -7,9 +7,7 @@ import Select2 from 'react-select2-wrapper';
 import 'react-select2-wrapper/css/select2.css';
 import { InputText } from 'primereact/inputtext';
 import { InputMask } from 'primereact/inputmask';
-import CircularProgress, {
-    CircularProgressProps
-} from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const FormStep = ({ step, setStep }: any) => {
     const categories = useMemo(
@@ -310,7 +308,7 @@ export const GoalList = ({ goals }: any): JSX.Element => {
                 />
             </div>
             {goals.map((x: any, index: number) => (
-                <GoalItem index={index} />
+                <GoalItem key={index} />
             ))}
         </div>
     );
