@@ -1,0 +1,40 @@
+.radio-tab-section {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	.radio-tab {
+		background-color: var(--surface-secondary);
+		display: flex;
+		gap: var(--Spacing-System-spacing-xxxs, 4px);
+		padding: var(--Spacing-System-spacing-xxxs, 4px) 4px;
+		border-radius: var(--Spacing-System-spacing-xs, 12px);
+
+		.radio-tab--option {
+			padding: 8px 16px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: var(--Spacing-System-spacing-xs, 12px);
+			font-family: var(--font-figtree);
+			font-size: 14px;
+			line-height: 16px;
+			color: var(--text-secondary);
+			cursor: pointer;
+			transition: 0.5s;
+			opacity: 0.8;
+
+			&:hover {
+				opacity: 1;
+			}
+
+			&.checked {
+				opacity: 1;
+				background-color: var(--button-background-secondary-resting);
+				color: var(--button-label-dark);
+				html[data-theme='dark'] & {
+					color: var(--button-primary-label);
+				}
+			}
+		}
+	}
+}

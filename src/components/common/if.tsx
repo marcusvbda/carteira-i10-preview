@@ -1,8 +1,10 @@
+import { ReactNode } from 'react';
+
 interface IProps {
-    condition: any;
-    children: JSX.Element;
+	condition: any;
+	children: ReactNode;
 }
 
 export default function If({ condition, children }: IProps) {
-    return condition && children;
+	return condition ? children : null;
 }

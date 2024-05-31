@@ -1,0 +1,52 @@
+.patrimony-page {
+	.header-title {
+		.action-btns {
+			display: flex;
+			gap: 8px;
+		}
+	}
+
+	.consolidation-chats {
+		display: flex;
+		flex-direction: column;
+		gap: var(--Spacing-System-spacing-m, 24px);
+		.principal-title {
+			font-family: var(--font-figtree);
+			font-size: 24px;
+			font-weight: 600;
+			line-height: 32px;
+			text-align: left;
+			margin-top: 24px;
+			color: var(--text-primary);
+		}
+
+		.active-card {
+			.header-title {
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
+				gap: 8px;
+
+				html[screen-format='tablet'] &,
+				html[screen-format='mobile'] & {
+					grid-template-columns: 1fr;
+				}
+
+				.switch-position {
+					display: flex;
+					justify-content: flex-end;
+					align-items: center;
+					color: var(--text-secondary);
+					font-family: var(--font-figtree);
+					font-size: 16px;
+					font-style: normal;
+					font-weight: 500;
+					line-height: 24px; /* 150% */
+					.icon {
+						margin-left: 8px;
+						margin-right: 16px;
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,107 +1,107 @@
 html {
-    --font-figtree: 'Figtree', sans-serif;
+	--font-figtree: 'Figtree', sans-serif;
 
-    // backgrounds
-    --surface-primary: #ffffff;
-    --surface-primary-dark: #22242b;
-    --surface-secondary: #f6f7f9;
-    --surface-tertiary: #e3e6ed;
-    --button-background-primary-resting: #2f3137;
-    --button-background-primary-hovered: #14171f;
-    --button-background-secondary-resting: #ffffff;
-    --button-background-disabled: #f0f2f5;
-    --element-background-resting: #ffffff;
-    --element-background-selected: #2c3a53;
-    --background-information: #e8eef7;
-    --background-success: #ecfdfa;
-    --background-warning: #fdf0d8;
-    --background-error: #fee6ec;
-    --chips-background-selected: #1c2c4a;
-    --color-Constant-dark: #14171f;
-    --color-Blue-blue-100: #e8eef7;
-    --color-Blue-blue-400: #52607a;
+	// backgrounds
+	--surface-primary: #ffffff;
+	--surface-primary-dark: #22242b;
+	--surface-secondary: #f6f7f9;
+	--surface-tertiary: #e3e6ed;
+	--button-background-primary-resting: #2f3137;
+	--button-background-primary-hovered: #14171f;
+	--button-background-secondary-resting: #ffffff;
+	--button-background-disabled: #f0f2f5;
+	--element-background-resting: #ffffff;
+	--element-background-selected: #2c3a53;
+	--background-information: #e8eef7;
+	--background-success: #ecfdfa;
+	--background-warning: #fdf0d8;
+	--background-error: #fee6ec;
+	--chips-background-selected: #1c2c4a;
+	--color-Constant-dark: #14171f;
+	--color-Blue-blue-100: #e8eef7;
+	--color-Blue-blue-400: #52607a;
 
-    // text
-    --text-primary: #424c57;
-    --text-secondary: #778698;
-    --text-tertiary: #c8cfda;
-    --text-success: #009974;
-    --text-warning: #f3ab20;
-    --text-error: #ff4c76;
-    --button-primary-label: #ffffff;
-    --text-brand: #ba955f;
-    --link-label: #2c3a53;
-    --link-label-error: #ff4c76;
-    --link-label-error-hovered: #cb0b38;
-    --button-label-white: #ffffff;
-    --button-label-dark: #2c3a53;
+	// text
+	--text-primary: #424c57;
+	--text-secondary: #778698;
+	--text-tertiary: #c8cfda;
+	--text-success: #009974;
+	--text-warning: #f3ab20;
+	--text-error: #ff4c76;
+	--button-primary-label: #ffffff;
+	--text-brand: #ba955f;
+	--link-label: #2c3a53;
+	--link-label-error: #ff4c76;
+	--link-label-error-hovered: #cb0b38;
+	--button-label-white: #ffffff;
+	--button-label-dark: #2c3a53;
 
-    //borders
-    --border-strong: #e3e6ed;
-    --border-subtle: #f0f2f5;
-    --border-hovered: #c8cfda;
-    --border-active: #2c3a53;
+	//borders
+	--border-strong: #e3e6ed;
+	--border-subtle: #f0f2f5;
+	--border-hovered: #c8cfda;
+	--border-active: #2c3a53;
 
-    --Spacing-System-spacing-xs: 12px;
-    --Color-Neutrals-neutral-400: #c8cfda;
-    --Spacing-System-spacing-xs: 12px;
-    --Stroke-stroke-thinner: 0.5px;
-    --Corner-Radios-2: 8px;
-    --Spacing-System-spacing-s: 16px;
-    --Spacing-System-spacing-xxs: 8px;
+	--Spacing-System-spacing-xs: 12px;
+	--Color-Neutrals-neutral-400: #c8cfda;
+	--Spacing-System-spacing-xs: 12px;
+	--Stroke-stroke-thinner: 0.5px;
+	--Corner-Radios-2: 8px;
+	--Spacing-System-spacing-s: 16px;
+	--Spacing-System-spacing-xxs: 8px;
 
-    --System-Text-text-brand: #ba955f;
-    --Color-Neutrals-neutral-300: #3d4047;
-    --Color-Neutrals-neutral-200: #282d34;
+	--System-Text-text-brand: #ba955f;
+	--Color-Neutrals-neutral-300: #3d4047;
+	--Color-Neutrals-neutral-200: #282d34;
 
-    // spaces
-    --Spacing-System-spacing-xxl: 64px;
-    --Spacing-System-spacing-xxl: 64px;
-    --Spacing-8: 48px;
-    --Spacing-System-spacing-s: 16px;
+	// spaces
+	--Spacing-System-spacing-xxl: 64px;
+	--Spacing-System-spacing-xxl: 64px;
+	--Spacing-8: 48px;
+	--Spacing-System-spacing-s: 16px;
 }
 
 html[data-theme='dark'] {
-    // backgrounds
-    --surface-primary: #22242b;
-    --surface-secondary: #14171f;
-    --surface-tertiary: #3e4751;
-    --button-background-primary-resting: #2b3d5f;
-    --button-background-primary-hovered: #52607a;
-    --button-background-secondary-resting: #3d4047;
-    --button-background-disabled: #22242b;
-    --element-background-resting: #14171f;
-    --element-background-selected: #1c2c4a;
-    --background-information: #262f40;
-    --background-success: #00523e;
-    --background-warning: #805400;
-    --background-error: #990023;
-    --color-Constant-dark: #14171f;
-    --color-Blue-blue-100: #e8eef7;
-    --color-Blue-blue-400: #52607a;
-    --color-Blue-blue-300: #9fadc6;
+	// backgrounds
+	--surface-primary: #22242b;
+	--surface-secondary: #14171f;
+	--surface-tertiary: #3e4751;
+	--button-background-primary-resting: #2b3d5f;
+	--button-background-primary-hovered: #52607a;
+	--button-background-secondary-resting: #3d4047;
+	--button-background-disabled: #22242b;
+	--element-background-resting: #14171f;
+	--element-background-selected: #1c2c4a;
+	--background-information: #262f40;
+	--background-success: #00523e;
+	--background-warning: #805400;
+	--background-error: #990023;
+	--color-Constant-dark: #14171f;
+	--color-Blue-blue-100: #e8eef7;
+	--color-Blue-blue-400: #52607a;
+	--color-Blue-blue-300: #9fadc6;
 
-    // text
-    --text-primary: #ffffff;
-    --text-secondary: #a1a9b5;
-    --text-tertiary: #778698;
-    --text-success: #00cc9b;
-    --text-warning: #f7c86e;
-    --text-error: #ff4c76;
-    --button-primary-label: #ffffff;
-    --text-brand: #ba955f;
-    --link-label: #ffffff;
-    --link-label-error: #ff4c76;
-    --link-label-error-hovered: #cb0b38;
+	// text
+	--text-primary: #ffffff;
+	--text-secondary: #a1a9b5;
+	--text-tertiary: #778698;
+	--text-success: #00cc9b;
+	--text-warning: #f7c86e;
+	--text-error: #ff4c76;
+	--button-primary-label: #ffffff;
+	--text-brand: #ba955f;
+	--link-label: #ffffff;
+	--link-label-error: #ff4c76;
+	--link-label-error-hovered: #cb0b38;
 
-    //borders
-    --border-strong: #5f6c7d;
-    --border-subtle: #3d4047;
-    --border-hovered: #3e4751;
-    --border-active: #5976a6;
+	//borders
+	--border-strong: #5f6c7d;
+	--border-subtle: #3d4047;
+	--border-hovered: #3e4751;
+	--border-active: #5976a6;
 
-    --background-success: #00523e;
-    --surface-secondary: #14171f;
-    --button-background-primary-resting: #2b3d5f;
-    --border-subtle: #3d4047;
+	--background-success: #00523e;
+	--surface-secondary: #14171f;
+	--button-background-primary-resting: #2b3d5f;
+	--border-subtle: #3d4047;
 }

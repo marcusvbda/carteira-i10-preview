@@ -1,35 +1,51 @@
 'use client';
-import { CSSProperties, useContext, useMemo, useState, ReactNode } from 'react';
+import { useContext, useMemo, useState, ReactNode, CSSProperties } from 'react';
 import ReactECharts from 'echarts-for-react';
 import Select2 from 'react-select2-wrapper';
+import DefaultCard from '@/components/cards/default';
 import { ThemeContext } from '@/context/themeContext';
 import 'react-select2-wrapper/css/select2.css';
+const Header = (): ReactNode => {
+	const [selectedOption, setSelectedOption] = useState<any>(null);
+	const [selectedPeriod, setSelectedPeriod] = useState<any>(null);
+	const [optionList] = useState<any[]>([]);
+	const [periodList] = useState<any[]>([]);
+
+	return (
+		<div className="header-title">
+			<h4>Evolução do patrimônio</h4>
+			<div
+				className="action-btns"
+				style={
+					{
+						gridTemplateColumns: '2fr 1fr 1fr',
+					} as CSSProperties
+				}
+			>
+				<Select2
+					style={{ width: 200 }}
+					value={selectedOption}
+					onSelect={setSelectedOption}
+					data={optionList}
+					options={{
+						placeholder: '2 anos',
+					}}
+				/>
+				<Select2
+					style={{ width: 200 }}
+					value={selectedPeriod}
+					onSelect={setSelectedPeriod}
+					options={{
+						placeholder: 'Todos os tipos',
+					}}
+					data={periodList}
+				/>
+			</div>
+		</div>
+	);
+};
 
 export default function Evolution(): ReactNode {
-	const [selectedOption, setSelectedOption] = useState<any>(1);
-	const [selectedPeriod, setSelectedPeriod] = useState<any>(1);
-	const [selectedQtyPeriod, setQtyPeriod] = useState<any>(12);
-	const [optionList] = useState<any[]>([
-		{
-			id: 1,
-			text: 'Recebidos e futuros',
-		},
-	]);
-
-	const [periodList] = useState<any[]>([
-		{
-			id: 1,
-			text: 'Mensal',
-		},
-	]);
-
-	const [qtyPeriodOptions] = useState<any[]>([
-		{
-			id: 12,
-			text: '12 Meses',
-		},
-	]);
-
 	const { theme } = useContext(ThemeContext);
 
 	const options = useMemo(() => {
@@ -71,22 +87,22 @@ export default function Evolution(): ReactNode {
 			},
 			series: [
 				{
-					color: '#4778D1',
+					color: '#2cb875',
 					data: [
 						579.21, 579.21, 702.74, 702.74, 702.74, 702.74, 702.74, 702.74,
 						702.74, 769.87, 769.87, 4682.13, 323, 1234,
 					],
-					name: 'Proventos recebidos',
+					name: 'Valor aplicado',
 					stack: 'Ad',
 					type: 'bar',
 				},
 				{
-					color: '#C2D2F0',
+					color: '#96e9c1',
 					data: [
 						-96.06, 94.64, -67.28, -51.22, -41.21, -52.58, -52.58, -52.58,
 						-52.58, -52.2, -52.2, -386.84, -222, -2232,
 					],
-					name: 'Proventos a receber',
+					name: 'Ganho de capital',
 					stack: 'Ad',
 					type: 'bar',
 				},
@@ -103,42 +119,7 @@ export default function Evolution(): ReactNode {
 	}, []);
 
 	return (
-		<div className="earnings-card evolution">
-			<div className="header card-content border-b">
-				<h4>
-					Evolução de Proventos
-					<div
-						className="action-btns"
-						style={
-							{
-								gridTemplateColumns: '2fr 1fr 1fr',
-							} as CSSProperties
-						}
-					>
-						<Select2
-							style={{ width: 200 }}
-							value={selectedOption}
-							onSelect={setSelectedOption}
-							data={optionList}
-							options={{
-								placeholder: 'Recebidos e futuros',
-							}}
-						/>
-						<Select2
-							style={{ width: 200 }}
-							value={selectedPeriod}
-							onSelect={setSelectedPeriod}
-							data={periodList}
-						/>
-						<Select2
-							style={{ width: 200 }}
-							value={selectedQtyPeriod}
-							onSelect={setQtyPeriod}
-							data={qtyPeriodOptions}
-						/>
-					</div>
-				</h4>
-			</div>
+		<DefaultCard title={<Header />}>
 			<div className="card-content bottom">
 				<ReactECharts
 					option={options}
@@ -146,6 +127,6 @@ export default function Evolution(): ReactNode {
 					style={{ height: 409, width: '100%' }}
 				/>
 			</div>
-		</div>
+		</DefaultCard>
 	);
 }

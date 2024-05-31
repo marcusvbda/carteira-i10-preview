@@ -1,24 +1,25 @@
 import './_styles.scss';
-import { seo } from '@/constants/seo';
+import { ReactNode } from 'react';
 import { Metadata } from 'next';
-import Summary from './_summary';
+import { seo } from '@/constants/seo';
+import Details from './_details';
 import Evolution from './_evolution';
 import History from './_history';
-import Details from './_details';
+import Summary from './_summary';
 
 export const metadata: Metadata = seo.earnings;
 
-export default function EarningsPage(): JSX.Element {
-    return (
-        <section className="earnings-page">
-            <div className="page-container">
-                <div className="container-row">
-                    <Summary />
-                    <Evolution />
-                </div>
-                <History />
-                <Details />
-            </div>
-        </section>
-    );
+export default function EarningsPage(): ReactNode {
+	return (
+		<section className="earnings-page">
+			<div className="page-container">
+				<div className="container-row">
+					<Summary />
+					<Evolution />
+				</div>
+				<History />
+				<Details />
+			</div>
+		</section>
+	);
 }
