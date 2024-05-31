@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { NextAuthOptions } from 'next-auth';
+// eslint-disable-next-line import/no-named-as-default
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 const checkToken = async (token: string) => {
