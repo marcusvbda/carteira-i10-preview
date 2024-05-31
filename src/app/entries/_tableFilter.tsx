@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable unused-imports/no-unused-vars */
 'use client';
 import { useState } from 'react';
 import { IconField } from 'primereact/iconfield';
@@ -30,8 +28,8 @@ const ColumnItem = ({ children }: any) => {
 };
 
 const ModalContent = () => {
-	const [dateStart, setDateStart] = useState<Date | null>(null);
-	const [dateEnd, setDateEnd] = useState<Date | null>(null);
+	const [, setDateStart] = useState<Date | null>(null);
+	const [, setDateEnd] = useState<Date | null>(null);
 
 	const handleChangeDate = (start: Date, end: Date) => {
 		setDateStart(start);
@@ -72,7 +70,7 @@ const ModalContent = () => {
 	);
 };
 
-export default function TableFilter(_cx: any) {
+export default function TableFilter() {
 	const [filter, setFilter] = useState('');
 	const [modalVisible, setModalVisible] = useState(false);
 

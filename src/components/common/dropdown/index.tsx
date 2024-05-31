@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable unused-imports/no-unused-vars */
 import './_styles.scss';
 import { ReactNode, useState } from 'react';
 import If from '../if';
@@ -66,7 +64,7 @@ export default function Dropdown({
 	type,
 	className,
 }: IProps) {
-	const [modalVisible, setModalVisible] = useState(false);
+	const [, setModalVisible] = useState(false);
 	const handleAction = (item: any) => {
 		action && action(item);
 		setModalVisible(false);

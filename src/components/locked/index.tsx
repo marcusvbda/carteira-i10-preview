@@ -1,4 +1,3 @@
-/* eslint-disable unused-imports/no-unused-vars */
 'use client';
 import './_styles.scss';
 interface IProps {
