@@ -4,8 +4,8 @@ interface IProps {
 	children: any;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function LockedComponent({ children }: IProps) {
+	console.log(children);
 	const goToPage = (e: any) => {
 		e.stopPropagation();
 		window.location.href = `${process.env.NEXT_PUBLIC_SERVER_URI}/assine8-v4-black`;

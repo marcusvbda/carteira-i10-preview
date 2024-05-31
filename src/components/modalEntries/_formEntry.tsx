@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useContext, useEffect, useMemo, useState } from 'react';
@@ -57,7 +56,7 @@ export default function FormEntry({
 	tickerType,
 	refreshForm,
 }: IProps) {
-	const [_tickerTypeData, setTickerTypeData] = useState([]);
+	const [, setTickerTypeData] = useState([]);
 	const { toast } = useSwal();
 	const { walletId } = useContext(WalletContext);
 	const helpers = useHelpers();
