@@ -1,0 +1,131 @@
+#profitabily {
+	display: grid;
+	gap: var(--Spacing-System-spacing-m, 24px);
+	grid-template-columns: 250px minmax(500px, 1fr);
+	grid-template-rows: repeat(4, auto);
+	grid-template-areas:
+		'profitabily chart'
+		'last12 chart'
+		'last4 chart'
+		'table table';
+
+	.metric-card {
+		.modal-content {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			padding: 18px 16px 26px !important;
+			h4 {
+				color: var(--text-primary);
+				font-family: var(--font-figtree);
+				font-size: 16px;
+				font-style: normal;
+				font-weight: 600;
+				line-height: 16px; /* 100% */
+				margin-bottom: 12px;
+			}
+			small {
+				color: var(--text-secondary);
+				font-family: var(--font-figtree);
+				font-size: 12px;
+				font-style: normal;
+				font-weight: 500;
+				line-height: 16px; /* 133.333% */
+			}
+		}
+		&.box-profitabily {
+			grid-area: profitabily;
+		}
+		&.box-last12 {
+			grid-area: last12;
+		}
+		&.box-last4 {
+			grid-area: last4;
+		}
+	}
+	.box-chart-line {
+		grid-area: chart;
+		.modal-content {
+			padding: 0 !important;
+			.header {
+				display: flex;
+				align-items: center;
+				padding: 16px;
+				border-bottom: 1px solid var(--border-subtle);
+				margin-bottom: 40px;
+				h4 {
+					color: var(--text-primary);
+					font-family: var(--font-figtree);
+					font-size: 20px;
+					font-style: normal;
+					font-weight: 600;
+					line-height: 120%; /* 24px */
+				}
+
+				.actions {
+					margin-left: auto;
+					display: flex;
+					gap: 5px;
+				}
+			}
+		}
+
+		.content {
+			padding: 12px 12px 30px;
+		}
+	}
+
+	.table {
+		grid-area: table;
+		.modal-content {
+			padding: 0 !important;
+			.header {
+				display: flex;
+				align-items: center;
+				padding: 16px;
+				h4 {
+					color: var(--text-primary);
+					font-family: var(--font-figtree);
+					font-size: 20px;
+					font-style: normal;
+					font-weight: 600;
+					line-height: 120%; /* 24px */
+				}
+
+				.actions {
+					margin-left: auto;
+				}
+			}
+			tr {
+				td {
+					font-weight: bolder;
+				}
+				td {
+					&.neutral {
+						font-weight: 500;
+					}
+					&.danger {
+						font-weight: 500;
+						color: var(--link-label-error);
+					}
+
+					&.success {
+						font-weight: 500;
+						color: var(--text-success);
+					}
+				}
+			}
+		}
+	}
+
+	html[screen-format='mobile'] & {
+		grid-template-columns: 1fr;
+		grid-template-rows: repeat(5, auto);
+		grid-template-areas:
+			'profitabily'
+			'last12'
+			'last4'
+			'chart'
+			'table';
+	}
+}
