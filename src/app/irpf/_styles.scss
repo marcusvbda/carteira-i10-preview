@@ -1,0 +1,54 @@
+.iprf-section {
+	display: flex;
+	flex-direction: column;
+
+	.alert-iprf {
+		margin-bottom: var(--Spacing-System-spacing-s, 16px);
+		display: flex;
+		padding: var(--Spacing-System-spacing-xxs, 8px)
+			var(--Spacing-System-spacing-s, 16px);
+		align-items: center;
+		gap: var(--Spacing-System-spacing-xs, 12px);
+		border-radius: var(--Corner-Radius-corner-radius-md, 8px);
+		background: var(--Color-Blue-blue-100, #e8eef7);
+
+		color: var(--text-primary);
+		font-family: var(--font-figtree);
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 24px; /* 171.429% */
+
+		//dark
+		html[data-theme='dark'] & {
+			background-color: var(--Color-Blue-blue-800, #1f2d47);
+		}
+	}
+
+	.irpf-card {
+		h4.card-title {
+			color: var(--text-primary);
+			font-family: var(--font-figtree);
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 600;
+			line-height: 120%; /* 24px */
+			padding: 16px 24px;
+		}
+
+		.modal-content {
+			padding: 0 !important;
+		}
+
+		.subtitle {
+			color: var(--text-primary);
+			font-family: var(--font-figtree);
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 600;
+			line-height: 120%; /* 24px */
+			margin-top: 20px;
+			padding: 16px 24px;
+		}
+	}
+}
