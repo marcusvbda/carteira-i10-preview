@@ -2,9 +2,11 @@
 import { ReactNode, useMemo, useState } from 'react';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
+import Select2 from 'react-select2-wrapper';
 import DefaultCard from '@/components/cards/default';
 import Icon from '@/components/common/icon';
 import RadioTab from '@/components/radioTab/radioTab';
+import 'react-select2-wrapper/css/select2.css';
 
 const CardTitle = ({
 	selectedOption,
@@ -18,6 +20,26 @@ const CardTitle = ({
 				value={selectedOption}
 				onChange={setSelectedOption}
 			/>
+			<div className="actions">
+				<Select2
+					style={{ width: 200 }}
+					value={selectedOption}
+					onSelect={setSelectedOption}
+					data={[]}
+					options={{
+						placeholder: 'Exportar',
+					}}
+				/>
+				<Select2
+					style={{ width: 200 }}
+					value={selectedOption}
+					onSelect={setSelectedOption}
+					data={[]}
+					options={{
+						placeholder: '2024',
+					}}
+				/>
+			</div>
 		</div>
 	);
 };

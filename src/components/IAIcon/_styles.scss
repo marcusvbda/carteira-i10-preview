@@ -1,0 +1,18 @@
+.ia-icon {
+	border-radius: var(--Corner-Radius-corner-radius-sm, 4px);
+	background: #35374b;
+	box-shadow: 0px 8px 12px 0px rgba(44, 58, 83, 0.16);
+	display: flex;
+	gap: 8px;
+	height: 24px;
+	padding: 4px 8px;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	color: var(--text-tertiary);
+	font-family: var(--font-figtree);
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px; /* 114.286% */
+}

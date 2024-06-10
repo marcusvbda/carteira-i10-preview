@@ -36,6 +36,16 @@
 			padding: 16px 24px;
 		}
 
+		.header-title {
+			flex-wrap: wrap;
+			gap: 8px;
+			.actions {
+				margin-left: auto;
+				display: flex;
+				gap: 8px;
+			}
+		}
+
 		.modal-content {
 			padding: 0 !important;
 		}

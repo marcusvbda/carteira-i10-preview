@@ -5,6 +5,7 @@
 	.radio-tab {
 		background-color: var(--surface-secondary);
 		display: flex;
+		flex-wrap: wrap;
 		gap: var(--Spacing-System-spacing-xxxs, 4px);
 		padding: var(--Spacing-System-spacing-xxxs, 4px) 4px;
 		border-radius: var(--Spacing-System-spacing-xs, 12px);

@@ -29,6 +29,7 @@ export default function Icon({
 					'--dark-image': `url(${darkIcon || icon})`,
 					'--width': width,
 					'--height': height || width,
+					minWidth: width,
 					filter: filter || 'none',
 					opacity: opacity || '1',
 				} as CSSProperties
