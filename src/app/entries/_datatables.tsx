@@ -8,23 +8,23 @@ import CollapseDatatable from './_collapseDatatable';
 export default function Datatables() {
 	const { walletId } = useContext(WalletContext);
 	const { loading: variableLoading, data: variableData } = useFetch({
-		route: `api/entries/${walletId}/fetch/1`,
+		route: `/api/entries/${walletId}/fetch/1`,
 	});
 
 	const { loading: cryptoLoading, data: cryptoData } = useFetch({
-		route: `api/entries/${walletId}/fetch/2`,
+		route: `/api/entries/${walletId}/fetch/2`,
 	});
 
 	const { loading: fixedLoading, data: fixedData } = useFetch({
-		route: `api/entries/${walletId}/fetch/3`,
+		route: `/api/entries/${walletId}/fetch/3`,
 	});
 
 	const { loading: treasureLoading, data: treasureData } = useFetch({
-		route: `api/entries/${walletId}/fetch/4`,
+		route: `/api/entries/${walletId}/fetch/4`,
 	});
 
 	const { loading: othersLoading, data: otherData } = useFetch({
-		route: `api/entries/${walletId}/fetch/5`,
+		route: `/api/entries/${walletId}/fetch/5`,
 	});
 
 	return (

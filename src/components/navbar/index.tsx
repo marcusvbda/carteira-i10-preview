@@ -1,5 +1,5 @@
 import './_styles.scss';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 import Link from 'next/link';
 import { seo } from '@/constants/seo';
 import B3Integration from '../b3Integration';
@@ -8,48 +8,61 @@ import ModalEntries from '../modalEntries';
 import Actions from './_actions';
 import MenuItems from './_menuItems';
 import ProfileDropdown from './_profileDropdown';
+import PublicActions from './_publicActions';
+import PublicAvatar from './_publicAvatar';
 import SelectWallet from './_selectWallet';
 
-const Logo = (): ReactNode => {
-	return (
-		<Link href={seo.summary.path} className="logo">
-			<Icon icon="/images/logo.webp" width="100%" height="100%" />
-		</Link>
-	);
-};
+interface IProps {
+	pathname: string;
+}
 
-export const NavBar = (): ReactNode => {
-	// const selectWallet = (item: any) => {
-	//     setWalletId(item.id);
-	// };
+export const NavBar = ({ pathname }: IProps): ReactNode => {
+	const isPublicRoute = useMemo(() => {
+		return /^\/public-wallet(\/(?:earnings|profitability|patrimony|entries))?$/.test(
+			pathname,
+		);
+	}, [pathname]);
+
+	const isFaq = useMemo(() => {
+		return /^\/help(\/(?:\w+))?$/.test(pathname);
+	}, [pathname]);
 
 	return (
-		<nav className="default-navbar">
+		<nav className="default-navbar" id="navbar">
 			<div className="primary-row container">
-				<Logo />
+				<Link
+					href={isPublicRoute ? '/public-wallet' : seo.summary.path}
+					className="logo"
+				>
+					<Icon icon="/images/logo.webp" width="100%" height="100%" />
+				</Link>
 				<div className="divisor" />
-				<SelectWallet />
-				{/* <Dropdown
-                    modalTitle="Outras carteiras"
-                    title={selectedWallet?.name || ''}
-                    options={wallets.filter(
-                        (wallet: any) => wallet.id !== selectedWallet?.id
-                    )}
-                    action={selectWallet}
-                /> */}
-				<Actions />
-				<ProfileDropdown />
-				<div className="btn-plus hide-on-desktop hide-on-tablet">
-					<ModalEntries className="very-small" hideText />
-				</div>
+				{!isPublicRoute && <SelectWallet />}
+				{isPublicRoute && <PublicAvatar />}
+				<Actions isPublicRoute={isPublicRoute} />
+				{!isPublicRoute && <ProfileDropdown />}
+				{isPublicRoute && <PublicActions />}
+				{isPublicRoute && (
+					<div className="btn-plus hide-on-desktop hide-on-tablet">
+						<ModalEntries className="very-small" hideText />
+					</div>
+				)}
 			</div>
-			<div className="secondary-row container">
-				<MenuItems />
-				<div className="create-btns hide-on-mobile hide-on-tablet">
-					<B3Integration />
-					<ModalEntries />
+			{!isFaq && (
+				<div className={`secondary-row container`}>
+					<>
+						<MenuItems isPublicRoute={isPublicRoute} />
+						{!isPublicRoute && (
+							<>
+								<div className="create-btns hide-on-mobile hide-on-tablet">
+									<B3Integration />
+									<ModalEntries />
+								</div>
+							</>
+						)}
+					</>
 				</div>
-			</div>
+			)}
 		</nav>
 	);
 };

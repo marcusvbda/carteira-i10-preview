@@ -2,11 +2,12 @@ import axios from 'axios';
 import { NextAuthOptions } from 'next-auth';
 // eslint-disable-next-line import/no-named-as-default
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { envoriment } from './constants/environment';
 
 const checkToken = async (token: string) => {
 	// try {
 	const encodedToken = encodeURIComponent(token);
-	const checkRoute = `${process.env.NEXT_PUBLIC_SERVER_URI}/api/check-wallet-token/${encodedToken}`;
+	const checkRoute = `${envoriment.apiUrl}/api/check-wallet-token/${encodedToken}`;
 	const response = await axios.get(checkRoute);
 	return response.data;
 	// } catch (error) {

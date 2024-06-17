@@ -16,7 +16,7 @@ export default function AdminLayout({ children }: any): ReactNode {
 
 	return (
 		<>
-			<NavBar />
+			<NavBar pathname={pathname} />
 			{children}
 			<Footer />
 			<ScrollToTop />

@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { seo } from '@/constants/seo';
@@ -28,49 +28,62 @@ const MenuItem = ({ icon, label, route }: MenuItemProps): ReactNode => {
 	);
 };
 
-export default function MenuItems(): ReactNode {
-	const items = [
-		{
-			icon: 'summary',
-			label: 'Resumo',
-			route: seo.summary.path,
-		},
-		{
-			icon: 'earnings',
-			label: 'Proventos',
-			route: seo.earnings.path,
-		},
-		{
-			icon: 'profitability',
-			label: 'Rentabilidade',
-			route: seo.profitability.path,
-		},
-		{
-			icon: 'patrimony',
-			label: 'Patrimônio',
-			route: seo.patrimony.path,
-		},
-		{
-			icon: 'goals',
-			label: 'Metas',
-			route: seo.goals.path,
-		},
-		{
-			icon: 'analysis',
-			label: 'Análise',
-			route: seo.analysis.path,
-		},
-		{
+export default function MenuItems({ isPublicRoute }: any): ReactNode {
+	const items = useMemo(() => {
+		const items = [
+			{
+				icon: 'summary',
+				label: 'Resumo',
+				route: isPublicRoute ? `/public-wallet` : seo.summary.path,
+			},
+			{
+				icon: 'earnings',
+				label: 'Proventos',
+				route: isPublicRoute ? `/public-wallet/earnings` : seo.earnings.path,
+			},
+			{
+				icon: 'profitability',
+				label: 'Rentabilidade',
+				route: isPublicRoute
+					? `/public-wallet/profitability`
+					: seo.profitability.path,
+			},
+			{
+				icon: 'patrimony',
+				label: 'Patrimônio',
+				route: isPublicRoute ? `/public-wallet/patrimony` : seo.patrimony.path,
+			},
+		];
+
+		if (!isPublicRoute) {
+			items.push({
+				icon: 'goals',
+				label: 'Metas',
+				route: seo.goals.path,
+			});
+			items.push({
+				icon: 'analysis',
+				label: 'Análise',
+				route: seo.analysis.path,
+			});
+		}
+
+		items.push({
 			icon: 'releases',
 			label: 'Lançamentos',
-			route: seo.entries.path,
-		},
-		{
-			icon: 'irpf',
-			label: 'IRPF',
-			route: seo.irpf.path,
-		},
-	];
+			route: isPublicRoute ? `/public-wallet/entries` : seo.entries.path,
+		});
+
+		if (!isPublicRoute) {
+			items.push({
+				icon: 'irpf',
+				label: 'IRPF',
+				route: seo.irpf.path,
+			});
+		}
+
+		return items;
+	}, [isPublicRoute]);
 
 	return (
 		<div className="menu-items">

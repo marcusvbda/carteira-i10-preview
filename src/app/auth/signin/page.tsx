@@ -1,11 +1,12 @@
 'use client';
 import { useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
+import { envoriment } from '@/constants/environment';
 
 export default function Signin({ searchParams }: any) {
 	const session = useSession();
 	const { callbackUrl, token } = searchParams;
-	const serverUri = process.env.NEXT_PUBLIC_SERVER_URI;
+	const serverUri = envoriment.apiUrl;
 	const currentUrl = encodeURIComponent(window.location.href);
 
 	useEffect(() => {

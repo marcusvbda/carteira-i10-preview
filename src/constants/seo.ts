@@ -49,7 +49,7 @@ export const seo: ISeo = {
 		...defaultSeo,
 		...{
 			title: `${envoriment.appName} | Ajuda B3`,
-			path: '/help',
+			path: `${envoriment.apiUrl}/suporte`,
 		},
 	},
 	earnings: {

@@ -1,4 +1,5 @@
 'use client';
+import { envoriment } from '@/constants/environment';
 import './_styles.scss';
 interface IProps {
 	children: any;
@@ -8,7 +9,7 @@ export default function LockedComponent({ children }: IProps) {
 	console.log(children);
 	const goToPage = (e: any) => {
 		e.stopPropagation();
-		window.location.href = `${process.env.NEXT_PUBLIC_SERVER_URI}/assine8-v4-black`;
+		window.location.href = `${envoriment.apiUrl}/assine8-v4-black`;
 	};
 	return (
 		<div className="flex">
