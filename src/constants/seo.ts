@@ -42,7 +42,7 @@ export const seo: ISeo = {
 		...defaultSeo,
 		...{
 			title: `${envoriment.appName} | Configuração da carteira`,
-			path: '/wallet-settings/{walletId}',
+			path: '/settings',
 		},
 	},
 	help: {

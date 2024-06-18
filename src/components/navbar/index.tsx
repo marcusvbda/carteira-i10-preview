@@ -18,9 +18,7 @@ interface IProps {
 
 export const NavBar = ({ pathname }: IProps): ReactNode => {
 	const isPublicRoute = useMemo(() => {
-		return /^\/public-wallet(\/(?:earnings|profitability|patrimony|entries))?$/.test(
-			pathname,
-		);
+		return pathname.startsWith('/public-wallet');
 	}, [pathname]);
 
 	const isFaq = useMemo(() => {

@@ -8,36 +8,32 @@ import {
 	useMemo,
 	useState,
 } from 'react';
+import { useParams } from 'next/navigation';
 import { AuthContext } from './authContext';
 
 export const WalletContext = createContext<any>({});
 
 export const WalletProvider = ({ children }: any): ReactNode => {
-	const [visible, setVisible] = useState(false);
+	const params = useParams();
 	const { user } = useContext(AuthContext);
 	const [wallets, setWallets] = useState<any>((user as any)?.wallets || []);
 	const [walletId, setWalletId] = useState<any>(
 		((user as any)?.wallets || [])[0]?.id || '',
 	);
 
-	const selectedWallet = useMemo(() => {
-		return wallets.find((w: any) => w.id === walletId);
-	}, [walletId, wallets]);
-
 	useEffect(() => {
-		setVisible(false);
-		setTimeout(() => {
-			setVisible(true);
-		});
-	}, [walletId]);
+		const pId = params?.walletId || ((user as any)?.wallets || [])[0]?.id;
+		setWalletId(pId);
+	}, [params?.walletId, setWalletId, user]);
 
-	if (!visible) return <></>;
+	const selectedWallet = useMemo(() => {
+		return wallets.find((w: any) => parseInt(w.id) === parseInt(walletId));
+	}, [walletId, wallets]);
 
 	return (
 		<WalletContext.Provider
 			value={{
 				walletId,
-				setWalletId,
 				selectedWallet,
 				wallets,
 				setWallets,

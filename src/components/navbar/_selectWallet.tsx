@@ -47,12 +47,8 @@ const WalletItem = ({ wallet, selected, onClick, closeModal }: any) => {
 	);
 };
 
-const ContentSlot = ({
-	selectedWallet,
-	wallets,
-	setWalletId,
-	closeModal,
-}: any) => {
+const ContentSlot = ({ selectedWallet, wallets, closeModal }: any) => {
+	const router = useRouter();
 	const [visible, setVisible] = useState('public');
 	const [delay, setDelay] = useState(7);
 
@@ -61,7 +57,7 @@ const ContentSlot = ({
 	}, [wallets, selectedWallet]);
 
 	const selectWallet = (item: any) => {
-		setWalletId(item.id);
+		router.push(`/wallet/${item.id}`);
 		closeModal();
 	};
 
@@ -147,7 +143,7 @@ const ContentSlot = ({
 };
 
 export default function SelectWallet(): ReactNode {
-	const { setWalletId, selectedWallet, wallets } = useContext(WalletContext);
+	const { selectedWallet, wallets } = useContext(WalletContext);
 	const [visible, setVisible] = useState(false);
 
 	return (
@@ -180,7 +176,6 @@ export default function SelectWallet(): ReactNode {
 				<ContentSlot
 					closeModal={() => setVisible(false)}
 					selectedWallet={selectedWallet}
-					setWalletId={setWalletId}
 					wallets={wallets}
 				/>
 			}

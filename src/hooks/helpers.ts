@@ -30,5 +30,11 @@ export const useHelpers = () => {
 				? `${value.substring(0, length)}...`
 				: value;
 		},
+		cleanPath(str: string): string {
+			if (str.endsWith('/')) {
+				return str.slice(0, -1);
+			}
+			return str;
+		},
 	};
 };

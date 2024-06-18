@@ -246,7 +246,6 @@ export const GoalItem = (): ReactNode => {
 						value={23}
 						size={'100%'}
 						variant="determinate"
-						disableShrink
 						sx={{
 							color: '#1f2d47',
 						}}

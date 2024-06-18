@@ -1,8 +1,6 @@
 'use client';
 
-import { useContext, useMemo } from 'react';
-import { WalletContext } from '@/context/walletContext';
-import { useFetch } from '@/hooks/fetch';
+import { useMemo } from 'react';
 import CollapseDatatable from './_collapseDatatable';
 
 const QtyTotal = ({
@@ -21,6 +19,7 @@ const QtyTotal = ({
 		cryptoLoading,
 		fundLoading,
 	].some((loading) => loading);
+
 	if (someTableIsLoading) {
 		return <h4 className="actives-total">Ativos</h4>;
 	}
@@ -32,24 +31,12 @@ const QtyTotal = ({
 	);
 };
 
-export default function Datatables() {
-	const { walletId } = useContext(WalletContext);
-	const { loading: tickerLoading, data: tickerData } = useFetch({
-		route: `api/wallet/${walletId}/datatables/Ticker`,
-	});
-
-	const { loading: fiiLoading, data: fiiData } = useFetch({
-		route: `api/wallet/${walletId}/datatables/Fii`,
-	});
-
-	const { loading: cryptoLoading, data: cryptoData } = useFetch({
-		route: `api/wallet/${walletId}/datatables/Crypto`,
-	});
-
-	const { loading: fundLoading, data: fundData } = useFetch({
-		route: `api/wallet/${walletId}/datatables/Fund`,
-	});
-
+export default function Datatables({
+	fundData,
+	cryptoData,
+	tickerData,
+	fiiData,
+}: any) {
 	const totalFund = useMemo(() => {
 		return fundData?.total || 0;
 	}, [fundData]);
@@ -69,10 +56,10 @@ export default function Datatables() {
 	return (
 		<section className="section-actives">
 			<QtyTotal
-				tickerLoading={tickerLoading}
-				fiiLoading={fiiLoading}
-				cryptoLoading={cryptoLoading}
-				fundLoading={fundLoading}
+				tickerLoading={false}
+				fiiLoading={false}
+				cryptoLoading={false}
+				fundLoading={false}
 				totalTicker={totalTicker}
 				totalFiis={totalFiis}
 				totalCrypto={totalCrypto}
@@ -83,7 +70,7 @@ export default function Datatables() {
 				icon="/images/theme/actions.svg"
 				darkIcon="/images/theme/actions-dark.svg"
 				defaultCollapsed
-				loading={tickerLoading}
+				loading={false}
 				rows={tickerData?.data || []}
 				total={totalTicker}
 				tickerType="Ticker"
@@ -92,7 +79,7 @@ export default function Datatables() {
 				title="Fundos imobiliários"
 				icon="/images/theme/fiis.svg"
 				darkIcon="/images/theme/fiis-dark.svg"
-				loading={fiiLoading}
+				loading={false}
 				rows={fiiData?.data || []}
 				total={totalFiis}
 				tickerType="Fii"
@@ -101,7 +88,7 @@ export default function Datatables() {
 				title="Criptomoedas"
 				icon="/images/theme/crypto.svg"
 				darkIcon="/images/theme/crypto-dark.svg"
-				loading={cryptoLoading}
+				loading={false}
 				rows={cryptoData?.data || []}
 				total={totalCrypto}
 				tickerType="Crypto"
@@ -110,7 +97,7 @@ export default function Datatables() {
 				title="Investimentos"
 				icon="/images/theme/investments.svg"
 				darkIcon="/images/theme/investments-dark.svg"
-				loading={fundLoading}
+				loading={false}
 				rows={fundData?.data || []}
 				total={totalFund}
 				tickerType="Fund"

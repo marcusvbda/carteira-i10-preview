@@ -25,6 +25,7 @@ const MenuProfileItem = ({ icon, title, handler }: any) => {
 
 const ContentSlot = ({ user, avatarUrl, setVisble }: any) => {
 	const { walletId } = useContext(WalletContext);
+	const prefix = `/wallet/${walletId}`;
 
 	const router = useRouter();
 	const items = [
@@ -32,62 +33,22 @@ const ContentSlot = ({ user, avatarUrl, setVisble }: any) => {
 			icon: 'wallet',
 			title: 'Minha carteira',
 			handler: () => {
-				router.push('/');
+				router.push(`${prefix}/`);
 				setVisble(false);
 			},
 		},
-		// {
-		//     icon: 'pro',
-		//     title: 'Investidor10 PRO',
-		//     handler: () => {
-		//         router.push('#');
-		//         setVisble(false);
-		//     }
-		// },
-		// {
-		//     icon: 'star',
-		//     title: 'Indique e Ganhe',
-		//     handler: () => {
-		//         router.push('#');
-		//         setVisble(false);
-		//     }
-		// },
-		// {
-		//     icon: 'like',
-		//     title: 'Ativos que sigo',
-		//     handler: () => {
-		//         router.push('#');
-		//         setVisble(false);
-		//     }
-		// },
-		// {
-		//     icon: 'medal',
-		//     title: 'Minhas conquistas',
-		//     handler: () => {
-		//         setVisble(false);
-		//         router.push('#');
-		//     }
-		// },
 		{
 			icon: 'settings',
 			title: 'Configurações',
 			handler: () => {
-				router.push(seo.walletSettings.path.replace('{walletId}', walletId));
+				router.push(`${prefix}${seo.walletSettings.path}`);
 				setVisble(false);
 			},
 		},
-		// {
-		//     icon: 'help',
-		//     title: 'Suporte',
-		//     handler: () => {
-		//         router.push(seo.help.path);
-		//         setVisble(false);
-		//     }
-		// }
 	];
 
 	const clickProfile = useCallback(() => {
-		router.push(seo.profile.path);
+		router.push(`${prefix}${seo.profile.path}`);
 		setVisble(false);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

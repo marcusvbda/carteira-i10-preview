@@ -5,15 +5,10 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { envoriment } from './constants/environment';
 
 const checkToken = async (token: string) => {
-	// try {
 	const encodedToken = encodeURIComponent(token);
 	const checkRoute = `${envoriment.apiUrl}/api/check-wallet-token/${encodedToken}`;
 	const response = await axios.get(checkRoute);
 	return response.data;
-	// } catch (error) {
-	//     // console.error(error);
-	//     return null;
-	// }
 };
 
 export const authOptions: NextAuthOptions = {
@@ -25,10 +20,19 @@ export const authOptions: NextAuthOptions = {
 			},
 			async authorize(credentials: any) {
 				const { token } = credentials;
-				const authData = await checkToken(token);
-				return {
-					...authData,
-				};
+				try {
+					const authData = await checkToken(token);
+					if (!authData) {
+						return { error: 'Authentication failed' };
+					}
+					return {
+						...authData,
+					};
+				} catch (error) {
+					console.log('Error', error);
+				}
+
+				return null;
 			},
 		} as any),
 	],

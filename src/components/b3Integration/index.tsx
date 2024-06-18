@@ -1,10 +1,14 @@
+'use client';
+import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { seo } from '@/constants/seo';
+import { WalletContext } from '@/context/walletContext';
 import Icon from '../common/icon';
 
 export default function B3Integration() {
+	const { walletId } = useContext(WalletContext);
 	const router = useRouter();
-	const { path } = seo.integrationB3;
+	const path = `/wallet/${walletId}${seo.integrationB3.path}`;
 
 	const goToPage = () => router.push(path);
 

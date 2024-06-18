@@ -49,7 +49,7 @@ const Comment = ({ setAnswerVisibility, answerVisibility }: any): ReactNode => {
 };
 
 const CommentItem = (): ReactNode => {
-	const [answerVisibility, setAnswerVisibility] = useState(true);
+	const [answerVisibility, setAnswerVisibility] = useState(false);
 
 	return (
 		<>

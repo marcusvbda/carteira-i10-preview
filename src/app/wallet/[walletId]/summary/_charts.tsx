@@ -55,16 +55,13 @@ const typesOptions: any[] = [
 	},
 ];
 
-export default function Charts(): ReactNode {
+export default function Charts({ donutChartData }: any): ReactNode {
+	const [visible, setVisible] = useState(false);
 	const { formatMoney } = useHelpers();
 	const { walletId } = useContext(WalletContext);
 
 	const [qtyMonths, setQtyMonths] = useState<any>(qtyMonthOptions[1] as any);
 	const [type, setType] = useState<any>(typesOptions[0] as any);
-
-	const { data: donutChartData, loading: donutChartLoading } = useFetch({
-		route: `api/wallet/${walletId}/charts/types`,
-	});
 
 	const {
 		data: barChartData,
@@ -73,13 +70,6 @@ export default function Charts(): ReactNode {
 	} = useFetch({
 		autoDispatch: false,
 	});
-
-	useEffect(() => {
-		fetchBarChart({
-			route: `api/wallet/${walletId}/charts/evolution/${qtyMonths.id}/${type.id}`,
-		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [qtyMonths, type]);
 
 	const barChartInfo = useMemo(() => {
 		const primaryColor = '#2cb875';
@@ -121,6 +111,20 @@ export default function Charts(): ReactNode {
 		return `${item.name} (${item.percent}%)\n ${formatMoney(item.value)}`;
 	};
 
+	useEffect(() => {
+		setVisible(true);
+		// eslint-disable-next-line prettier/prettier
+	}, []);
+
+	useEffect(() => {
+		fetchBarChart({
+			route: `/api/wallet/${walletId}/charts/evolution/${qtyMonths.id}/${type.id}`,
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [qtyMonths, type]);
+
+	if (!visible) return <></>;
+
 	return (
 		<section className="section-charts">
 			<BarChart
@@ -160,7 +164,7 @@ export default function Charts(): ReactNode {
 				</div>
 			</BarChart>
 			<DonutChart
-				loading={donutChartLoading}
+				loading={false}
 				data={donutChartData}
 				customLegend={customLegendDonut}
 			>

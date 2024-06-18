@@ -1,4 +1,6 @@
+import { getServerSession } from 'next-auth';
 import { getToken } from 'next-auth/jwt';
+import { authOptions } from '@/authOptions';
 import { envoriment } from '@/constants/environment';
 
 export const apiCall = async (req: any, url: string, settings = {}) => {
@@ -19,4 +21,31 @@ export const apiCall = async (req: any, url: string, settings = {}) => {
 		status: res?.status,
 		errors: error?.errors || [],
 	};
+};
+
+export const fetchServer = async (
+	url: string,
+	settings = {},
+	apiRoute = false,
+) => {
+	const session = await getServerSession(authOptions);
+	const token = (session?.user as any).jwt || '';
+	// const { user } = cx as any;
+	try {
+		const request = await fetch(
+			apiRoute ? url : `${envoriment.apiUrl}/${url}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+				},
+				...settings,
+			},
+		);
+		if (request.ok) return await request.json();
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
 };

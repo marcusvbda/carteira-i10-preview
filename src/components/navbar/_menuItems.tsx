@@ -1,9 +1,11 @@
 'use client';
 
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useContext, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { seo } from '@/constants/seo';
+import { WalletContext } from '@/context/walletContext';
+import { useHelpers } from '@/hooks/helpers';
 import Icon from '../common/icon';
 
 interface MenuItemProps {
@@ -13,8 +15,9 @@ interface MenuItemProps {
 }
 
 const MenuItem = ({ icon, label, route }: MenuItemProps): ReactNode => {
-	const pathName = usePathname();
-	const isCurrentRoute = pathName === route;
+	const { cleanPath } = useHelpers();
+	const pathName = cleanPath(usePathname());
+	const isCurrentRoute = pathName === cleanPath(route);
 
 	return (
 		<Link href={route} className={`menu-item ${isCurrentRoute && 'active'} `}>
@@ -29,29 +32,29 @@ const MenuItem = ({ icon, label, route }: MenuItemProps): ReactNode => {
 };
 
 export default function MenuItems({ isPublicRoute }: any): ReactNode {
+	const { walletId } = useContext(WalletContext);
+
 	const items = useMemo(() => {
 		const items = [
 			{
 				icon: 'summary',
 				label: 'Resumo',
-				route: isPublicRoute ? `/public-wallet` : seo.summary.path,
+				route: `${isPublicRoute ? `/public-wallet` : '/wallet'}/${walletId}${seo.summary.path}`,
 			},
 			{
 				icon: 'earnings',
 				label: 'Proventos',
-				route: isPublicRoute ? `/public-wallet/earnings` : seo.earnings.path,
+				route: `${isPublicRoute ? `/public-wallet` : '/wallet'}/${walletId}${seo.earnings.path}`,
 			},
 			{
 				icon: 'profitability',
 				label: 'Rentabilidade',
-				route: isPublicRoute
-					? `/public-wallet/profitability`
-					: seo.profitability.path,
+				route: `${isPublicRoute ? `/public-wallet` : '/wallet'}/${walletId}${seo.profitability.path}`,
 			},
 			{
 				icon: 'patrimony',
 				label: 'Patrimônio',
-				route: isPublicRoute ? `/public-wallet/patrimony` : seo.patrimony.path,
+				route: `${isPublicRoute ? `/public-wallet` : '/wallet'}/${walletId}${seo.patrimony.path}`,
 			},
 		];
 
@@ -59,31 +62,31 @@ export default function MenuItems({ isPublicRoute }: any): ReactNode {
 			items.push({
 				icon: 'goals',
 				label: 'Metas',
-				route: seo.goals.path,
+				route: `/wallet/${walletId}${seo.goals.path}`,
 			});
 			items.push({
 				icon: 'analysis',
 				label: 'Análise',
-				route: seo.analysis.path,
+				route: `/wallet/${walletId}${seo.analysis.path}`,
 			});
 		}
 
 		items.push({
 			icon: 'releases',
 			label: 'Lançamentos',
-			route: isPublicRoute ? `/public-wallet/entries` : seo.entries.path,
+			route: `${isPublicRoute ? `/public-wallet` : '/wallet'}/${walletId}${seo.entries.path}`,
 		});
 
 		if (!isPublicRoute) {
 			items.push({
 				icon: 'irpf',
 				label: 'IRPF',
-				route: seo.irpf.path,
+				route: `/wallet/${walletId}${seo.irpf.path}`,
 			});
 		}
 
 		return items;
-	}, [isPublicRoute]);
+	}, [isPublicRoute, walletId]);
 
 	return (
 		<div className="menu-items">
