@@ -113,7 +113,6 @@ export default function Charts({ donutChartData }: any): ReactNode {
 
 	useEffect(() => {
 		setVisible(true);
-		// eslint-disable-next-line prettier/prettier
 	}, []);
 
 	useEffect(() => {
