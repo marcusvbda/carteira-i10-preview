@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
-import { getSummaryData } from '@/app/wallet/[walletId]/page';
+import { getSummaryData } from '@/app/wallet/[walletId]/summary/_methods';
 import SummaryPage from '@/app/wallet/[walletId]/summary/page';
 import { seo } from '@/constants/seo';
 export const metadata: Metadata = seo.summary;
