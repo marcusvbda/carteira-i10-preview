@@ -1,58 +1,36 @@
 'use client';
 
-import { useContext } from 'react';
-import { WalletContext } from '@/context/walletContext';
-import { useFetch } from '@/hooks/fetch';
 import CollapseDatatable from './_collapseDatatable';
 
-export default function Datatables() {
-	const { walletId } = useContext(WalletContext);
-	const { loading: variableLoading, data: variableData } = useFetch({
-		route: `/api/entries/${walletId}/fetch/1`,
-	});
-
-	const { loading: cryptoLoading, data: cryptoData } = useFetch({
-		route: `/api/entries/${walletId}/fetch/2`,
-	});
-
-	const { loading: fixedLoading, data: fixedData } = useFetch({
-		route: `/api/entries/${walletId}/fetch/3`,
-	});
-
-	const { loading: treasureLoading, data: treasureData } = useFetch({
-		route: `/api/entries/${walletId}/fetch/4`,
-	});
-
-	const { loading: othersLoading, data: otherData } = useFetch({
-		route: `/api/entries/${walletId}/fetch/5`,
-	});
+export default function Datatables({ data }: any) {
+	const [variableData, cryptoData, fixedData, treasureData, otherData] = data;
 
 	return (
 		<section className="section-actives">
 			<CollapseDatatable
 				title="Renda variável"
 				defaultCollapsed
-				loading={variableLoading}
+				loading={false}
 				rows={variableData?.data || []}
 			/>
 			<CollapseDatatable
 				title="Criptomoedas"
-				loading={cryptoLoading}
+				loading={false}
 				rows={cryptoData?.data || []}
 			/>
 			<CollapseDatatable
 				title="Renda fixa"
-				loading={fixedLoading}
+				loading={false}
 				rows={fixedData?.data || []}
 			/>
 			<CollapseDatatable
 				title="Tesouro direto"
-				loading={treasureLoading}
+				loading={false}
 				rows={treasureData?.data || []}
 			/>
 			<CollapseDatatable
 				title="Outros"
-				loading={othersLoading}
+				loading={false}
 				rows={otherData?.data || []}
 			/>
 		</section>
