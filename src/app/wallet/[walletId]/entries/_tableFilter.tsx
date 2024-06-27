@@ -78,8 +78,6 @@ export default function TableFilter() {
 		<div className="post-title-btns">
 			<Modal
 				size="40%"
-				tabletSize="70%"
-				mobileSize="90%"
 				title="Filtros"
 				type="side right"
 				setModalVisible={setModalVisible}

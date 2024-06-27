@@ -1,6 +1,6 @@
 'use client';
 import './_styles.scss';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import Icon from '../common/icon';
 import Modal from '../common/modal';
 import FormEntry from './_formEntry';
@@ -9,22 +9,15 @@ interface IProps {
 	className?: string;
 	tickerType?: string;
 	hideText?: boolean;
+	defaultSource?: ReactNode;
 }
 
-const MessageForm = ({ onHideAlert }: any) => {
-	const [visible, setVisible] = useState(false);
+const MessageForm = ({ setShowAlert, defaultVisible }: any) => {
+	const [visible, setVisible] = useState(defaultVisible || false);
 
 	useEffect(() => {
-		setTimeout(() => {
-			setVisible(false);
-		}, 5000);
-	}, []);
-
-	useEffect(() => {
-		if (!visible) {
-			onHideAlert();
-		}
-	}, [visible, onHideAlert]);
+		setShowAlert(visible);
+	}, [visible, setShowAlert]);
 
 	return (
 		<div className="alert-message success">
@@ -68,53 +61,42 @@ export default function ModalEntries({
 	className,
 	tickerType,
 	hideText,
+	defaultSource,
 }: IProps) {
 	const [modalVisible, setModalVisible] = useState(false);
-	const [formVisible, setFormVisible] = useState(true);
-	const [showAlert, setShowAlert] = useState(true);
+	const [showAlert, setShowAlert] = useState(false);
 
 	const closeModal = () => {
 		setModalVisible(false);
-	};
-
-	// useEffect(() => {
-	//     if (!modalVisible) {
-	//         setShowAlert(false);
-	//     }
-	// }, [modalVisible]);
-
-	const refreshForm = () => {
-		setFormVisible(false);
-		setTimeout(() => {
-			setFormVisible(true);
-			setShowAlert(true);
-		});
 	};
 
 	return (
 		<Modal
 			modalVisible={modalVisible}
 			setModalVisible={setModalVisible}
-			size="50%"
-			tabletSize="80%"
-			mobileSize="90%"
+			size="650px"
 			title="Adicionar Ativo"
 			source={
-				<button className={`btn primary ${className || ''}`}>
-					<Icon icon="/images/theme/plus.svg" width="16px" />
-					{hideText ? null : <label>Adicionar Ativo</label>}
-				</button>
+				defaultSource || (
+					<button className={`btn primary ${className || ''}`}>
+						<Icon icon="/images/theme/plus.svg" width="16px" />
+						{hideText ? null : <label>Adicionar Ativo</label>}
+					</button>
+				)
 			}
 			content={
 				<>
-					{showAlert && <MessageForm onHideAlert={() => setShowAlert(false)} />}
-					{formVisible && (
-						<FormEntry
-							closeModal={closeModal}
-							tickerType={tickerType}
-							refreshForm={refreshForm}
+					{showAlert && (
+						<MessageForm
+							setShowAlert={setShowAlert}
+							defaultVisible={showAlert}
 						/>
 					)}
+					<FormEntry
+						closeModal={closeModal}
+						tickerType={tickerType}
+						onSubmitAction={() => setShowAlert(true)}
+					/>
 				</>
 			}
 		/>

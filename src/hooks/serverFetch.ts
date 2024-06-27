@@ -4,7 +4,7 @@ import { envoriment } from '@/constants/environment';
 
 export const userServerFetch = async (url: string) => {
 	const session: any = await getServerSession(authOptions);
-	const res = await fetch(`${envoriment.apiUrl}/${url}`, {
+	const res = await fetch(`${envoriment.apiUrl}/api/wallet-app/${url}`, {
 		headers: {
 			Authorization: `Bearer ${session?.user.jwt}`,
 			'Content-Type': 'application/json',

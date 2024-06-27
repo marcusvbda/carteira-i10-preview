@@ -84,8 +84,6 @@ export default function DateRange({ onChange }: any) {
 			<Modal
 				title="Período"
 				size="650px"
-				tabletSize="70%"
-				mobileSize="90%"
 				modalVisible={visible}
 				setModalVisible={setVisible}
 				source={

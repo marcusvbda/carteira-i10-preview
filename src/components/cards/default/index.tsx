@@ -26,13 +26,9 @@ export default function DefaultCard({
 
 	const styleSizes = useMemo(() => {
 		const size = sizes?.default;
-		const tabletSize = sizes?.tabletSize || size;
-		const mobileSize = sizes?.mobileSize || size;
 		if (size) {
 			return {
 				'--size': size,
-				'--tablet-size': tabletSize,
-				'--mobile-size': mobileSize,
 			};
 		}
 		return {};

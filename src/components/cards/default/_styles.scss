@@ -6,7 +6,7 @@
 	border: 1px solid var(--border-subtle);
 	border-radius: 8px;
 	position: relative;
-	width: var(--size);
+	width: min(95%, var(--size));
 
 	&:has(.header-title) {
 		padding-top: 0 !important;
@@ -30,17 +30,5 @@
 		.btn-close {
 			margin-left: auto;
 		}
-	}
-}
-
-html[screen-format='tablet'] {
-	.default-card {
-		width: var(--tablet-size);
-	}
-}
-
-html[screen-format='mobile'] {
-	.default-card {
-		width: var(--mobile-size);
 	}
 }

@@ -2,11 +2,11 @@
 import { envoriment } from '@/constants/environment';
 import './_styles.scss';
 interface IProps {
-	children: any;
+	content: string;
 }
 
-export default function LockedComponent({ children }: IProps) {
-	console.log(children);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function LockedComponent({ content }: IProps) {
 	const goToPage = (e: any) => {
 		e.stopPropagation();
 		window.location.href = `${envoriment.apiUrl}/assine8-v4-black`;

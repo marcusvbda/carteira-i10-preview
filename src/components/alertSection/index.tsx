@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
 import Icon from '@/components/common/icon';
+import './_styles.scss';
 
 interface IProps {
-	icon: string;
-	title?: string;
+	icon?: string;
+	title?: any;
 	size?: string;
 	titleIcon?: ReactNode;
 	children: ReactNode;
@@ -21,12 +22,14 @@ export default function AlertSection({
 }: IProps): ReactNode {
 	return (
 		<div className={`alert-section ${type ? type : 'default'}`}>
-			<Icon
-				icon={icon}
-				darkIcon={darkIcon ? darkIcon : icon}
-				width={size || '32px'}
-				className="icon"
-			/>
+			{icon && (
+				<Icon
+					icon={icon}
+					darkIcon={darkIcon ? darkIcon : icon}
+					width={size || '32px'}
+					className="icon"
+				/>
+			)}
 			<div className="content">
 				{title ? (
 					<div className="title">

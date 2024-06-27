@@ -2,7 +2,7 @@ import { fetchServer } from '@/app/services/api';
 
 export const getSummaryData = async (walletId: string): Promise<any> => {
 	const getDatatableContent = async (type: string) => {
-		return fetchServer(`api/carteiras/datatable/ativos/${walletId}/${type}`);
+		return fetchServer(`summary/actives/${walletId}/${type}`);
 	};
 
 	const getDatatableData = async () => {
@@ -17,10 +17,10 @@ export const getSummaryData = async (walletId: string): Promise<any> => {
 	};
 
 	const result = await Promise.all([
-		fetchServer(`api/carteiras/banner/${walletId}`),
-		fetchServer(`api/rest/wallets/${walletId}/alert-banner`),
+		fetchServer(`summary/alerts/${walletId}`),
 		getDatatableData(),
-		fetchServer(`api/carteiras/charts/diversificacao/${walletId}/all`),
+		fetchServer(`summary/donutchart/${walletId}`),
+		fetchServer(`summary/barchart/${walletId}/12/all`),
 	]);
 	return result;
 };

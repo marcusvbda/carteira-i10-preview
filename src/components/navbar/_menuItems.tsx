@@ -12,9 +12,15 @@ interface MenuItemProps {
 	icon: string;
 	label: string;
 	route: string;
+	iconSize?: string[];
 }
 
-const MenuItem = ({ icon, label, route }: MenuItemProps): ReactNode => {
+const MenuItem = ({
+	icon,
+	label,
+	route,
+	iconSize,
+}: MenuItemProps): ReactNode => {
 	const { cleanPath } = useHelpers();
 	const pathName = cleanPath(usePathname());
 	const isCurrentRoute = pathName === cleanPath(route);
@@ -23,7 +29,8 @@ const MenuItem = ({ icon, label, route }: MenuItemProps): ReactNode => {
 		<Link href={route} className={`menu-item ${isCurrentRoute && 'active'} `}>
 			<Icon
 				icon={`/images/theme/${icon}.svg`}
-				width="16px"
+				width={iconSize ? iconSize[0] : `16px`}
+				height={iconSize ? iconSize[1] : `16px`}
 				filter="brightness(2)"
 			/>
 			<span className="label">{label}</span>
@@ -35,7 +42,7 @@ export default function MenuItems({ isPublicRoute }: any): ReactNode {
 	const { walletId } = useContext(WalletContext);
 
 	const items = useMemo(() => {
-		const items = [
+		const items: any = [
 			{
 				icon: 'summary',
 				label: 'Resumo',
@@ -80,6 +87,7 @@ export default function MenuItems({ isPublicRoute }: any): ReactNode {
 		if (!isPublicRoute) {
 			items.push({
 				icon: 'irpf',
+				iconSize: ['16px', '10px'],
 				label: 'IRPF',
 				route: `/wallet/${walletId}${seo.irpf.path}`,
 			});
@@ -90,7 +98,7 @@ export default function MenuItems({ isPublicRoute }: any): ReactNode {
 
 	return (
 		<div className="menu-items">
-			{items.map((item) => (
+			{items.map((item: any) => (
 				<MenuItem key={item.label} {...item} />
 			))}
 		</div>

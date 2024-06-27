@@ -19,6 +19,7 @@ import { useSwal } from '@/hooks/swal';
 import Icon from '../common/icon';
 import 'react-select2-wrapper/css/select2.css';
 import If from '../common/if';
+import InputCurrency from '../common/InputCurrency';
 import LazySelect from '../common/lazySelect';
 
 const SwitchTypeEntry = ({ options, value, onChange, style }: any) => {
@@ -48,20 +49,15 @@ const SwitchTypeEntry = ({ options, value, onChange, style }: any) => {
 interface IProps {
 	closeModal: any;
 	tickerType?: string;
-	refreshForm?: any;
+	onSubmitAction?: any;
 }
 
 export default function FormEntry({
 	closeModal,
 	tickerType,
-	refreshForm,
+	onSubmitAction,
 }: IProps) {
-	const [, setTickerTypeData] = useState([]);
-	const { toast } = useSwal();
-	const { walletId } = useContext(WalletContext);
-	const helpers = useHelpers();
-	const [currency, setCurrency] = useState('BRL');
-	const [form, setForm] = useState({
+	const defaultState = {
 		type: 'BUY',
 		tickerType: tickerType || 'Ticker',
 		otherName: '',
@@ -77,13 +73,16 @@ export default function FormEntry({
 		percentage_cdi: 0,
 		rate_type: 'POST',
 		investment_type: 'LCI',
-	});
+	};
 
-	const {
-		data: priceQuotation,
-		loading: loadingQuotation,
-		fetch: fetchQuotation,
-	} = useFetch({
+	const [, setTickerTypeData] = useState([]);
+	const { toast } = useSwal();
+	const { walletId } = useContext(WalletContext);
+	const helpers = useHelpers();
+	const [currency, setCurrency] = useState('BRL');
+	const [form, setForm] = useState(defaultState);
+
+	const { data: priceQuotation, fetch: fetchQuotation } = useFetch({
 		autoDispatch: false,
 	});
 
@@ -111,7 +110,7 @@ export default function FormEntry({
 	useEffect(() => {
 		if (form.tickerType != 'Crypto' && form.ticker && !form.price) {
 			fetchQuotation({
-				route: `api/quotation/${form.tickerType}/${form.ticker}/price?date=${form.date}&type=${form.type}`,
+				route: `/api/quotation/${form.tickerType}/${form.ticker}/price?date=${form.date}&type=${form.type}`,
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,6 +119,7 @@ export default function FormEntry({
 	useEffect(() => {
 		if (priceQuotation) {
 			setForm({ ...form, price: priceQuotation });
+			toast('success', 'Sugestão de cotação recuperada para a data informada');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [priceQuotation]);
@@ -163,7 +163,7 @@ export default function FormEntry({
 
 		postSubmit({
 			method: 'POST',
-			route: `api/entries/${walletId}/store`,
+			route: `/api/entries/store`,
 			params: {
 				...formFields,
 				ticker: form.ticker,
@@ -180,7 +180,8 @@ export default function FormEntry({
 	useEffect(() => {
 		if (!submitResult) return;
 		if (submitResult?.response) {
-			refreshForm && refreshForm();
+			setForm({ ...defaultState });
+			return onSubmitAction && onSubmitAction();
 		}
 		if (submitResult?.status === 422) {
 			const errors = submitResult?.errors || {};
@@ -222,6 +223,7 @@ export default function FormEntry({
 						}))}
 						options={{
 							placeholder: 'Selecionar',
+							minimumResultsForSearch: -1,
 						}}
 					/>
 				</div>
@@ -253,7 +255,7 @@ export default function FormEntry({
 								setOptionsData={setTickerTypeData}
 								value={form.ticker}
 								onSelect={(value: any) => setForm({ ...form, ticker: value })}
-								url={`api/options/${form.tickerType}`}
+								url={`/api/search/${form.tickerType}`}
 							/>
 						</>
 					</If>
@@ -389,13 +391,9 @@ export default function FormEntry({
 						{form.tickerType === 'Fund' ? 'da cota' : ''} em{' '}
 						{selectedCurrency?.symbol}
 					</label>
-					<InputNumber
+					<InputCurrency
 						value={form.price}
-						onValueChange={(e) => setForm({ ...form, price: e.value as any })}
-						mode="currency"
-						currency={selectedCurrency?.value}
-						locale={selectedCurrency?.language}
-						disabled={loadingQuotation}
+						onChange={(e) => setForm({ ...form, price: e })}
 					/>
 				</div>
 				<If condition={form.tickerType !== 'FixedIncome'}>
@@ -404,18 +402,9 @@ export default function FormEntry({
 							Outros custos
 							<small>(Opcional)</small>
 						</label>
-						<InputNumber
-							required
+						<InputCurrency
 							value={form.cost}
-							mode="currency"
-							currency={selectedCurrency?.value}
-							locale={selectedCurrency?.language}
-							onChange={(e) =>
-								setForm({
-									...form,
-									cost: e.value as any,
-								})
-							}
+							onChange={(e) => setForm({ ...form, cost: e })}
 						/>
 					</div>
 				</If>

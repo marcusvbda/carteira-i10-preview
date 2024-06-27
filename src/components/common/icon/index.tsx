@@ -9,6 +9,7 @@ interface IProps {
 	height?: string;
 	filter?: string;
 	opacity?: string;
+	styles?: CSSProperties;
 }
 
 export default function Icon({
@@ -19,6 +20,7 @@ export default function Icon({
 	filter,
 	opacity,
 	darkIcon,
+	styles,
 }: IProps) {
 	return (
 		<span
@@ -32,6 +34,7 @@ export default function Icon({
 					minWidth: width,
 					filter: filter || 'none',
 					opacity: opacity || '1',
+					...styles,
 				} as CSSProperties
 			}
 		/>

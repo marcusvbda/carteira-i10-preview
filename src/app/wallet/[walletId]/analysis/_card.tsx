@@ -1,11 +1,11 @@
 'use client';
 import { ReactNode, useState } from 'react';
+import AlertSection from '@/components/alertSection';
 import DefaultCard from '@/components/cards/default';
 import AspectRatio from '@/components/common/aspectRatio';
 import Collapse from '@/components/common/collapse';
 import Icon from '@/components/common/icon';
 import Tooltip from '@/components/common/tooltip';
-import AlertSection from './_alertSection';
 interface IProps {
 	title: string;
 	content: string;

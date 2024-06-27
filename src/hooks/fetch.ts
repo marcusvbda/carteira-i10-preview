@@ -10,8 +10,8 @@ export const useFetch = (p: any) => {
 	const autoDispatch =
 		p?.autoDispatch === undefined || p?.autoDispatch === true;
 
-	const [data, setData] = useState<any>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [data, setData] = useState<any>(p?.defaultData || null);
+	const [loading, setLoading] = useState<boolean>(p?.defaultLoading || true);
 	const api = axios.create();
 
 	api.interceptors.request.use((config) => {

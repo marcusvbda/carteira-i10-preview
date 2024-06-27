@@ -1,5 +1,5 @@
 'use client';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import DefaultCard from '@/components/cards/default';
@@ -57,6 +57,7 @@ const DatatableContent = ({
 					<Column
 						key={index}
 						header={row.title}
+						field={row.field}
 						sortable={row.sortable}
 						body={(x) => (row.body ? row.body(x) : x[row.field])}
 						style={{ ...row?.style }}
@@ -81,28 +82,21 @@ export function Datatable({
 	columns,
 	pagination,
 }: IProps): ReactNode {
-	const [visible, setVisible] = useState(defaultCollapsed ?? false);
-
-	const onCollapseHandler = (value: boolean): void => {
-		setVisible(value);
-	};
-
 	return (
 		<DefaultCard className="datatable-card" padding="0">
 			<Collapse
-				onChange={onCollapseHandler as any}
 				source={
 					<Title
 						title={title}
 						icon={icon}
 						darkIcon={darkIcon}
-						postTitleSlot={visible ? actions : summary}
+						postTitleSlot={summary}
 					/>
 				}
 				content={
 					<DatatableContent
 						pagination={pagination}
-						postDatatableSlot={summary}
+						postDatatableSlot={actions}
 						rows={rows}
 						columns={columns}
 					/>

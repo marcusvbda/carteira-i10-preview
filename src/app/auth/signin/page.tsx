@@ -17,11 +17,11 @@ export default function Signin({ searchParams }: any) {
 				return;
 			}
 			if (token) {
-				await signIn('credentials', {
+				return await signIn('credentials', {
 					token,
 					callbackUrl: redirectTo,
+					redirect: true,
 				});
-				return;
 			}
 			window.location.href = `${serverUri}/get-wallet-token?callbackUrl=${currentUrl}`;
 		})();

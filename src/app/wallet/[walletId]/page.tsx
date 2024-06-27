@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
+import { fetchServer } from '@/app/services/api';
 import { seo } from '@/constants/seo';
 import { getSummaryData } from './summary/_methods';
+import EmptyState from './summary/empty-state/page';
 import SummaryPage from './summary/page';
 
 export const metadata: Metadata = seo.default;
@@ -15,7 +17,13 @@ export default async function WalletPage({
 }: IProps): Promise<ReactNode> {
 	const { walletId } = params;
 
-	const [metricsData, alertsData, datatableData, donutChartData] =
+	const metricsData = await fetchServer(`summary/metrics/${walletId}`);
+
+	if (Number(metricsData?.applied || 0) === 0) {
+		return <EmptyState walletId={walletId} />;
+	}
+
+	const [alertsData, datatableData, donutChartData, defaultBarChartData] =
 		await getSummaryData(walletId);
 
 	return (
@@ -24,6 +32,7 @@ export default async function WalletPage({
 			alertsData={alertsData}
 			datatableData={datatableData}
 			donutChartData={donutChartData}
+			defaultBarChartData={defaultBarChartData}
 		/>
 	);
 }

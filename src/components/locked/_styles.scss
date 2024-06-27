@@ -1,34 +1,32 @@
 .locked-component {
-    position: relative;
-    cursor: pointer;
-    &::before {
-        background-color: #72717194;
-        border-radius: 4px;
-        height: 14px;
-        left: -5px;
-        right: -5px;
-        top: calc(50% - 7px);
-        display: block;
-        content: '';
-        position: absolute;
-        backdrop-filter: blur(4px);
-        filter: blur(2px);
-        z-index: 0;
-    }
+	position: relative;
+	cursor: pointer;
+	&::before {
+		background-color: #72717194;
+		border-radius: 4px;
+		height: 14px;
+		left: -5px;
+		right: -5px;
+		top: calc(50% - 7px);
+		display: block;
+		content: '';
+		position: absolute;
+		backdrop-filter: blur(4px);
+		filter: blur(2px);
+	}
 
-    .content {
-        display: flex;
-        align-items: center;
-        border-radius: 4px;
-        background: linear-gradient(92deg, #2a2f3a 1.68%, #7482a0 111.21%);
-        gap: 8px;
-        color: white;
+	.content {
+		display: flex;
+		align-items: center;
+		border-radius: 4px;
+		background: linear-gradient(92deg, #2a2f3a 1.68%, #7482a0 111.21%);
+		gap: 8px;
+		color: white;
 
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        padding: 4px 8px;
-        z-index: 1;
-        position: relative;
-    }
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 500;
+		padding: 4px 8px;
+		position: relative;
+	}
 }

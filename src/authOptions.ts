@@ -6,7 +6,7 @@ import { envoriment } from './constants/environment';
 
 const checkToken = async (token: string) => {
 	const encodedToken = encodeURIComponent(token);
-	const checkRoute = `${envoriment.apiUrl}/api/check-wallet-token/${encodedToken}`;
+	const checkRoute = `${envoriment.apiUrl}/api/wallet-app/check-token/${encodedToken}`;
 	const response = await axios.get(checkRoute);
 	return response.data;
 };

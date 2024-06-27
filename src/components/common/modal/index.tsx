@@ -20,8 +20,6 @@ interface IProps {
 	hideHeader?: boolean;
 	title?: string;
 	size?: string;
-	tabletSize?: string;
-	mobileSize?: string;
 	type?: string;
 	setModalVisible?: any;
 	header?: ReactNode;
@@ -35,8 +33,6 @@ export default function Modal({
 	content,
 	closeOnClick,
 	size,
-	tabletSize,
-	mobileSize,
 	hideHeader,
 	type,
 	modalVisible,
@@ -143,12 +139,10 @@ export default function Modal({
 						padding="24px"
 						sizes={{
 							default: size,
-							tabletSize: tabletSize,
-							mobileSize: mobileSize,
 						}}
 						style={isDropdown ? dropDownStyle : {}}
 						onClickHandle={(evt: any) => evt.stopPropagation()}
-						footer={footer && <div className="modal-footer ">{footer}</div>}
+						footer={footer && <div className="modal-footer">{footer}</div>}
 						title={<HeaderContent />}
 					>
 						{showContent && content}

@@ -52,7 +52,7 @@ export const NavBar = ({ pathname }: IProps): ReactNode => {
 						<MenuItems isPublicRoute={isPublicRoute} />
 						{!isPublicRoute && (
 							<>
-								<div className="create-btns hide-on-mobile hide-on-tablet">
+								<div className="create-btns">
 									<B3Integration />
 									<ModalEntries />
 								</div>

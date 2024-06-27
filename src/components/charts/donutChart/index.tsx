@@ -5,6 +5,7 @@ import DefaultCard from '@/components/cards/default';
 import If from '@/components/common/if';
 import Skeleton from '@/components/common/skeleton';
 import { ThemeContext } from '@/context/themeContext';
+import { useHelpers } from '@/hooks/helpers';
 
 interface IProps {
 	children?: ReactNode;
@@ -12,7 +13,6 @@ interface IProps {
 	data?: any[];
 	loading: boolean;
 	noCard?: boolean;
-	customLegend?: any;
 }
 
 const Content = ({ loading, children, sizes, options, theme }: any) => {
@@ -37,22 +37,27 @@ export default function DonutChart({
 	size,
 	loading,
 	noCard,
-	customLegend,
 }: IProps): ReactNode {
 	const { theme } = useContext(ThemeContext);
 	const sizes = useMemo(() => [size || '299px'], [size]);
+	const { formatMoney } = useHelpers();
 
 	const options = {
 		backgroundColor: 'transparent',
 		tooltip: {
 			trigger: 'item',
 			formatter: (params: any) => {
-				const item = data?.find((x: any) => x.name === params.name);
-				if (customLegend) return customLegend(item);
-				if (item && item.percent) {
-					return item && `${params.name}: ${item.percent}%`;
+				if (params.percent) {
+					return `
+					<div class="chartdonut-tooltip">
+						<div class="color" style="background-color: ${params.color}"></div>
+						<div class="label">
+							<div class="name">${params.data.name} - ${params.percent}%</div>
+							<div class="value">${formatMoney(params.data.value)}</div>
+						</div>
+					</div>`;
 				}
-				return item && `${params.name}: ${item.value}`;
+				return `${params.data.name}: ${params.data.value}`;
 			},
 		},
 		legend: {
@@ -61,18 +66,18 @@ export default function DonutChart({
 			top: 'center',
 			formatter: (name: any) => {
 				const item = data?.find((x: any) => x.name === name);
-				if (customLegend) return customLegend(item);
-				if (item && item.percent) {
-					return item && `${name}: ${item.percent}%`;
+				if (item) {
+					return item.percentage
+						? `${item.name} - ${item.percent}%`
+						: `${item.name} - ${formatMoney(item.value)}`;
 				}
-				return item && `${name}: ${item.value}`;
 			},
 		},
 		series: [
 			{
 				type: 'pie',
 				radius: ['40%', '70%'],
-				center: ['30%', '50%'],
+				center: ['25%', '50%'],
 				label: {
 					show: false,
 					position: 'center',

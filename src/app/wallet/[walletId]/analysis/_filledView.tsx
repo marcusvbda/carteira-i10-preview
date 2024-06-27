@@ -1,8 +1,8 @@
 'use client';
 import { ReactNode, useMemo } from 'react';
+import AlertSection from '@/components/alertSection';
 import Icon from '@/components/common/icon';
 import IAIcon from '@/components/IAIcon';
-import AlertSection from './_alertSection';
 import Card from './_card';
 
 export default function FilledView(): ReactNode {

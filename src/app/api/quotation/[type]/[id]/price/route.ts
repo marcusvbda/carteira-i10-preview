@@ -1,16 +1,17 @@
 import { apiCall } from '@/app/services/api';
 
 export async function GET(req: any, { params }: any) {
-	const date = new URL(req.url).searchParams.get('date');
-	const type = new URL(req.url).searchParams.get('type');
-	const result = await apiCall(req, `api/minhas-carteiras/quotation`, {
-		method: 'POST',
-		body: JSON.stringify({
-			ticker_type: params.type,
-			ticker: params.id,
-			date,
-			type,
-		}),
-	});
+	const urlRaw = new URL(req.url);
+	const date = urlRaw.searchParams.get('date');
+	const type = urlRaw.searchParams.get('type');
+	const payload = {
+		ticker_type: params.type,
+		ticker: params.id,
+		date,
+		type,
+	};
+	const urlParams = new URLSearchParams(payload as any).toString();
+	const url = `quotation?${urlParams}`;
+	const result = await apiCall(req, url);
 	return Response.json(result);
 }

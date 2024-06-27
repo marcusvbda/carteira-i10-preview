@@ -12,6 +12,7 @@ interface IProps {
 	alertsData: any[];
 	datatableData: any;
 	donutChartData: any[];
+	defaultBarChartData: any[];
 }
 
 export default function SummaryPage({
@@ -19,6 +20,7 @@ export default function SummaryPage({
 	alertsData,
 	datatableData,
 	donutChartData,
+	defaultBarChartData,
 }: IProps): ReactNode {
 	return (
 		<div
@@ -26,12 +28,15 @@ export default function SummaryPage({
 			style={{ '--bg-color': 'var(--surface-secondary)' } as CSSProperties}
 		>
 			<Metrics data={metricsData} alerts={alertsData} />
-			<Charts donutChartData={donutChartData} />
+			<Charts
+				donutChartData={donutChartData}
+				defaultBarChartData={defaultBarChartData}
+			/>
 			<Datatables
-				tickerLoading={datatableData.tickerLoading}
-				fiiLoading={datatableData.fiiLoading}
-				cryptoLoading={datatableData.cryptoLoading}
-				fundLoading={datatableData.fundLoading}
+				tickerData={datatableData.tickerData}
+				fiiData={datatableData.fiiData}
+				cryptoData={datatableData.cryptoData}
+				fundData={datatableData.fundData}
 			/>
 		</div>
 	);

@@ -6,6 +6,7 @@ import Skeleton from '@/components/common/skeleton';
 import './_styles.scss';
 
 import { ThemeContext } from '@/context/themeContext';
+import { useHelpers } from '@/hooks/helpers';
 
 interface IProps {
 	children?: ReactNode;
@@ -26,6 +27,7 @@ export default function BarChart({
 	loading,
 	dates,
 }: IProps): ReactNode {
+	const { formatMoney } = useHelpers();
 	const { theme } = useContext(ThemeContext);
 	const sizes = useMemo(() => {
 		const w = width || '100%';
@@ -38,16 +40,21 @@ export default function BarChart({
 		backgroundColor: 'transparent',
 		tooltip: {
 			trigger: 'axis',
-			axisPointer: {
-				type: 'cross',
-				label: {
-					backgroundColor: '#ccc',
-					borderColor: '#aaa',
-					borderWidth: 1,
-					shadowBlur: 0,
-					shadowOffsetX: 0,
-					shadowOffsetY: 0,
-				},
+			formatter: (params: any) => {
+				return `
+				<div class='chartbar-tooltip'>
+					<div class="date">${params[0].name}</div>
+					${params
+						.map((param: any) => {
+							return `
+							<div class="label">
+								<div class="color" style="background-color: ${param.color}"></div>
+								<div class="name">${param.seriesName}</div>
+							</div>
+							<div class="value">${formatMoney(param.value)}</div>`;
+						})
+						.join('')}
+				</div>`;
 			},
 		},
 		xAxis: {

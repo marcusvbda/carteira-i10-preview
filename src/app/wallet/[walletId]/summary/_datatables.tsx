@@ -74,6 +74,7 @@ export default function Datatables({
 				rows={tickerData?.data || []}
 				total={totalTicker}
 				tickerType="Ticker"
+				weighted={tickerData.weighted || 0}
 			/>
 			<CollapseDatatable
 				title="Fundos imobiliários"
@@ -83,6 +84,7 @@ export default function Datatables({
 				rows={fiiData?.data || []}
 				total={totalFiis}
 				tickerType="Fii"
+				weighted={fiiData.weighted || 0}
 			/>
 			<CollapseDatatable
 				title="Criptomoedas"
@@ -92,6 +94,7 @@ export default function Datatables({
 				rows={cryptoData?.data || []}
 				total={totalCrypto}
 				tickerType="Crypto"
+				weighted={cryptoData.weighted || 0}
 			/>
 			<CollapseDatatable
 				title="Investimentos"
@@ -101,6 +104,7 @@ export default function Datatables({
 				rows={fundData?.data || []}
 				total={totalFund}
 				tickerType="Fund"
+				weighted={fundData.weighted || 0}
 			/>
 		</section>
 	);

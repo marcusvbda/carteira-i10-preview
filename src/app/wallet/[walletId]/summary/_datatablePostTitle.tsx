@@ -8,7 +8,6 @@ import If from '@/components/common/if';
 import Modal from '@/components/common/modal';
 import ModalEntries from '@/components/modalEntries';
 import { seo } from '@/constants/seo';
-import { useHelpers } from '@/hooks/helpers';
 
 interface IProps {
 	rows: any[];
@@ -59,6 +58,7 @@ const EditColumns = ({ columns, setColumns, defaultColumns }: any) => {
 
 	const [columnsGrouped, setColumnsGrouped] = useState(
 		(columns || []).reduce((acc: any, column: any) => {
+			if (!column.group) return acc;
 			if (!acc[column.group]) {
 				acc[column.group] = [];
 			}
@@ -110,9 +110,7 @@ const EditColumns = ({ columns, setColumns, defaultColumns }: any) => {
 
 	return (
 		<Modal
-			size="50%"
-			tabletSize="80%"
-			mobileSize="90%"
+			size="548px"
 			title="Editar colunas"
 			type="side right"
 			setModalVisible={setModalVisible}
@@ -164,7 +162,6 @@ export default function DatatablePostTitle({
 	tickerType,
 	defaultColumns,
 }: IProps): ReactNode {
-	const { formatMoney } = useHelpers();
 	const router = useRouter();
 	const goToEntries = (e: any) => {
 		e.stopPropagation();
@@ -182,10 +179,6 @@ export default function DatatablePostTitle({
 		return value;
 	}, [rows]);
 
-	const customLegendDonut = (item: any) => {
-		return `${item.name}: ${formatMoney(item.value)}`;
-	};
-
 	return (
 		<>
 			<button onClick={goToEntries} className="btn small no-border transparent">
@@ -202,13 +195,7 @@ export default function DatatablePostTitle({
 					</button>
 				}
 				content={
-					<DonutChart
-						customLegend={customLegendDonut}
-						loading={false}
-						size="299px"
-						data={charData}
-						noCard
-					/>
+					<DonutChart loading={false} size="299px" data={charData} noCard />
 				}
 			/>
 			<EditColumns

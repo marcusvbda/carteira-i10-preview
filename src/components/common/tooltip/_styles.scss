@@ -9,6 +9,7 @@
 	}
 
 	.tooltip-content {
+		z-index: 1;
 		top: 24px;
 		display: none;
 		transition: display 0.5s;

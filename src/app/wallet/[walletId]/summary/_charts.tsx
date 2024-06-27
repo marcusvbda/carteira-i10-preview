@@ -7,7 +7,6 @@ import './_styles.scss';
 import Icon from '@/components/common/icon';
 import { WalletContext } from '@/context/walletContext';
 import { useFetch } from '@/hooks/fetch';
-import { useHelpers } from '@/hooks/helpers';
 
 const qtyMonthOptions: any[] = [
 	{
@@ -55,9 +54,11 @@ const typesOptions: any[] = [
 	},
 ];
 
-export default function Charts({ donutChartData }: any): ReactNode {
+export default function Charts({
+	donutChartData,
+	defaultBarChartData,
+}: any): ReactNode {
 	const [visible, setVisible] = useState(false);
-	const { formatMoney } = useHelpers();
 	const { walletId } = useContext(WalletContext);
 
 	const [qtyMonths, setQtyMonths] = useState<any>(qtyMonthOptions[1] as any);
@@ -69,6 +70,8 @@ export default function Charts({ donutChartData }: any): ReactNode {
 		fetch: fetchBarChart,
 	} = useFetch({
 		autoDispatch: false,
+		defaultData: defaultBarChartData,
+		defaultLoading: false,
 	});
 
 	const barChartInfo = useMemo(() => {
@@ -107,18 +110,13 @@ export default function Charts({ donutChartData }: any): ReactNode {
 		};
 	}, [barChartData]);
 
-	const customLegendDonut = (item: any) => {
-		return `${item.name} (${item.percent}%)\n ${formatMoney(item.value)}`;
-	};
-
 	useEffect(() => {
+		if (visible) {
+			fetchBarChart({
+				route: `/api/summary/barchart/${walletId}/${qtyMonths.id}/${type.id}`,
+			});
+		}
 		setVisible(true);
-	}, []);
-
-	useEffect(() => {
-		fetchBarChart({
-			route: `/api/wallet/${walletId}/charts/evolution/${qtyMonths.id}/${type.id}`,
-		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [qtyMonths, type]);
 
@@ -145,12 +143,26 @@ export default function Charts({ donutChartData }: any): ReactNode {
 									{item.name}
 								</div>
 							)}
+							dropdownIcon={() => (
+								<Icon
+									icon="/images/theme/dropdown-icon.svg"
+									width="10.33px"
+									height="6.99px"
+								/>
+							)}
 						/>
 						<Dropdown
 							value={type}
 							onChange={(e) => setType(e.value)}
 							options={typesOptions}
 							optionLabel="name"
+							dropdownIcon={() => (
+								<Icon
+									icon="/images/theme/dropdown-icon.svg"
+									width="10.33px"
+									height="6.99px"
+								/>
+							)}
 							valueTemplate={(item) => (
 								<div className="filter-date">
 									<div className="default-dropdown--btn-money" />
@@ -162,11 +174,7 @@ export default function Charts({ donutChartData }: any): ReactNode {
 					</div>
 				</div>
 			</BarChart>
-			<DonutChart
-				loading={false}
-				data={donutChartData}
-				customLegend={customLegendDonut}
-			>
+			<DonutChart loading={false} data={donutChartData}>
 				<div className="chart-header">
 					<h4 className="chart-header__title">Ativos na Carteira</h4>
 				</div>

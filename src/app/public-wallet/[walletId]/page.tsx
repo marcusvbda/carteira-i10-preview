@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
+import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { fetchServer } from '@/app/services/api';
 import { getSummaryData } from '@/app/wallet/[walletId]/summary/_methods';
 import SummaryPage from '@/app/wallet/[walletId]/summary/page';
 import { seo } from '@/constants/seo';
@@ -14,7 +16,13 @@ export default async function WalletPage({
 }: IProps): Promise<ReactNode> {
 	const { walletId } = params;
 
-	const [metricsData, alertsData, datatableData, donutChartData] =
+	const metricsData = await fetchServer(`summary/metrics/${walletId}`);
+
+	if (Number(metricsData?.applied || 0) === 0) {
+		return notFound();
+	}
+
+	const [alertsData, datatableData, donutChartData, defaultBarChartData] =
 		await getSummaryData(walletId);
 
 	return (
@@ -23,6 +31,7 @@ export default async function WalletPage({
 			alertsData={alertsData}
 			datatableData={datatableData}
 			donutChartData={donutChartData}
+			defaultBarChartData={defaultBarChartData}
 		/>
 	);
 }

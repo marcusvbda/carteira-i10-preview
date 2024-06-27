@@ -151,8 +151,6 @@ export default function SelectWallet(): ReactNode {
 			size="600px"
 			modalVisible={visible}
 			setModalVisible={setVisible}
-			tabletSize="50%"
-			mobileSize="90%"
 			type="wallet-dropdown-modal"
 			source={
 				<div className="wallet-dropdown">

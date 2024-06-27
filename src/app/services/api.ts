@@ -6,7 +6,8 @@ import { envoriment } from '@/constants/environment';
 export const apiCall = async (req: any, url: string, settings = {}) => {
 	const cx = await getToken({ req });
 	const { user } = cx as any;
-	const res = await fetch(`${envoriment.apiUrl}/${url}`, {
+	console.log(`${envoriment.apiUrl}/api/wallet-app/${url}`);
+	const res = await fetch(`${envoriment.apiUrl}/api/wallet-app/${url}`, {
 		headers: {
 			Authorization: `Bearer ${user.jwt}`,
 			'Content-Type': 'application/json',
@@ -33,7 +34,7 @@ export const fetchServer = async (
 	// const { user } = cx as any;
 	try {
 		const request = await fetch(
-			apiRoute ? url : `${envoriment.apiUrl}/${url}`,
+			apiRoute ? url : `${envoriment.apiUrl}/api/wallet-app/${url}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
