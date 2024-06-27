@@ -6,7 +6,7 @@ interface IProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function LockedComponent({ content }: IProps) {
+export default function LockedComponent({  }: IProps) {
 	const goToPage = (e: any) => {
 		e.stopPropagation();
 		window.location.href = `${envoriment.apiUrl}/assine8-v4-black`;
