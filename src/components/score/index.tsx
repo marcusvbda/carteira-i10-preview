@@ -17,7 +17,10 @@ const FormScore = ({ row, type, setModalVisible, onSubmit }: any) => {
 	const [score, setScore] = useState(String(parseInt(row.raw_rating)));
 
 	const types: any = {
-		ticker: 'Açoes',
+		ticker: 'Ações',
+		fii: 'FIIs',
+		fund: 'Investimentos',
+		crypto: 'Criptomoedas',
 	};
 
 	const Percentage = () => {

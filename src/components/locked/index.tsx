@@ -5,7 +5,7 @@ interface IProps {
 	content: string;
 }
 
-export default function LockedComponent({  }: IProps) {
+export default function LockedComponent({}: IProps) {
 	const goToPage = (e: any) => {
 		e.stopPropagation();
 		window.location.href = `${envoriment.apiUrl}/assine8-v4-black`;

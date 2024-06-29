@@ -181,6 +181,7 @@ export default function CollapseDatatable({
 		},
 		{
 			field: 'bazin',
+			name: 'Preço justo ( Bazin )',
 			visible: checkIsVisible('bazin'),
 			title: (): ReactNode => {
 				return (
@@ -208,6 +209,7 @@ export default function CollapseDatatable({
 		},
 		{
 			field: 'score',
+			name: 'Score',
 			title: (): ReactNode => {
 				return (
 					<div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>

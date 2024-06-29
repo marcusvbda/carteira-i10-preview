@@ -5,6 +5,16 @@ section.section-metrics {
 
 	&.trends {
 		overflow-x: auto;
+		padding-bottom: 4px;
+		&::-webkit-scrollbar {
+			height: 6px; /* Largura da barra de rolagem */
+			background: transparent; /* Fundo transparente */
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: rgba(0, 0, 0, 0.1); /* Polegar quase invisível */
+			border-radius: 30px; /* Deixa o polegar arredondado */
+		}
 	}
 }
 

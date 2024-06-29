@@ -30,7 +30,7 @@ const ColumnSwitch = ({ column, onClick }: any) => {
 			}`}
 			onClick={handleClick}
 		>
-			{column.title}
+			{typeof column.title === 'string' ? column.title : column.name}
 			<If condition={column.visible}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

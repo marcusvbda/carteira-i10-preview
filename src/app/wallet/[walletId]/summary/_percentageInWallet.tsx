@@ -1,12 +1,29 @@
 'use client';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
+import Select2 from 'react-select2-wrapper';
 import Icon from '@/components/common/icon';
 import Modal from '@/components/common/modal';
 import { useSwal } from '@/hooks/swal';
-
+import 'react-select2-wrapper/css/select2.css';
 const NewTypes = ({ types, setTypes }: any): ReactNode => {
 	const [visible, setVisible] = useState(false);
 	const { toast } = useSwal();
+	const options = useMemo(() => {
+		setVisible(false);
+		const allOptions = [
+			{ id: 'BDRs', text: 'BDRs' },
+			{ id: 'Criptomoedas', text: 'Criptomoedas' },
+			{ id: 'ETFs Internacionais', text: 'ETFs Internacionais' },
+			{ id: 'Fundos', text: 'Fundos' },
+			{ id: 'Rendas extras', text: 'Rendas extras' },
+			{ id: 'Stocks', text: 'Stocks' },
+			{ id: 'Outros', text: 'Outros' },
+		];
+
+		return allOptions.filter(
+			(item: any) => !Object.keys(types).includes(item.id),
+		);
+	}, [types]);
 
 	const [newType, setNewType] = useState('');
 	const submit = () => {
@@ -21,16 +38,21 @@ const NewTypes = ({ types, setTypes }: any): ReactNode => {
 		}
 	};
 
+	if (!options.length) return <></>;
+
 	return (
 		<div className="new-type">
 			{visible && (
 				<div className="input">
-					<input
-						onBlur={() => [setNewType(''), setVisible(false)]}
-						autoFocus
-						placeholder="Novo tipo"
+					<Select2
+						style={{ width: 200 }}
 						value={newType}
-						onChange={(e) => setNewType(e.target.value)}
+						onSelect={(e: any) => setNewType(e.target.value)}
+						data={options}
+						options={{
+							placeholder: 'Selecione',
+							minimumResultsForSearch: -1,
+						}}
 					/>
 					{newType && (
 						<button className="btn primary small" onClick={() => submit()}>
@@ -136,10 +158,6 @@ const Total = ({ total }: any): ReactNode => {
 const FormPercentage = ({ setModalVisible, setPercentage }: any) => {
 	const [itemValues, setItemValues] = useState<any>({
 		Ações: 0,
-		'Renda Fixa': 0,
-		FIIs: 0,
-		Cryptomoedas: 0,
-		'Fundo de investimento': 0,
 	});
 	const submit = () => {
 		return alert('não implementado');
