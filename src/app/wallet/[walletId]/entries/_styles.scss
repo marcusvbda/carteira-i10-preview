@@ -44,12 +44,6 @@ section.section-actives {
 			}
 		}
 
-		&:has(.uncollapsed) {
-			.datatable-title {
-				flex-direction: row !important;
-			}
-		}
-
 		.post-title-btns {
 			display: flex;
 			gap: 12px;

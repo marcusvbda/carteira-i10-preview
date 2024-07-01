@@ -7,13 +7,7 @@ section.section-metrics {
 		overflow-x: auto;
 		padding-bottom: 4px;
 		&::-webkit-scrollbar {
-			height: 6px; /* Largura da barra de rolagem */
-			background: transparent; /* Fundo transparente */
-		}
-
-		&::-webkit-scrollbar-thumb {
-			background: rgba(0, 0, 0, 0.1); /* Polegar quase invisível */
-			border-radius: 30px; /* Deixa o polegar arredondado */
+			height: 0px;
 		}
 	}
 }
@@ -146,8 +140,13 @@ section.section-actives {
 
 	.datatable-card {
 		.datatable-footer {
-			display: flex;
+			display: grid;
 			gap: 16px;
+			grid-template-columns: 100px 150px 100px 200px;
+
+			html[screen-format='tablet'] & {
+				grid-template-columns: repeat(3, 1fr) auto;
+			}
 
 			.datatable-footer__item {
 				display: flex;
@@ -246,12 +245,6 @@ section.section-actives {
 						}
 					}
 				}
-			}
-		}
-
-		&:has(.uncollapsed) {
-			.datatable-title {
-				flex-direction: row !important;
 			}
 		}
 	}

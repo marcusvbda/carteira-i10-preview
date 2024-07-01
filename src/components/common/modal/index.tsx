@@ -22,6 +22,7 @@ interface IProps {
 	size?: string;
 	type?: string;
 	setModalVisible?: any;
+	closeAction?: any;
 	header?: ReactNode;
 	footerSlot?: ReactNode;
 	dropdown?: boolean;
@@ -40,6 +41,7 @@ export default function Modal({
 	footer,
 	header,
 	dropdown,
+	closeAction,
 }: IProps): ReactNode {
 	const [left, setLeft] = useState(0);
 	const [top, setTop] = useState(0);
@@ -112,7 +114,10 @@ export default function Modal({
 		return (
 			<div className="header-title">
 				<h4>{title ? title : ''}</h4>
-				<div onClick={() => setVisible(false)} className="btn-close" />
+				<div
+					onClick={() => (closeAction ? closeAction() : setVisible(false))}
+					className="btn-close"
+				/>
 			</div>
 		);
 	};

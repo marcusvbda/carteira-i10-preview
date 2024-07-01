@@ -1,6 +1,7 @@
 'use client';
 import './_styles.scss';
 import { ReactNode, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Icon from '../common/icon';
 import Modal from '../common/modal';
 import FormEntry from './_formEntry';
@@ -63,10 +64,12 @@ export default function ModalEntries({
 	hideText,
 	defaultSource,
 }: IProps) {
+	const router = useRouter();
 	const [modalVisible, setModalVisible] = useState(false);
 	const [showAlert, setShowAlert] = useState(false);
 
 	const closeModal = () => {
+		if (showAlert) router.refresh();
 		setModalVisible(false);
 	};
 
@@ -74,6 +77,7 @@ export default function ModalEntries({
 		<Modal
 			modalVisible={modalVisible}
 			setModalVisible={setModalVisible}
+			closeAction={closeModal}
 			size="650px"
 			title="Adicionar Ativo"
 			source={

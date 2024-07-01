@@ -152,13 +152,7 @@ nav.default-navbar {
 		max-width: 100%;
 		overflow-x: auto;
 		&::-webkit-scrollbar {
-			height: 6px; /* Largura da barra de rolagem */
-			background: transparent; /* Fundo transparente */
-		}
-
-		&::-webkit-scrollbar-thumb {
-			background: rgba(0, 0, 0, 0.1); /* Polegar quase invisível */
-			border-radius: 30px; /* Deixa o polegar arredondado */
+			height: 0px;
 		}
 		background-color: var(--surface-secondary);
 		border-bottom: 2px solid var(--border-subtle);

@@ -6,7 +6,6 @@ import { envoriment } from '@/constants/environment';
 export const apiCall = async (req: any, url: string, settings = {}) => {
 	const cx = await getToken({ req });
 	const { user } = cx as any;
-	console.log(`${envoriment.apiUrl}/api/wallet-app/${url}`);
 	const res = await fetch(`${envoriment.apiUrl}/api/wallet-app/${url}`, {
 		headers: {
 			Authorization: `Bearer ${user.jwt}`,

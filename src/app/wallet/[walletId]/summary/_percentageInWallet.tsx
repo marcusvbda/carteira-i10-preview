@@ -14,7 +14,8 @@ const NewTypes = ({ types, setTypes }: any): ReactNode => {
 			{ id: 'BDRs', text: 'BDRs' },
 			{ id: 'Criptomoedas', text: 'Criptomoedas' },
 			{ id: 'ETFs Internacionais', text: 'ETFs Internacionais' },
-			{ id: 'Fundos', text: 'Fundos' },
+			{ id: 'Fundos imobiliarios', text: 'Fundos Iibiliarios' },
+			{ id: 'Investimentos', text: 'Investimentos' },
 			{ id: 'Rendas extras', text: 'Rendas extras' },
 			{ id: 'Stocks', text: 'Stocks' },
 			{ id: 'Outros', text: 'Outros' },
@@ -158,6 +159,9 @@ const Total = ({ total }: any): ReactNode => {
 const FormPercentage = ({ setModalVisible, setPercentage }: any) => {
 	const [itemValues, setItemValues] = useState<any>({
 		Ações: 0,
+		'Fundos imobiliarios': 0,
+		Criptomoedas: 0,
+		Investimentos: 0,
 	});
 	const submit = () => {
 		return alert('não implementado');
