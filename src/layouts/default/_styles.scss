@@ -352,6 +352,17 @@ body:has(.lock-mouse) {
 		}
 	}
 
+	&.tertiary {
+		background-color: var(--button-surface-primary);
+
+		.icon {
+			filter: brightness(5) !important;
+		}
+
+		height: 32px;
+		width: 32px;
+	}
+
 	&.secondary {
 		background-color: var(--secondary-button-background-primary-resting);
 		border-color: var(--secondary-button-background-primary-resting);

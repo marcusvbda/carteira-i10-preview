@@ -23,7 +23,10 @@ export default function Actions({ isPublicRoute }: IProps): ReactNode {
 					onClick={toggleShowSensitiveContent}
 				/>
 			)}
-			<button className={`theme ${theme}`} onClick={toggleTheme} />
+			<button
+				className={`theme hide-on-mobile ${theme}`}
+				onClick={toggleTheme}
+			/>
 			<button className="help" onClick={showHelp} />
 		</div>
 	);

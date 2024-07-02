@@ -40,9 +40,9 @@ export const NavBar = ({ pathname }: IProps): ReactNode => {
 				<Actions isPublicRoute={isPublicRoute} />
 				{!isPublicRoute && <ProfileDropdown />}
 				{isPublicRoute && <PublicActions />}
-				{isPublicRoute && (
+				{!isPublicRoute && (
 					<div className="btn-plus hide-on-desktop hide-on-tablet">
-						<ModalEntries className="very-small" hideText />
+						<ModalEntries className="very-small tertiary" hideText />
 					</div>
 				)}
 			</div>

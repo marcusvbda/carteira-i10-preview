@@ -115,7 +115,7 @@ export default function ProfileDropdown(): ReactNode {
 	return (
 		<Modal
 			size="auto"
-			type="side right profile-dropdown-modal"
+			type="side right profile-dropdown-modal hide-on-mobile"
 			modalVisible={visible}
 			setModalVisible={setVisble}
 			dropdown

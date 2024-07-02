@@ -22,6 +22,9 @@ section.section-charts {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		html[screen-format='mobile'] & {
+			align-items: flex-start;
+		}
 		gap: 16px;
 		margin-top: 12px;
 		border-bottom: 1px solid var(--border-subtle);
@@ -36,10 +39,15 @@ section.section-charts {
 		}
 
 		.chart-header__filter {
+			flex-wrap: wrap;
 			margin-left: auto;
 			display: flex;
 			gap: 8px;
 			align-items: center;
+
+			html[screen-format='mobile'] & {
+				justify-content: flex-start !important;
+			}
 
 			.filter-date {
 				color: var(--text-secondary);
@@ -69,6 +77,15 @@ section.section-charts {
 				font-style: normal;
 				font-weight: 400;
 			}
+		}
+	}
+
+	html[screen-format='mobile'] & {
+		.chartbar {
+			order: 1;
+		}
+		.donut-chart {
+			order: 0;
 		}
 	}
 }
