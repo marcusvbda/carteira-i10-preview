@@ -1,10 +1,11 @@
 'use client';
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import Select2 from 'react-select2-wrapper';
 import Icon from '@/components/common/icon';
 import Modal from '@/components/common/modal';
 import { useSwal } from '@/hooks/swal';
 import 'react-select2-wrapper/css/select2.css';
+import { ThemeContext } from '@/context/themeContext';
 const NewTypes = ({ types, setTypes }: any): ReactNode => {
 	const [visible, setVisible] = useState(false);
 	const { toast } = useSwal();
@@ -212,6 +213,7 @@ const FormPercentage = ({ setModalVisible, setPercentage }: any) => {
 export default function PercentageInWallet({ percentage }: any): ReactNode {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [percentageValue, setPercentageValue] = useState(null);
+	const { screenFormat } = useContext(ThemeContext);
 
 	return (
 		<>
@@ -226,7 +228,9 @@ export default function PercentageInWallet({ percentage }: any): ReactNode {
 					title="Porcentagem ideal por tipo de ativo"
 					source={
 						percentageValue === null ? (
-							<span className="not-defined clickable">Definir % ideal</span>
+							<span className="not-defined clickable">
+								{screenFormat === 'desktop' ? 'Definir % ideal' : 'Editar'}
+							</span>
 						) : (
 							<span className="dark clickable">{percentageValue}%</span>
 						)

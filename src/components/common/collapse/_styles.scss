@@ -1,32 +1,37 @@
 .collapse-component {
-    .collapse-component--source {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        cursor: pointer;
-        .collapse-btn {
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            border: none;
-            border-radius: 100%;
-            background-color: var(--border-subtle);
-            html[data-theme='dark'] & {
-                background-color: var(--surface-secondary);
-            }
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
+	.collapse-component--source {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		cursor: pointer;
+		.collapse-btn {
+			cursor: pointer;
+			width: 30px;
+			height: 30px;
+			border: none;
+			border-radius: 100%;
+			background-color: var(--border-subtle);
+			html[data-theme='dark'] & {
+				background-color: var(--surface-secondary);
+			}
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: 0.3s;
 
-            &.collapsed {
-                transform: rotate(180deg);
-            }
-        }
-    }
+			&.collapsed {
+				transform: rotate(180deg);
+			}
+		}
+	}
 
-    .collapse-component--content {
-        animation: fade 0.5s;
-        padding-bottom: 10px;
-    }
+	.collapse-component--content {
+		animation: fade 0.5s;
+		padding-bottom: 10px;
+
+		html[screen-format='mobile'] &,
+		html[screen-format='tablet'] & {
+			padding-bottom: 0;
+		}
+	}
 }

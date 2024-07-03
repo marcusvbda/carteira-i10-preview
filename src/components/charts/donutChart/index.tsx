@@ -79,7 +79,7 @@ export default function DonutChart({
 					type: 'pie',
 					radius: ['40%', '70%'],
 					center: [
-						screenFormat === 'mobile' ? '50%' : '40%',
+						screenFormat === 'mobile' ? '50%' : '30%',
 						screenFormat === 'mobile' ? '60%' : '50%',
 					],
 					label: {

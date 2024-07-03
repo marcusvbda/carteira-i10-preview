@@ -666,3 +666,22 @@ html[data-theme='dark'] {
 .modal-content {
 	overflow-y: auto;
 }
+
+.p-datatable-wrapper {
+	&::-webkit-scrollbar {
+		height: 0px;
+	}
+}
+
+html[screen-format='mobile'],
+html[screen-format='tablet'] {
+	.p-datatable {
+		tbody {
+			tr:last-child {
+				td {
+					border-bottom: unset !important;
+				}
+			}
+		}
+	}
+}

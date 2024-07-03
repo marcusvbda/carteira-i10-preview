@@ -1,10 +1,11 @@
 'use client';
-import { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import DefaultCard from '@/components/cards/default';
 import './_styles.scss';
 import Collapse from '@/components/common/collapse';
+import { ThemeContext } from '@/context/themeContext';
 import Icon from '../icon';
 
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
@@ -42,6 +43,7 @@ const DatatableContent = ({
 	columns,
 	rows,
 	pagination,
+	screenFormat,
 }: any): ReactNode => {
 	return (
 		<>
@@ -64,7 +66,7 @@ const DatatableContent = ({
 					/>
 				))}
 			</DataTable>
-			{postDatatableSlot && (
+			{postDatatableSlot && ['desktop'].includes(screenFormat) && (
 				<div className="post-datatable-slot">{postDatatableSlot}</div>
 			)}
 		</>
@@ -82,12 +84,21 @@ export function Datatable({
 	columns,
 	pagination,
 }: IProps): ReactNode {
+	const { screenFormat } = useContext(ThemeContext);
+
 	return (
 		<DefaultCard className="datatable-card" padding="0">
 			<Collapse
 				source={
 					<Title
-						title={title}
+						title={
+							<>
+								{title}
+								{!['desktop'].includes(screenFormat) && (
+									<div className="actions-row">{actions}</div>
+								)}
+							</>
+						}
 						icon={icon}
 						darkIcon={darkIcon}
 						postTitleSlot={summary}
@@ -99,6 +110,7 @@ export function Datatable({
 						postDatatableSlot={actions}
 						rows={rows}
 						columns={columns}
+						screenFormat={screenFormat}
 					/>
 				}
 				defaultCollapsed={defaultCollapsed}

@@ -90,6 +90,28 @@ section.section-charts {
 	}
 }
 
+.datatable-title {
+	.title-row {
+		.actions-row {
+			display: flex;
+			flex: 1;
+			justify-content: flex-end;
+			gap: 10px;
+			padding: 0 15px;
+
+			.btn {
+				min-width: 24px;
+				min-height: 24px;
+				height: 24px;
+				width: 24px;
+				label {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
 .fields-edit-list {
 	display: flex;
 	flex-direction: column;
@@ -156,20 +178,40 @@ section.section-actives {
 	}
 
 	.datatable-card {
+		.collapse-btn {
+			position: relative;
+
+			html[screen-format='tablet'] & {
+				top: 5px;
+				align-self: flex-start;
+				height: 16px;
+				width: 16px;
+			}
+
+			html[screen-format='mobile'] & {
+				top: 5px;
+				align-self: flex-start;
+				height: 16px;
+				width: 16px;
+			}
+		}
 		.datatable-footer {
 			display: grid;
 			gap: 16px;
 			grid-template-columns: 100px 150px 100px 200px;
 
 			html[screen-format='tablet'] & {
-				grid-template-columns: repeat(3, 1fr) auto;
+				display: flex;
+			}
+
+			html[screen-format='mobile'] & {
+				display: flex;
 			}
 
 			.datatable-footer__item {
 				display: flex;
 				flex-direction: column;
 				gap: 8px;
-				padding-right: 35px;
 
 				strong {
 					color: var(--text-secondary);
@@ -291,7 +333,8 @@ html[screen-format='tablet'] {
 	}
 }
 
-html[screen-format='mobile'] {
+html[screen-format='mobile'],
+html[screen-format='tablet'] {
 	section.section-metrics {
 		padding-bottom: 10px;
 	}

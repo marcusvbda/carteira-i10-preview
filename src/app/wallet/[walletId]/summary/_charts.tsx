@@ -54,6 +54,8 @@ const typesOptions: any[] = [
 	},
 ];
 
+const maxRows = 12;
+
 export default function Charts({
 	donutChartData,
 	defaultBarChartData,
@@ -79,13 +81,30 @@ export default function Charts({
 		const secondaryColor = '#96e9c1';
 		const primaryLabel = 'Valor aplicado';
 		const secondaryLabel = 'Ganho capital';
+
+		const splitData = (items: any[]) => {
+			const qty = items.length;
+			if (qty <= maxRows) return items;
+			const step = Math.ceil((qty - 2) / (maxRows - 2));
+			const result = [items[0]];
+			for (let i = 1; i < qty - 1; i += step) {
+				result.push(items[i]);
+				if (result.length === maxRows - 1) break;
+			}
+			result.push(items[qty - 1]);
+			while (result.length > maxRows) result.splice(result.length - 2, 1);
+			return result;
+		};
+
+		const rows = splitData(barChartData || []);
+
 		const results = [
 			{
 				name: primaryLabel,
 				type: 'bar',
 				stack: 'Ad',
 				color: primaryColor,
-				data: (barChartData || []).map((x: any) => {
+				data: rows.map((x: any) => {
 					const applied = x?.sum_applied || 0;
 					return parseFloat(applied.toFixed(2));
 				}),
@@ -95,7 +114,7 @@ export default function Charts({
 				type: 'bar',
 				stack: 'Ad',
 				color: secondaryColor,
-				data: (barChartData || []).map((x: any) => {
+				data: rows.map((x: any) => {
 					const applied = parseFloat((x?.sum_applied || 0).toFixed(2));
 					const total = parseFloat((x?.sum_equity || 0).toFixed(2));
 					const earnings = parseFloat((total - applied).toFixed(2));
@@ -103,7 +122,7 @@ export default function Charts({
 				}),
 			},
 		];
-		const dates = (barChartData || []).map((x: any) => x?.month);
+		const dates = rows.map((x: any) => x?.month);
 		return {
 			results,
 			dates,

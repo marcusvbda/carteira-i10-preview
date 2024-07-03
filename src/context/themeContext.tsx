@@ -52,8 +52,8 @@ export const ThemeProvider = ({ children }: any): ReactNode => {
 		setVisible(false);
 		setTimeout(() => {
 			setVisible(true);
-		}, 500);
-	}, 1000);
+		}, 100);
+	}, 500);
 	useEffect(() => {
 		const handleResize = () => reloadPageDebouce();
 		window.addEventListener('resize', handleResize);
