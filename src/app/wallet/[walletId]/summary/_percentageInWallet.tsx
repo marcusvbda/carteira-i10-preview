@@ -3,9 +3,9 @@ import { ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import Select2 from 'react-select2-wrapper';
 import Icon from '@/components/common/icon';
 import Modal from '@/components/common/modal';
+import { ThemeContext } from '@/context/themeContext';
 import { useSwal } from '@/hooks/swal';
 import 'react-select2-wrapper/css/select2.css';
-import { ThemeContext } from '@/context/themeContext';
 const NewTypes = ({ types, setTypes }: any): ReactNode => {
 	const [visible, setVisible] = useState(false);
 	const { toast } = useSwal();
@@ -115,12 +115,20 @@ const ItemValue = ({
 			<div className="content-input">
 				<div className="label">{index}</div>
 				<div className="input">
-					<a href="#" onClick={(e) => clickBtn(e, 'sub')}>
+					<a
+						href="#"
+						onClick={(e) => clickBtn(e, 'sub')}
+						className={`${newValue <= 0 && 'disabled'}`}
+					>
 						<Icon icon="/images/theme/sub.svg" width="20px" />
 					</a>
 					<input type="percentage" onChange={changeValue} value={newValue} />
 					<div className="perc-value">%</div>
-					<a href="#" onClick={(e) => clickBtn(e, 'add')}>
+					<a
+						href="#"
+						onClick={(e) => clickBtn(e, 'add')}
+						className={`${newValue >= 100 && 'disabled'}`}
+					>
 						<Icon icon="/images/theme/add.svg" width="20px" />
 					</a>
 				</div>

@@ -1,76 +1,77 @@
 .modal-component {
-    .modal-component--source {
-        cursor: pointer;
-        transition: 0.5s;
-        &:hover {
-            filter: brightness(0.8);
-        }
-    }
+	.modal-component--source {
+		cursor: pointer;
+		transition: 0.5s;
+		&:hover {
+			filter: brightness(0.8);
+		}
+	}
 
-    .modal-component--content {
-        padding-top: 30px;
-        position: fixed;
-        z-index: 10;
-        background-color: #2c3a5372;
-        inset: 0;
-        animation: fade 0.3s;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-    }
+	.modal-component--content {
+		padding-top: 30px;
+		position: fixed;
+		z-index: 10;
+		background-color: #2c3a5372;
+		inset: 0;
+		animation: fade 0.3s;
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+		cursor: default;
+	}
 
-    &.side {
-        .default-card {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            overflow-y: auto;
-            border-radius: unset;
-        }
+	&.side {
+		.default-card {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			overflow-y: auto;
+			border-radius: unset;
+		}
 
-        &.right .default-card {
-            right: 0;
-        }
+		&.right .default-card {
+			right: 0;
+		}
 
-        &.left .default-card {
-            left: 0;
-        }
-    }
+		&.left .default-card {
+			left: 0;
+		}
+	}
 
-    &.center {
-        .default-card {
-            right: unset !important;
-            left: unset !important;
-            top: unset !important;
-            bottom: unset !important;
-        }
-    }
+	&.center {
+		.default-card {
+			right: unset !important;
+			left: unset !important;
+			top: unset !important;
+			bottom: unset !important;
+		}
+	}
 }
 
 html[data-theme='dark'] {
-    .modal-component .modal-component--content {
-        background-color: #adadad4d;
-    }
+	.modal-component .modal-component--content {
+		background-color: #adadad4d;
+	}
 }
 
 .modal-component.dropdown {
-    .modal-component--content {
-        background-color: unset;
-        .default-card {
-            padding: 16px;
-            bottom: unset;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            box-shadow: -4px 10px 20px 0px rgba(47, 49, 55, 0.1);
-            border: 1px solid rgba(128, 128, 128, 0.197);
-        }
-    }
+	.modal-component--content {
+		background-color: unset;
+		.default-card {
+			padding: 16px;
+			bottom: unset;
+			border-bottom-left-radius: 20px;
+			border-bottom-right-radius: 20px;
+			box-shadow: -4px 10px 20px 0px rgba(47, 49, 55, 0.1);
+			border: 1px solid rgba(128, 128, 128, 0.197);
+		}
+	}
 }
 
 .modal-footer {
-    margin-top: auto;
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--surface-secondary);
-    padding: 16px 24px;
+	margin-top: auto;
+	display: flex;
+	justify-content: space-between;
+	background-color: var(--surface-secondary);
+	padding: 16px 24px;
 }
