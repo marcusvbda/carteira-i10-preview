@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export const useFetch = (p: any) => {
+	const callback = p?.callback;
 	const [route, setRoute] = useState(p?.route || '');
 	const [method, setMethod] = useState(p?.method || 'get');
 	const [params, setParams] = useState(p?.params || {});
@@ -19,10 +20,11 @@ export const useFetch = (p: any) => {
 		return config;
 	});
 
-	api.interceptors.response.use((response) => {
+	api.interceptors.response.use((response: any) => {
 		setLoading(false);
 		setData(response?.data);
 		p.setDataState && p.setDataState(response?.data);
+		callback && callback(response?.data);
 		return response;
 	});
 

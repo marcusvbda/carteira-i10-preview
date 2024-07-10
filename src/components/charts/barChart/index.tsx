@@ -1,7 +1,6 @@
 import { ReactNode, useContext, useMemo } from 'react';
 import ReactECharts from 'echarts-for-react';
 import DefaultCard from '@/components/cards/default';
-import If from '@/components/common/if';
 import Skeleton from '@/components/common/skeleton';
 import './_styles.scss';
 
@@ -76,14 +75,13 @@ export default function BarChart({
 	return (
 		<DefaultCard className="chartbar" padding="24px 32px">
 			{children && children}
-			<If condition={loading}>
+			{loading ? (
 				<Skeleton width={sizes[0]} height={sizes[1]} />
-			</If>
-			<If condition={!loading}>
+			) : (
 				<div className="chartbar-content" style={{ height: sizes[1] }}>
 					<ReactECharts option={options} theme={theme} />
 				</div>
-			</If>
+			)}
 		</DefaultCard>
 	);
 }

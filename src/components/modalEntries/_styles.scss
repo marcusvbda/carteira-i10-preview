@@ -43,7 +43,7 @@
 			}
 
 			&.active {
-				border: 1px solid var(--border-card);
+				border: 1px solid var(--border-subtle);
 				box-shadow: 0px 4px 8px 0px rgba(42, 46, 55, 0.08);
 				background-color: var(--surface-primary);
 				html[data-theme='dark'] & {

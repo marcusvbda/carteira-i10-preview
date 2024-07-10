@@ -32,7 +32,7 @@ section.section-charts {
 
 		.chart-header__title {
 			color: var(--text-primary);
-			font-family: var(--figtree);
+			font-family: var(--font-figtree);
 			font-size: 18px;
 			font-style: normal;
 			font-weight: 500;
@@ -47,18 +47,6 @@ section.section-charts {
 
 			html[screen-format='mobile'] & {
 				justify-content: flex-start !important;
-			}
-
-			.filter-date {
-				color: var(--text-secondary);
-
-				font-size: 14px;
-				font-style: normal;
-				font-weight: 400;
-				padding: 8px 16px;
-				display: flex;
-				align-items: center;
-				gap: 8px;
 			}
 		}
 
@@ -240,7 +228,7 @@ section.section-actives {
 					}
 					display: flex;
 					align-items: center;
-					font-family: var(--figtree);
+					font-family: var(--font-figtree);
 					font-size: 16px;
 					font-style: normal;
 					line-height: 24px; /* 150% */
@@ -372,7 +360,7 @@ html[screen-format='tablet'] {
 
 	small {
 		color: var(--text-primary) !important;
-		font-family: var(--figtree);
+		font-family: var(--font-figtree);
 		font-size: 14px;
 		font-style: normal;
 		font-weight: 400;
@@ -395,7 +383,7 @@ html[screen-format='tablet'] {
 			align-items: center;
 			gap: 8px;
 			color: var(--button-label-dark);
-			font-family: var(--figtree);
+			font-family: var(--font-figtree);
 			font-size: 14px;
 			font-style: normal;
 			font-weight: 500;
@@ -456,7 +444,7 @@ html[screen-format='tablet'] {
 			justify-content: space-between;
 			h3 {
 				color: var(--text-primary);
-				font-family: var(--figtree);
+				font-family: var(--font-figtree);
 				font-size: 16px;
 				font-style: normal;
 				font-weight: 600;
@@ -472,7 +460,7 @@ html[screen-format='tablet'] {
 				.current-value,
 				.separator,
 				.ideal-value {
-					font-family: var(--figtree);
+					font-family: var(--font-figtree);
 					font-size: 16px;
 					font-style: normal;
 					font-weight: 600;
@@ -499,7 +487,7 @@ html[screen-format='tablet'] {
 		.disclaimer {
 			margin-top: var(--Spacing-System-spacing-xxs, 8px);
 			color: var(--text-primary);
-			font-family: var(--figtree);
+			font-family: var(--font-figtree);
 			font-size: 12px;
 			font-style: normal;
 			font-weight: 400;
@@ -523,7 +511,7 @@ html[screen-format='tablet'] {
 				background: var(--neutral-neutral-0, #fff);
 				padding: var(--Spacing-2, 4px) var(--Spacing-4, 12px);
 				color: var(--text-primary);
-				font-family: var(--figtree);
+				font-family: var(--font-figtree);
 				font-size: 14px;
 				font-style: normal;
 				font-weight: 500;
@@ -538,7 +526,7 @@ html[screen-format='tablet'] {
 					input {
 						color: var(--text-primary);
 						text-align: center;
-						font-family: var(--figtree);
+						font-family: var(--font-figtree);
 						font-size: 14px;
 						font-style: normal;
 						font-weight: 500;

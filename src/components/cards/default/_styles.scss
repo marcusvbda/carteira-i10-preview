@@ -14,7 +14,7 @@
 
 	.header-title {
 		padding: 16px 24px;
-		border-bottom: 1px solid #5656561c;
+		border-bottom: 1px solid var(--border-subtle);
 		display: flex;
 		align-items: center;
 		width: 100%;
@@ -25,6 +25,8 @@
 			font-style: normal;
 			font-weight: 600;
 			margin-right: auto;
+			font-family: var(--fon-figtree);
+			line-height: 24px;
 		}
 
 		.btn-close {

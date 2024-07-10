@@ -17,7 +17,10 @@ export default async function WalletPage({
 }: IProps): Promise<ReactNode> {
 	const { walletId } = params;
 
-	const metricsData = await fetchServer(`summary/metrics/${walletId}`);
+	const [infoData, metricsData] = await Promise.all([
+		fetchServer(`summary/info/${walletId}`),
+		fetchServer(`summary/metrics/${walletId}`),
+	]);
 
 	if (Number(metricsData?.applied || 0) === 0) {
 		return <EmptyState walletId={walletId} />;
@@ -28,6 +31,7 @@ export default async function WalletPage({
 
 	return (
 		<SummaryPage
+			infoData={infoData}
 			metricsData={metricsData}
 			alertsData={alertsData}
 			datatableData={datatableData}

@@ -33,7 +33,8 @@ interface IProps {
 	icon: string;
 	tickerType: string;
 	darkIcon: string;
-	weighted: number;
+	tickerInfo: any;
+	infoData: any;
 }
 
 export default function CollapseDatatable({
@@ -45,7 +46,8 @@ export default function CollapseDatatable({
 	darkIcon,
 	defaultCollapsed,
 	tickerType,
-	weighted,
+	tickerInfo,
+	infoData,
 }: IProps): ReactNode {
 	const helpers = useHelpers();
 	const router = useRouter();
@@ -377,17 +379,6 @@ export default function CollapseDatatable({
 		}, 0);
 	}, [rows]);
 
-	const walletPercentage = useMemo(() => {
-		const percentage = (rows || []).reduce((acc: number, row: any) => {
-			return acc + row.percent_wallet;
-		}, 0);
-		let value = percentage.toFixed(2);
-		if (value.endsWith('.00')) {
-			value = value.replace('.00', '');
-		}
-		return value;
-	}, [rows]);
-
 	if (loading) {
 		return <Skeleton height="150px" />;
 	}
@@ -412,8 +403,10 @@ export default function CollapseDatatable({
 				<DatatableFooter
 					qty={total}
 					totalAmount={totalAmount}
-					walletPercentage={walletPercentage}
-					profitability={weighted}
+					percent={tickerInfo?.percent || 0}
+					profitability={tickerInfo?.rentability || 0}
+					percentageIdeal={tickerInfo?.balancing || 0}
+					infoData={infoData}
 				/>
 			}
 			columns={columns.filter((x: any) => x.visible)}

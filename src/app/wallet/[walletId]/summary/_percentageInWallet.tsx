@@ -1,11 +1,20 @@
 'use client';
 import { ReactNode, useContext, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Select2 from 'react-select2-wrapper';
 import Icon from '@/components/common/icon';
 import Modal from '@/components/common/modal';
-import { ThemeContext } from '@/context/themeContext';
+import { WalletContext } from '@/context/walletContext';
 import { useSwal } from '@/hooks/swal';
 import 'react-select2-wrapper/css/select2.css';
+
+const formatNumber = (number: number) => {
+	if (number.toString().includes('.')) {
+		return number.toFixed(2);
+	}
+	return number.toString();
+};
+
 const NewTypes = ({ types, setTypes }: any): ReactNode => {
 	const [visible, setVisible] = useState(false);
 	const { toast } = useSwal();
@@ -15,7 +24,7 @@ const NewTypes = ({ types, setTypes }: any): ReactNode => {
 			{ id: 'BDRs', text: 'BDRs' },
 			{ id: 'Criptomoedas', text: 'Criptomoedas' },
 			{ id: 'ETFs Internacionais', text: 'ETFs Internacionais' },
-			{ id: 'Fundos imobiliarios', text: 'Fundos Iibiliarios' },
+			{ id: 'Fundos imobiliarios', text: 'Fundos imobiliarios' },
 			{ id: 'Investimentos', text: 'Investimentos' },
 			{ id: 'Rendas extras', text: 'Rendas extras' },
 			{ id: 'Stocks', text: 'Stocks' },
@@ -165,17 +174,32 @@ const Total = ({ total }: any): ReactNode => {
 	);
 };
 
-const FormPercentage = ({ setModalVisible, setPercentage }: any) => {
-	const [itemValues, setItemValues] = useState<any>({
-		Ações: 0,
-		'Fundos imobiliarios': 0,
-		Criptomoedas: 0,
-		Investimentos: 0,
-	});
+const FormPercentage = ({ setModalVisible, infoData }: any) => {
+	const { walletId } = useContext(WalletContext);
+	const defaultValues: any = {};
+	const tickers = infoData?.tickers || [];
+	for (const ticker of tickers) {
+		const name = ticker.class
+			.replace(/(<([^>]+)>)/gi, ' ')
+			.replace('&nbsp;', '')
+			.trim();
+		defaultValues[name] = +formatNumber(ticker.balancing);
+	}
+	const router = useRouter();
+	const [itemValues, setItemValues] = useState<any>(defaultValues);
 	const submit = () => {
-		return alert('não implementado');
-		setPercentage(totalValue);
-		setModalVisible(false);
+		fetch(`/api/ticker-update`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ ...itemValues, walletId, action: 'rebalancing' }),
+		}).then((response: any) => {
+			response.json().then(() => {
+				setModalVisible(false);
+				router.refresh();
+			});
+		});
 	};
 
 	const totalValue: any = Object.values(itemValues).reduce(
@@ -210,7 +234,11 @@ const FormPercentage = ({ setModalVisible, setPercentage }: any) => {
 				>
 					Cancelar
 				</button>
-				<button className="btn primary" onClick={() => submit()}>
+				<button
+					className="btn primary"
+					disabled={totalValue !== 100}
+					onClick={() => submit()}
+				>
 					Salvar
 				</button>
 			</div>
@@ -218,16 +246,18 @@ const FormPercentage = ({ setModalVisible, setPercentage }: any) => {
 	);
 };
 
-export default function PercentageInWallet({ percentage }: any): ReactNode {
+export default function PercentageInWallet({
+	percentage,
+	percentageIdeal,
+	infoData,
+}: any): ReactNode {
 	const [modalVisible, setModalVisible] = useState(false);
-	const [percentageValue, setPercentageValue] = useState(null);
-	const { screenFormat } = useContext(ThemeContext);
 
 	return (
 		<>
 			<strong>% na carteira</strong>
 			<div className="percentage-ticker">
-				<div className="muted">{parseInt(String(percentage))}%</div>
+				<div className="muted">{formatNumber(percentage)}%</div>
 				<div className="dark dash">/</div>
 				<Modal
 					size="40%"
@@ -235,18 +265,14 @@ export default function PercentageInWallet({ percentage }: any): ReactNode {
 					setModalVisible={setModalVisible}
 					title="Porcentagem ideal por tipo de ativo"
 					source={
-						percentageValue === null ? (
-							<span className="not-defined clickable">
-								{screenFormat === 'desktop' ? 'Definir % ideal' : 'Editar'}
-							</span>
-						) : (
-							<span className="dark clickable">{percentageValue}%</span>
-						)
+						<span className="dark clickable">
+							{formatNumber(percentageIdeal)}%
+						</span>
 					}
 					content={
 						<FormPercentage
 							setModalVisible={setModalVisible}
-							setPercentage={setPercentageValue}
+							infoData={infoData}
 						/>
 					}
 				/>

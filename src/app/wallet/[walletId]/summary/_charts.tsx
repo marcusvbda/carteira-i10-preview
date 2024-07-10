@@ -132,7 +132,7 @@ export default function Charts({
 	useEffect(() => {
 		if (visible) {
 			fetchBarChart({
-				route: `/api/summary/barchart/${walletId}/${qtyMonths.id}/${type.id}`,
+				route: `/api/summary/${walletId}/barchart/${qtyMonths.id}/${type.id}`,
 			});
 		}
 		setVisible(true);
@@ -157,7 +157,7 @@ export default function Charts({
 							options={qtyMonthOptions}
 							optionLabel="name"
 							valueTemplate={(item) => (
-								<div className="filter-date">
+								<div className="select-dropdown-label">
 									<Icon icon="/images/theme/date.svg" width="12px" />
 									{item.name}
 								</div>
@@ -183,7 +183,7 @@ export default function Charts({
 								/>
 							)}
 							valueTemplate={(item) => (
-								<div className="filter-date">
+								<div className="select-dropdown-label">
 									<div className="default-dropdown--btn-money" />
 									<Icon icon="/images/theme/money.svg" width="16px" />
 									{item.name}

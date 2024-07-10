@@ -5,22 +5,37 @@ import { envoriment } from '@/constants/environment';
 
 export const apiCall = async (req: any, url: string, settings = {}) => {
 	const cx = await getToken({ req });
-	const { user } = cx as any;
-	const res = await fetch(`${envoriment.apiUrl}/api/wallet-app/${url}`, {
-		headers: {
-			Authorization: `Bearer ${user.jwt}`,
-			'Content-Type': 'application/json',
-			Accept: 'application/json',
-		},
-		...settings,
-	});
-	if (res.ok) return await res.json();
-	const error = await res.json();
-	return {
-		error: error?.message,
-		status: res?.status,
-		errors: error?.errors || [],
-	};
+	try {
+		const { user } = cx as any;
+		console.log(
+			`Bearer ${user.jwt}`,
+			`${envoriment.apiUrl}/api/wallet-app/${url}`,
+		);
+		const res = await fetch(`${envoriment.apiUrl}/api/wallet-app/${url}`, {
+			headers: {
+				Authorization: `Bearer ${user.jwt}`,
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+			},
+			...settings,
+		});
+		if (res.ok) {
+			return await res.json();
+		}
+		const error = await res.json();
+		return {
+			error: error?.message,
+			status: res?.status,
+			errors: error?.errors || [],
+		};
+	} catch (error: any) {
+		// console.log(error);
+		return {
+			error: error?.message,
+			status: 500,
+			errors: error?.errors || [],
+		};
+	}
 };
 
 export const fetchServer = async (

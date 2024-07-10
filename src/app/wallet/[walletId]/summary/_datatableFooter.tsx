@@ -7,15 +7,19 @@ import PercentageInWallet from './_percentageInWallet';
 interface IProps {
 	qty: number;
 	totalAmount: number;
-	walletPercentage: number;
+	percent: number;
 	profitability: number;
+	percentageIdeal: number;
+	infoData: any;
 }
 
 export default function DatatableFooter({
 	qty,
 	totalAmount,
-	walletPercentage,
+	percent,
 	profitability,
+	percentageIdeal,
+	infoData,
 }: IProps): ReactNode {
 	const helpers = useHelpers();
 
@@ -51,7 +55,11 @@ export default function DatatableFooter({
 				</div>
 			</div>
 			<div className="datatable-footer__item">
-				<PercentageInWallet percentage={walletPercentage} />
+				<PercentageInWallet
+					infoData={infoData}
+					percentage={percent}
+					percentageIdeal={percentageIdeal}
+				/>
 			</div>
 		</div>
 	);

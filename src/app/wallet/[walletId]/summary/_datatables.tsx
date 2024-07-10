@@ -36,6 +36,7 @@ export default function Datatables({
 	cryptoData,
 	tickerData,
 	fiiData,
+	infoData,
 }: any) {
 	const totalFund = useMemo(() => {
 		return fundData?.total || 0;
@@ -52,6 +53,22 @@ export default function Datatables({
 	const totalFiis = useMemo(() => {
 		return fiiData?.total || 0;
 	}, [fiiData]);
+
+	const tickerInfo = useMemo(() => {
+		return infoData.tickers.find((x: any) => x.type === 'Ticker');
+	}, [infoData]);
+
+	const fiiInfo = useMemo(() => {
+		return infoData.tickers.find((x: any) => x.type === 'Fii');
+	}, [infoData]);
+
+	const cryptoInfo = useMemo(() => {
+		return infoData.tickers.find((x: any) => x.type === 'Crypto');
+	}, [infoData]);
+
+	const fundInfo = useMemo(() => {
+		return infoData.tickers.find((x: any) => x.type === 'Fund');
+	}, [infoData]);
 
 	return (
 		<section className="section-actives">
@@ -74,7 +91,8 @@ export default function Datatables({
 				rows={tickerData?.data || []}
 				total={totalTicker}
 				tickerType="Ticker"
-				weighted={tickerData.weighted || 0}
+				tickerInfo={tickerInfo}
+				infoData={infoData}
 			/>
 			<CollapseDatatable
 				title="Fundos imobiliários"
@@ -84,7 +102,8 @@ export default function Datatables({
 				rows={fiiData?.data || []}
 				total={totalFiis}
 				tickerType="Fii"
-				weighted={fiiData.weighted || 0}
+				tickerInfo={fiiInfo}
+				infoData={infoData}
 			/>
 			<CollapseDatatable
 				title="Criptomoedas"
@@ -94,7 +113,8 @@ export default function Datatables({
 				rows={cryptoData?.data || []}
 				total={totalCrypto}
 				tickerType="Crypto"
-				weighted={cryptoData.weighted || 0}
+				infoData={infoData}
+				tickerInfo={cryptoInfo}
 			/>
 			<CollapseDatatable
 				title="Investimentos"
@@ -103,8 +123,9 @@ export default function Datatables({
 				loading={false}
 				rows={fundData?.data || []}
 				total={totalFund}
+				infoData={infoData}
 				tickerType="Fund"
-				weighted={fundData.weighted || 0}
+				tickerInfo={fundInfo}
 			/>
 		</section>
 	);

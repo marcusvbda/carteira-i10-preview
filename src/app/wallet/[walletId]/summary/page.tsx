@@ -13,6 +13,7 @@ interface IProps {
 	datatableData: any;
 	donutChartData: any[];
 	defaultBarChartData: any[];
+	infoData: any;
 }
 
 export default function SummaryPage({
@@ -21,6 +22,7 @@ export default function SummaryPage({
 	datatableData,
 	donutChartData,
 	defaultBarChartData,
+	infoData,
 }: IProps): ReactNode {
 	return (
 		<div
@@ -33,6 +35,7 @@ export default function SummaryPage({
 				defaultBarChartData={defaultBarChartData}
 			/>
 			<Datatables
+				infoData={infoData}
 				tickerData={datatableData.tickerData}
 				fiiData={datatableData.fiiData}
 				cryptoData={datatableData.cryptoData}

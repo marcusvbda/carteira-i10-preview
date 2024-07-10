@@ -5,12 +5,14 @@ interface IProps {
 	title?: string;
 	content: string;
 	children: ReactNode;
+	position?: 'left' | 'right';
 }
 
 export default function Tooltip({
 	title,
 	content,
 	children,
+	position = 'left',
 }: IProps): ReactNode {
 	const [width, setWidth] = useState(200);
 	const [visible, setVisible] = useState(false);
@@ -38,7 +40,7 @@ export default function Tooltip({
 				/>
 			</svg>
 			<div
-				className={`tooltip-content`}
+				className={`tooltip-content ${position}`}
 				ref={ref}
 				style={{ '--tooltip-width': `${width}px` } as CSSProperties}
 			>

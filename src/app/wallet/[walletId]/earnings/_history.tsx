@@ -1,95 +1,73 @@
 'use client';
-import { useMemo, useState, ReactNode } from 'react';
-import { DataTable } from 'primereact/datatable';
-import Select2 from 'react-select2-wrapper';
-import 'react-select2-wrapper/css/select2.css';
-// eslint-disable-next-line import/order
+import { ReactNode, useMemo } from 'react';
 import { Column } from 'primereact/column';
+import { DataTable } from 'primereact/datatable';
+import 'react-select2-wrapper/css/select2.css';
 
-export default function Evolution(): ReactNode {
-	const [selectedOption, setSelectedOption] = useState<any>(1);
-	const [selectedPeriod, setSelectedPeriod] = useState<any>(1);
-	const [selectedQtyPeriod, setQtyPeriod] = useState<any>(12);
-	const [optionList] = useState<any[]>([
-		{
-			id: 1,
-			text: 'Recebidos e futuros',
-		},
-	]);
+const months = [
+	'Jan',
+	'Fev',
+	'Mar',
+	'Abr',
+	'Mai',
+	'Jun',
+	'Jul',
+	'Ago',
+	'Set',
+	'Out',
+	'Nov',
+	'Dez',
+];
 
-	const [periodList] = useState<any[]>([
-		{
-			id: 1,
-			text: 'Mensal',
-		},
-	]);
-
-	const [qtyPeriodOptions] = useState<any[]>([
-		{
-			id: 12,
-			text: '12 Meses',
-		},
-	]);
-
+export default function Evolution({ defaultData }: any): ReactNode {
 	const rows = useMemo(() => {
-		return Array.from({ length: 2024 - 2010 + 1 }, (v, i) => 2010 + i);
-	}, []);
+		const items = defaultData;
+		if (!items || !items.length) return [];
+		const values = [];
+		const keys = Object.keys(items);
+		let sum: number = 0;
+		for (let i = 0; i < keys.length; i++) {
+			const key = keys[i];
+			const monthValues: any = {};
+			sum = 0;
+			for (let j = 0; j < months.length; j++) {
+				const month = months[j];
+				const value = Number(
+					(items[key]?.months ? items[key]?.months[j]?.amount : 0) || 0,
+				);
+				monthValues[month] = value.toFixed(2);
+				sum += value;
+			}
+			monthValues.total = Number(items[key]?.total || 0).toFixed(2);
+			const average = Number(sum / months.length).toFixed(2);
+			values.push({
+				year: key,
+				average,
+				...monthValues,
+			});
+			return values;
+		}
+	}, [defaultData]);
 
 	return (
 		<div className="earnings-card history">
 			<div className="header card-content">
-				<h4>
-					Histórico mensal
-					<div className="action-btns history">
-						<Select2
-							style={{ width: 200 }}
-							value={selectedOption}
-							onSelect={setSelectedOption}
-							data={optionList}
-							options={{
-								placeholder: 'Recebidos e futuros',
-							}}
-						/>
-						<Select2
-							style={{ width: 200 }}
-							value={selectedPeriod}
-							onSelect={setSelectedPeriod}
-							data={periodList}
-						/>
-						<Select2
-							style={{ width: 200 }}
-							value={selectedQtyPeriod}
-							onSelect={setQtyPeriod}
-							data={qtyPeriodOptions}
-						/>
-					</div>
-				</h4>
+				<h4 style={{ lineHeight: '42px' }}>Histórico mensal</h4>
 			</div>
 			<DataTable
-				value={rows as any}
+				value={rows || []}
 				className="theme-datatable"
 				emptyMessage="Nenhum registro."
-				paginator
-				rows={10}
-				paginatorTemplate="PrevPageLink PageLinks NextPageLink"
 			>
-				<Column header="Ano" body={(x) => x} />
-				<Column header="Jan" body={(x) => x} />
-				<Column header="Fev" body={(x) => x} />
-				<Column header="Mar" body={(x) => x} />
-				<Column header="Abr" body={(x) => x} />
-				<Column header="Mai" body={(x) => x} />
-				<Column header="Jun" body={(x) => x} />
-				<Column header="Jul" body={(x) => x} />
-				<Column header="Ago" body={(x) => x} />
-				<Column header="Set" body={(x) => x} />
-				<Column header="Out" body={(x) => x} />
-				<Column header="Nov" body={(x) => x} />
-				<Column header="Dez" body={(x) => x} />
-				<Column header="Média" body={(x) => x} />
+				<Column sortable field="year" header="Ano" body={(x: any) => x.year} />
+				{months.map((month, key) => (
+					<Column sortable field={month} header={month} key={key} />
+				))}
+				<Column header="Média" sortable field="average" />
 				<Column
 					header="Total"
-					body={(x) => x}
+					sortable
+					field="total"
 					style={{ backgroundColor: '#cbcbcb2b' }}
 				/>
 			</DataTable>
