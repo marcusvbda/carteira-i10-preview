@@ -1,0 +1,36 @@
+import './_styles.scss';
+import React, { ReactNode } from 'react';
+import { Metadata } from 'next';
+import { seo } from '@/constants/seo';
+import Details from './_details';
+import Evolution from './_evolution';
+import History from './_history';
+import Summary from './_summary';
+
+export const metadata: Metadata = seo.earnings;
+interface IProps {
+	walletId: string;
+	summaryData: any;
+	barchartData: any;
+	detailsData: any;
+}
+
+export default function EarningsPageContent({
+	walletId,
+	summaryData,
+	barchartData,
+	detailsData,
+}: IProps): ReactNode {
+	return (
+		<section className="earnings-page">
+			<div className="page-container">
+				<div className="container-row">
+					<Summary defaultData={summaryData} />
+					<Evolution defaultData={barchartData} walletId={walletId} />
+				</div>
+				<History defaultData={barchartData} />
+				<Details defaultData={detailsData} />
+			</div>
+		</section>
+	);
+}
