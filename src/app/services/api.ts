@@ -7,10 +7,6 @@ export const apiCall = async (req: any, url: string, settings = {}) => {
 	const cx = await getToken({ req });
 	try {
 		const { user } = cx as any;
-		console.log(
-			`Bearer ${user.jwt}`,
-			`${envoriment.apiUrl}/api/wallet-app/${url}`,
-		);
 		const res = await fetch(`${envoriment.apiUrl}/api/wallet-app/${url}`, {
 			headers: {
 				Authorization: `Bearer ${user.jwt}`,

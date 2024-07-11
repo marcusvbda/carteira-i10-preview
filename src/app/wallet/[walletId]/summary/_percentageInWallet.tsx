@@ -21,10 +21,11 @@ const NewTypes = ({ types, setTypes }: any): ReactNode => {
 	const options = useMemo(() => {
 		setVisible(false);
 		const allOptions = [
+			{ id: 'Ações', text: 'Ações' },
 			{ id: 'BDRs', text: 'BDRs' },
 			{ id: 'Criptomoedas', text: 'Criptomoedas' },
 			{ id: 'ETFs Internacionais', text: 'ETFs Internacionais' },
-			{ id: 'Fundos imobiliarios', text: 'Fundos imobiliarios' },
+			{ id: 'FIIs', text: 'Fundos imobiliarios' },
 			{ id: 'Investimentos', text: 'Investimentos' },
 			{ id: 'Rendas extras', text: 'Rendas extras' },
 			{ id: 'Stocks', text: 'Stocks' },
@@ -74,7 +75,7 @@ const NewTypes = ({ types, setTypes }: any): ReactNode => {
 			)}
 			{!visible && (
 				<div className="add" onClick={() => setVisible(true)}>
-					<Icon icon="/images/theme/plus.svg" width="16px" />
+					<Icon icon="/images/theme/add.svg" width="16px" />
 					Adicionar tipo de ativo
 				</div>
 			)}
@@ -175,6 +176,7 @@ const Total = ({ total }: any): ReactNode => {
 };
 
 const FormPercentage = ({ setModalVisible, infoData }: any) => {
+	const [loading, setLoading] = useState(false);
 	const { walletId } = useContext(WalletContext);
 	const defaultValues: any = {};
 	const tickers = infoData?.tickers || [];
@@ -183,11 +185,21 @@ const FormPercentage = ({ setModalVisible, infoData }: any) => {
 			.replace(/(<([^>]+)>)/gi, ' ')
 			.replace('&nbsp;', '')
 			.trim();
-		defaultValues[name] = +formatNumber(ticker.balancing);
+		const val = +formatNumber(ticker.balancing);
+		if (val) {
+			defaultValues[name] = +formatNumber(ticker.balancing);
+		}
 	}
+	const sortedEntries = Object.entries(defaultValues).sort(
+		([, a]: any, [, b]: any) => b - a,
+	);
+
+	const sortedDefaultValues: any = Object.fromEntries(sortedEntries);
+
 	const router = useRouter();
-	const [itemValues, setItemValues] = useState<any>(defaultValues);
+	const [itemValues, setItemValues] = useState<any>(sortedDefaultValues);
 	const submit = () => {
+		setLoading(true);
 		fetch(`/api/ticker-update`, {
 			method: 'PUT',
 			headers: {
@@ -196,8 +208,9 @@ const FormPercentage = ({ setModalVisible, infoData }: any) => {
 			body: JSON.stringify({ ...itemValues, walletId, action: 'rebalancing' }),
 		}).then((response: any) => {
 			response.json().then(() => {
-				setModalVisible(false);
 				router.refresh();
+				setLoading(false);
+				setModalVisible(false);
 			});
 		});
 	};
@@ -236,10 +249,10 @@ const FormPercentage = ({ setModalVisible, infoData }: any) => {
 				</button>
 				<button
 					className="btn primary"
-					disabled={totalValue !== 100}
+					disabled={totalValue !== 100 || loading}
 					onClick={() => submit()}
 				>
-					Salvar
+					{loading ? 'Salvando...' : 'Salvar'}
 				</button>
 			</div>
 		</div>
@@ -252,6 +265,8 @@ export default function PercentageInWallet({
 	infoData,
 }: any): ReactNode {
 	const [modalVisible, setModalVisible] = useState(false);
+
+	if (!percentage && !percentageIdeal) return <></>;
 
 	return (
 		<>
