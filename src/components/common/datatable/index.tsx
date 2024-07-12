@@ -1,5 +1,6 @@
 'use client';
 import { ReactNode, useContext } from 'react';
+// import { Column } from 'primereact/column';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import DefaultCard from '@/components/cards/default';
@@ -8,21 +9,9 @@ import Collapse from '@/components/common/collapse';
 import { ThemeContext } from '@/context/themeContext';
 import Icon from '../icon';
 
-import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import If from '../if';
-
-interface IProps {
-	icon?: string;
-	darkIcon?: string;
-	title: string;
-	className?: string;
-	defaultCollapsed?: boolean;
-	actions?: ReactNode;
-	summary?: ReactNode;
-	columns: any[];
-	rows?: any[];
-	pagination?: boolean;
-}
+import Skeleton from '../skeleton';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
 
 const Title = ({ title, icon, darkIcon, postTitleSlot }: any) => {
 	return (
@@ -74,16 +63,14 @@ const DatatableContent = ({
 };
 
 export function Datatable({
-	icon,
 	title,
 	defaultCollapsed,
-	darkIcon,
 	actions,
 	summary,
 	rows,
 	columns,
-	pagination,
-}: IProps): ReactNode {
+	loading,
+}: any): ReactNode {
 	const { screenFormat } = useContext(ThemeContext);
 
 	return (
@@ -99,19 +86,24 @@ export function Datatable({
 								)}
 							</>
 						}
-						icon={icon}
-						darkIcon={darkIcon}
+						icon="/images/theme/actions.svg"
+						darkIcon="/images/theme/actions-dark.svg"
 						postTitleSlot={summary}
 					/>
 				}
 				content={
-					<DatatableContent
-						pagination={pagination}
-						postDatatableSlot={actions}
-						rows={rows}
-						columns={columns}
-						screenFormat={screenFormat}
-					/>
+					loading ? (
+						<div style={{ padding: 10 }}>
+							<Skeleton height="150px" />
+						</div>
+					) : (
+						<DatatableContent
+							postDatatableSlot={actions}
+							rows={rows}
+							columns={columns}
+							screenFormat={screenFormat}
+						/>
+					)
 				}
 				defaultCollapsed={defaultCollapsed}
 			/>

@@ -39,7 +39,6 @@ section.section-charts {
 		}
 
 		.chart-header__filter {
-			flex-wrap: wrap;
 			margin-left: auto;
 			display: flex;
 			gap: 8px;
@@ -47,6 +46,12 @@ section.section-charts {
 
 			html[screen-format='mobile'] & {
 				justify-content: flex-start !important;
+
+				.p-dropdown-trigger {
+					padding-left: 0;
+					padding-right: 2px;
+					width: 30px;
+				}
 			}
 		}
 

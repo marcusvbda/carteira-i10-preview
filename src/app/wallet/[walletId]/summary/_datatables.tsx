@@ -3,130 +3,57 @@
 import { useMemo } from 'react';
 import CollapseDatatable from './_collapseDatatable';
 
-const QtyTotal = ({
-	tickerLoading,
-	fiiLoading,
-	cryptoLoading,
-	fundLoading,
-	totalTicker,
-	totalFiis,
-	totalCrypto,
-	totalFund,
-}: any) => {
-	const someTableIsLoading = [
-		tickerLoading,
-		fiiLoading,
-		cryptoLoading,
-		fundLoading,
-	].some((loading) => loading);
+export default function Datatables({ infoData }: any) {
+	// const totalFund = useMemo(() => {
+	// return fundData?.total || 0;
+	// }, [fundData]);
 
-	if (someTableIsLoading) {
-		return <h4 className="actives-total">Ativos</h4>;
-	}
-	const total = totalTicker + totalFiis + totalCrypto + totalFund;
-	return (
-		<h4 className="actives-total">
-			Ativos <span>({total})</span>
-		</h4>
-	);
-};
+	// const totalCrypto = useMemo(() => {
+	// 	return cryptoData?.total || 0;
+	// }, [cryptoData]);
 
-export default function Datatables({
-	fundData,
-	cryptoData,
-	tickerData,
-	fiiData,
-	infoData,
-}: any) {
-	const totalFund = useMemo(() => {
-		return fundData?.total || 0;
-	}, [fundData]);
+	// const totalTicker = useMemo(() => {
+	// 	return tickerData?.total || 0;
+	// }, [tickerData]);
 
-	const totalCrypto = useMemo(() => {
-		return cryptoData?.total || 0;
-	}, [cryptoData]);
+	// const totalFiis = useMemo(() => {
+	// 	return fiiData?.total || 0;
+	// }, [fiiData]);
 
-	const totalTicker = useMemo(() => {
-		return tickerData?.total || 0;
-	}, [tickerData]);
+	// const tickerInfo = useMemo(() => {
+	// 	return infoData.tickers.find((x: any) => x.type === 'Ticker');
+	// }, [infoData]);
 
-	const totalFiis = useMemo(() => {
-		return fiiData?.total || 0;
-	}, [fiiData]);
+	// const fiiInfo = useMemo(() => {
+	// 	return infoData.tickers.find((x: any) => x.type === 'Fii');
+	// }, [infoData]);
 
-	const tickerInfo = useMemo(() => {
-		return infoData.tickers.find((x: any) => x.type === 'Ticker');
-	}, [infoData]);
+	// const cryptoInfo = useMemo(() => {
+	// 	return infoData.tickers.find((x: any) => x.type === 'Crypto');
+	// }, [infoData]);
+	const types = useMemo(() => {
+		return infoData?.tickers || [];
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-	const fiiInfo = useMemo(() => {
-		return infoData.tickers.find((x: any) => x.type === 'Fii');
-	}, [infoData]);
-
-	const cryptoInfo = useMemo(() => {
-		return infoData.tickers.find((x: any) => x.type === 'Crypto');
-	}, [infoData]);
-
-	const fundInfo = useMemo(() => {
-		return infoData.tickers.find((x: any) => x.type === 'Fund');
-	}, [infoData]);
+	const total = useMemo(() => {
+		return types.reduce((acc: any, cur: any) => acc + cur.count, 0);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<section className="section-actives">
-			<QtyTotal
-				tickerLoading={false}
-				fiiLoading={false}
-				cryptoLoading={false}
-				fundLoading={false}
-				totalTicker={totalTicker}
-				totalFiis={totalFiis}
-				totalCrypto={totalCrypto}
-				totalFund={totalFund}
-			/>
-			<CollapseDatatable
-				title="Ações"
-				icon="/images/theme/actions.svg"
-				darkIcon="/images/theme/actions-dark.svg"
-				defaultCollapsed
-				loading={false}
-				rows={tickerData?.data || []}
-				total={totalTicker}
-				tickerType="Ticker"
-				tickerInfo={tickerInfo}
-				infoData={infoData}
-			/>
-			<CollapseDatatable
-				title="Fundos imobiliários"
-				icon="/images/theme/fiis.svg"
-				darkIcon="/images/theme/fiis-dark.svg"
-				loading={false}
-				rows={fiiData?.data || []}
-				total={totalFiis}
-				tickerType="Fii"
-				tickerInfo={fiiInfo}
-				infoData={infoData}
-			/>
-			<CollapseDatatable
-				title="Criptomoedas"
-				icon="/images/theme/crypto.svg"
-				darkIcon="/images/theme/crypto-dark.svg"
-				loading={false}
-				rows={cryptoData?.data || []}
-				total={totalCrypto}
-				tickerType="Crypto"
-				infoData={infoData}
-				tickerInfo={cryptoInfo}
-			/>
-			<CollapseDatatable
-				title="Investimentos"
-				icon="/images/theme/investments.svg"
-				darkIcon="/images/theme/investments-dark.svg"
-				loading={false}
-				rows={fundData?.data || []}
-				total={totalFund}
-				infoData={infoData}
-				tickerType="Fund"
-				tickerInfo={fundInfo}
-			/>
+			<h4 className="actives-total">
+				Ativos <span>({total})</span>
+			</h4>
+			{types.map((type: any, key: number) => (
+				<CollapseDatatable
+					key={key}
+					type={type}
+					infoData={infoData}
+					defaultCollapsed={key === 0}
+				/>
+			))}
 		</section>
 	);
 }

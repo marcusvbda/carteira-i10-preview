@@ -1,6 +1,5 @@
 'use client';
 import { ReactNode, useContext, useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Select2 from 'react-select2-wrapper';
 import Icon from '@/components/common/icon';
 import Modal from '@/components/common/modal';
@@ -196,7 +195,6 @@ const FormPercentage = ({ setModalVisible, infoData }: any) => {
 
 	const sortedDefaultValues: any = Object.fromEntries(sortedEntries);
 
-	const router = useRouter();
 	const [itemValues, setItemValues] = useState<any>(sortedDefaultValues);
 	const submit = () => {
 		setLoading(true);
@@ -208,9 +206,7 @@ const FormPercentage = ({ setModalVisible, infoData }: any) => {
 			body: JSON.stringify({ ...itemValues, walletId, action: 'rebalancing' }),
 		}).then((response: any) => {
 			response.json().then(() => {
-				router.refresh();
-				setLoading(false);
-				setModalVisible(false);
+				window.location.reload();
 			});
 		});
 	};
@@ -265,8 +261,6 @@ export default function PercentageInWallet({
 	infoData,
 }: any): ReactNode {
 	const [modalVisible, setModalVisible] = useState(false);
-
-	if (!percentage && !percentageIdeal) return <></>;
 
 	return (
 		<>

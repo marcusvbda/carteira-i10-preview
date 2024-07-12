@@ -1,7 +1,6 @@
 'use client';
 
 import { useContext, useMemo, ReactNode, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import ReactECharts from 'echarts-for-react';
 import { ProgressBar } from 'primereact/progressbar';
 import Icon from '@/components/common/icon';
@@ -12,7 +11,6 @@ import { CreateGoalBtn } from '../goals/_goalCreate';
 export default function Summary({ defaultData }: any): ReactNode {
 	const { formatMoney } = useHelpers();
 	const [createVisible, setCreateVisible] = useState(true);
-	const router = useRouter();
 	const { theme } = useContext(ThemeContext);
 
 	const data = useMemo(() => {
@@ -62,7 +60,7 @@ export default function Summary({ defaultData }: any): ReactNode {
 
 	const onSaved = () => {
 		setCreateVisible(false);
-		router.refresh();
+		window.location.reload();
 	};
 
 	const totalGoals = useMemo(() => {

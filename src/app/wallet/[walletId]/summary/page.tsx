@@ -10,7 +10,6 @@ export const metadata: Metadata = seo.summary;
 interface IProps {
 	metricsData: any[];
 	alertsData: any[];
-	datatableData: any;
 	donutChartData: any[];
 	defaultBarChartData: any[];
 	infoData: any;
@@ -19,7 +18,6 @@ interface IProps {
 export default function SummaryPage({
 	metricsData,
 	alertsData,
-	datatableData,
 	donutChartData,
 	defaultBarChartData,
 	infoData,
@@ -34,13 +32,7 @@ export default function SummaryPage({
 				donutChartData={donutChartData}
 				defaultBarChartData={defaultBarChartData}
 			/>
-			<Datatables
-				infoData={infoData}
-				tickerData={datatableData.tickerData}
-				fiiData={datatableData.fiiData}
-				cryptoData={datatableData.cryptoData}
-				fundData={datatableData.fundData}
-			/>
+			<Datatables infoData={infoData} />
 		</div>
 	);
 }

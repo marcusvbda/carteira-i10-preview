@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, ReactNode } from 'react';
+import { useMemo, useState, ReactNode, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import DonutChart from '@/components/charts/donutChart';
 import Icon from '@/components/common/icon';
@@ -8,6 +8,7 @@ import If from '@/components/common/if';
 import Modal from '@/components/common/modal';
 import ModalEntries from '@/components/modalEntries';
 import { seo } from '@/constants/seo';
+import { WalletContext } from '@/context/walletContext';
 
 interface IProps {
 	rows: any[];
@@ -162,10 +163,11 @@ export default function DatatablePostTitle({
 	tickerType,
 	defaultColumns,
 }: IProps): ReactNode {
+	const { walletId } = useContext(WalletContext);
 	const router = useRouter();
 	const goToEntries = (e: any) => {
 		e.stopPropagation();
-		router.push(seo.entries.path);
+		router.push(`/wallet/${walletId}/${seo.entries.path}`);
 	};
 
 	const charData = useMemo(() => {

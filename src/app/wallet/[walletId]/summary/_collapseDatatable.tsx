@@ -1,17 +1,16 @@
 'use client';
 
 import React, {
+	ReactNode,
+	useContext,
 	useEffect,
 	useMemo,
 	useState,
-	ReactNode,
-	useContext,
 } from 'react';
 import { useRouter } from 'next/navigation';
 import { Datatable } from '@/components/common/datatable';
 import Icon from '@/components/common/icon';
 import SensitiveContent from '@/components/common/sensitiveContent';
-import Skeleton from '@/components/common/skeleton';
 import Tooltip from '@/components/common/tooltip';
 import Trend from '@/components/common/trend';
 import YesOrNo from '@/components/common/yesOrNo';
@@ -21,59 +20,72 @@ import ScoreComponent from '@/components/score';
 import { envoriment } from '@/constants/environment';
 import { WalletContext } from '@/context/walletContext';
 import { useHelpers } from '@/hooks/helpers';
-import DatatableFooter from './_datatableFooter';
+import DatatableInfo from './_datatableInfo';
 import DatatablePostTitle from './_datatablePostTitle';
 
-interface IProps {
-	loading: boolean;
-	defaultCollapsed?: boolean;
-	rows: any;
-	total: number;
-	title: string;
-	icon: string;
-	tickerType: string;
-	darkIcon: string;
-	tickerInfo: any;
-	infoData: any;
-}
+const defaultColumns = [
+	'ticker',
+	'quantity',
+	'avg_price',
+	'current_price',
+	'appreciation',
+	'equity_total',
+	'bazin',
+	'score',
+	'percent_wallet',
+	'buy',
+];
 
 export default function CollapseDatatable({
-	loading,
-	rows,
-	total,
-	title,
-	icon,
-	darkIcon,
 	defaultCollapsed,
-	tickerType,
-	tickerInfo,
 	infoData,
-}: IProps): ReactNode {
+	type,
+}: any): ReactNode {
+	const { walletId } = useContext(WalletContext);
 	const helpers = useHelpers();
 	const router = useRouter();
-	const { walletId } = useContext(WalletContext);
+	const [loading, setLoading] = useState(true);
+	const [rows, setRows] = useState<any[]>([]);
+
+	const title = useMemo(() => {
+		const classValue = (type?.class || '') as string;
+		return classValue
+			.replace(/(<([^>]+)>)/gi, ' ')
+			.replace('&nbsp;', '')
+			.trim();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const total = useMemo(() => {
+		return type?.count || 0;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const totalAmount = useMemo(() => {
+		return type?.equity || 0;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const percent = useMemo(() => {
+		return type?.percent || 0;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const rentability = useMemo(() => {
+		return type?.rentability || 0;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const balancing = useMemo(() => {
+		return type?.balancing || 0;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const localStorageColumns = useMemo(() => {
 		return JSON.parse(
 			localStorage.getItem(`datatable-columns-${title}`) || '[]',
 		);
 	}, [title]);
-
-	const defaultColumns = useMemo(
-		() => [
-			'ticker',
-			'quantity',
-			'avg_price',
-			'current_price',
-			'appreciation',
-			'equity_total',
-			'bazin',
-			'score',
-			'percent_wallet',
-			'buy',
-		],
-		[],
-	);
 
 	const checkIsVisible = (field: string) => {
 		const persistValue = (localStorageColumns || []).find(
@@ -147,7 +159,7 @@ export default function CollapseDatatable({
 		},
 		{
 			field: 'appreciation',
-			title: 'Valorização',
+			title: 'Variação',
 			group: 'Dados básicos',
 			sortable: true,
 			visible: checkIsVisible('appreciation'),
@@ -233,7 +245,7 @@ export default function CollapseDatatable({
 			body: (row: any): ReactNode => (
 				<ScoreComponent
 					row={row as any}
-					type={tickerType}
+					type={type}
 					onSubmit={(val: any) => (row.raw_rating = val)}
 				/>
 			),
@@ -271,7 +283,7 @@ export default function CollapseDatatable({
 			group: 'Dados fundamentais',
 			sortable: true,
 			visible: checkIsVisible('payout'),
-			body: (row: any) => `${row.payout}%`,
+			body: (row: any) => `${Number(row.payout || 0).toFixed(2)}%`,
 		},
 		{
 			field: 'gnp',
@@ -370,42 +382,39 @@ export default function CollapseDatatable({
 	]);
 
 	useEffect(() => {
-		localStorage.setItem(`datatable-columns-${title}`, JSON.stringify(columns));
-	}, [columns, title]);
-
-	const totalAmount = useMemo(() => {
-		return (rows || []).reduce((acc: number, row: any) => {
-			return acc + row.equity_total;
-		}, 0);
-	}, [rows]);
-
-	if (loading) {
-		return <Skeleton height="150px" />;
-	}
+		fetch(`/api/summary/${walletId}/actives/${type.type}`).then(
+			(response: any) => {
+				response.json().then((result: any) => {
+					setRows(result.data);
+					setLoading(false);
+				});
+			},
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<Datatable
 			title={title}
-			icon={icon}
-			darkIcon={darkIcon}
 			defaultCollapsed={defaultCollapsed === true}
 			pagination={false}
+			loading={loading}
 			actions={
 				<DatatablePostTitle
 					rows={rows}
 					columns={columns}
 					setColumns={setColumns}
-					tickerType={tickerType}
+					tickerType={type}
 					defaultColumns={defaultColumns}
 				/>
 			}
 			summary={
-				<DatatableFooter
+				<DatatableInfo
 					qty={total}
 					totalAmount={totalAmount}
-					percent={tickerInfo?.percent || 0}
-					profitability={tickerInfo?.rentability || 0}
-					percentageIdeal={tickerInfo?.balancing || 0}
+					percent={percent}
+					profitability={rentability}
+					percentageIdeal={balancing}
 					infoData={infoData}
 				/>
 			}

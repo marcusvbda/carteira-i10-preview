@@ -13,7 +13,7 @@ interface IProps {
 	infoData: any;
 }
 
-export default function DatatableFooter({
+export default function DatatableInfo({
 	qty,
 	totalAmount,
 	percent,

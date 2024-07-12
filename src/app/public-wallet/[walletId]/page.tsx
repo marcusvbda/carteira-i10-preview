@@ -16,16 +16,11 @@ export default async function WalletPage({
 }: IProps): Promise<ReactNode> {
 	const { walletId } = params;
 
-	const [infoData, metricsData] = await Promise.all([
-		fetchServer(`summary/info/${walletId}`),
-		fetchServer(`summary/metrics/${walletId}`),
-	]);
+	const metricsData = await fetchServer(`summary/metrics/${walletId}`);
 
-	if (Number(metricsData?.applied || 0) === 0) {
-		return notFound();
-	}
+	if (Number(metricsData?.applied || 0) === 0) notFound();
 
-	const [alertsData, datatableData, donutChartData, defaultBarChartData] =
+	const [alertsData, infoData, donutChartData, defaultBarChartData] =
 		await getSummaryData(walletId);
 
 	return (
@@ -33,7 +28,6 @@ export default async function WalletPage({
 			infoData={infoData}
 			metricsData={metricsData}
 			alertsData={alertsData}
-			datatableData={datatableData}
 			donutChartData={donutChartData}
 			defaultBarChartData={defaultBarChartData}
 		/>
