@@ -117,7 +117,7 @@ const EditColumns = ({ columns, setColumns, defaultColumns }: any) => {
 			setModalVisible={setModalVisible}
 			modalVisible={modalVisible}
 			source={
-				<button className="btn small transparent">
+				<button className="btn small transparent mobile-only-icon">
 					<Icon icon="/images/theme/table-columns.svg" width="16px" />
 					<label> Editar colunas</label>
 				</button>
@@ -183,7 +183,10 @@ export default function DatatablePostTitle({
 
 	return (
 		<>
-			<button onClick={goToEntries} className="btn small no-border transparent">
+			<button
+				onClick={goToEntries}
+				className="btn small no-border transparent mobile-only-icon"
+			>
 				<label>Lançamentos</label>
 				<Icon icon="/images/theme/link.svg" width="16px" />
 			</button>
@@ -191,7 +194,7 @@ export default function DatatablePostTitle({
 				size="50%"
 				title="Ativos na Carteira"
 				source={
-					<button className="btn small transparent">
+					<button className="btn small transparent mobile-only-icon">
 						<Icon icon="/images/theme/bar-chart.svg" width="16px" />
 						<label>Gráficos</label>
 					</button>
@@ -205,7 +208,10 @@ export default function DatatablePostTitle({
 				setColumns={setColumns}
 				defaultColumns={defaultColumns}
 			/>
-			<ModalEntries className="small" tickerType={tickerType} />
+			<ModalEntries
+				className="small mobile-only-icon"
+				tickerType={tickerType}
+			/>
 		</>
 	);
 }

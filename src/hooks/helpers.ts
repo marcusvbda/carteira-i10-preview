@@ -1,6 +1,7 @@
 export const useHelpers = () => {
 	return {
-		formatMoney: (value: number, currency = 'BRL'): string => {
+		formatMoney: (value: number, params: any = {}): string => {
+			const currency = params.currency || 'BRL';
 			try {
 				const currencyMap = {
 					BRL: 'pt-BR',
@@ -9,22 +10,30 @@ export const useHelpers = () => {
 
 				const symbol = currency === 'USD' ? '$ ' : 'R$ ';
 
-				if (value >= 1000000000) {
-					return (
-						symbol + (value / 1000000000).toFixed(1).replace('.0', '') + 'B'
-					);
-				} else if (value >= 1000000) {
-					return symbol + (value / 1000000).toFixed(1).replace('.0', '') + 'M';
-				} else if (value >= 100000) {
-					return symbol + Math.floor(value / 1000) + 'K';
-				} else if (value >= 1000) {
-					return symbol + (value / 1000).toFixed(1).replace('.0', '') + 'K';
-				} else {
-					return new Intl.NumberFormat((currencyMap as any)[currency], {
-						style: 'currency',
-						currency,
-					}).format(value);
+				if (params?.short) {
+					if (value >= 1000000000) {
+						return (
+							symbol + (value / 1000000000).toFixed(1).replace('.0', '') + 'B'
+						);
+					} else if (value >= 1000000) {
+						return (
+							symbol + (value / 1000000).toFixed(1).replace('.0', '') + 'M'
+						);
+					} else if (value >= 100000) {
+						return symbol + Math.floor(value / 1000) + 'K';
+					} else if (value >= 1000) {
+						return symbol + (value / 1000).toFixed(1).replace('.0', '') + 'K';
+					} else {
+						return new Intl.NumberFormat((currencyMap as any)[currency], {
+							style: 'currency',
+							currency,
+						}).format(value);
+					}
 				}
+				return new Intl.NumberFormat((currencyMap as any)[currency], {
+					style: 'currency',
+					currency,
+				}).format(value);
 			} catch (error) {
 				return ' - ';
 			}

@@ -1,6 +1,7 @@
-import { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
 import SensitiveContent from '@/components/common/sensitiveContent';
 import Trend from '@/components/common/trend';
+import { ThemeContext } from '@/context/themeContext';
 import { useHelpers } from '@/hooks/helpers';
 import PercentageInWallet from './_percentageInWallet';
 
@@ -22,6 +23,7 @@ export default function DatatableInfo({
 	infoData,
 }: IProps): ReactNode {
 	const helpers = useHelpers();
+	const { screenFormat } = useContext(ThemeContext);
 
 	return (
 		<div className="datatable-footer">
@@ -33,7 +35,9 @@ export default function DatatableInfo({
 				<strong>Valor total</strong>
 				<div>
 					<SensitiveContent>
-						{helpers.formatMoney(totalAmount)}
+						{helpers.formatMoney(totalAmount, {
+							short: screenFormat === 'mobile',
+						})}
 					</SensitiveContent>
 				</div>
 			</div>

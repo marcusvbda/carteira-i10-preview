@@ -98,6 +98,7 @@ export default function DonutChart({
 				},
 			],
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data, screenFormat]);
 
 	if (noCard) {

@@ -9,7 +9,9 @@ import 'react-select2-wrapper/css/select2.css';
 
 const formatNumber = (number: number) => {
 	if (number.toString().includes('.')) {
-		return number.toFixed(2);
+		const val = number.toFixed(2);
+		if (val.endsWith('.00')) return val.replace('.00', '');
+		return val;
 	}
 	return number.toString();
 };

@@ -194,14 +194,42 @@ export default function CollapseDatatable({
 			},
 		},
 		{
-			field: 'bazin',
-			name: 'Preço justo ( Bazin )',
-			visible: checkIsVisible('bazin'),
+			field: 'graham',
+			name: 'Preço justo ( Graham )',
+			visible: checkIsVisible('graham'),
 			title: (): ReactNode => {
 				return (
 					<div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
 						<div>
 							Preço Justo
+							<br />
+							<small>Graham</small>
+						</div>
+						<Tooltip content="Indica o valor máximo a ser pago por uma ação, de acordo com a metodologia de Décio Bazin.">
+							<Icon
+								className="hide"
+								icon="/images/theme/info.svg"
+								width="12px"
+								height="12px"
+							/>
+						</Tooltip>
+					</div>
+				);
+			},
+			group: 'Dados básicos',
+			body: (row: any): ReactNode => (
+				<LockedComponent content={helpers.formatMoney(row.bazin)} />
+			),
+		},
+		{
+			field: 'bazin',
+			name: 'Preço teto ( Bazin )',
+			visible: checkIsVisible('bazin'),
+			title: (): ReactNode => {
+				return (
+					<div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+						<div>
+							Preço teto
 							<br />
 							<small>Bazin</small>
 						</div>
@@ -223,7 +251,7 @@ export default function CollapseDatatable({
 		},
 		{
 			field: 'score',
-			name: 'Score',
+			name: 'Minha nota',
 			title: (): ReactNode => {
 				return (
 					<div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
@@ -266,8 +294,21 @@ export default function CollapseDatatable({
 			},
 		},
 		{
+			field: 'percent_ideal',
+			title: '% ideal',
+			group: 'Dados básicos',
+			visible: checkIsVisible('percent_ideal'),
+			sortable: true,
+			body: (row: any): ReactNode => {
+				const percentage = row.percent_ideal;
+				let value = percentage.toFixed(2);
+				if (value.endsWith('.00')) value = value.replace('.00', '');
+				return <div className="datatable-cell-row">{value}%</div>;
+			},
+		},
+		{
 			field: 'buy',
-			title: 'Comprar',
+			title: 'Comprar ?',
 			group: 'Dados básicos',
 			sortable: true,
 			visible: checkIsVisible('buy'),
@@ -278,20 +319,29 @@ export default function CollapseDatatable({
 			},
 		},
 		{
+			field: 'avg_rating',
+			group: 'Dados básicos',
+			title: 'Média de Avaliações',
+			name: 'Média de Avaliações',
+			sortable: false,
+			visible: checkIsVisible('avg_rating'),
+			body: (row: any): ReactNode => {
+				const count = row?.raw_avg_rating || 0;
+				const stars = new Array(count).fill(<span>⭐</span>);
+				const rest = new Array(5 - count).fill(
+					<span style={{ filter: 'grayscale(1)' }}>⭐</span>,
+				);
+				return stars.concat(rest);
+			},
+		},
+		{
 			field: 'payout',
-			title: 'payout',
+			title: 'Payout',
+			name: 'Payout',
 			group: 'Dados fundamentais',
 			sortable: true,
 			visible: checkIsVisible('payout'),
 			body: (row: any) => `${Number(row.payout || 0).toFixed(2)}%`,
-		},
-		{
-			field: 'gnp',
-			title: 'CAGR Lucros (5 anos)',
-			visible: checkIsVisible('gnp'),
-			sortable: true,
-			group: 'Dados fundamentais',
-			body: (row: any) => `${row.gnp}%`,
 		},
 		{
 			field: 'dy',
@@ -323,7 +373,6 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('yoc'),
 			group: 'Dados fundamentais',
 			sortable: true,
-			body: (row: any) => `${row.yoc}%`,
 		},
 		{
 			field: 'net_margin',
@@ -356,6 +405,14 @@ export default function CollapseDatatable({
 			sortable: true,
 			group: 'Dados fundamentais',
 			body: (row: any) => `${row.gnr}%`,
+		},
+		{
+			field: 'growth_net_profit_last_5_years',
+			title: 'CAGR Lucros (5 anos) ',
+			visible: checkIsVisible('growth_net_profit_last_5_years'),
+			sortable: true,
+			group: 'Dados fundamentais',
+			body: (row: any) => `${row.growth_net_profit_last_5_years}%`,
 		},
 		{
 			field: 'options',

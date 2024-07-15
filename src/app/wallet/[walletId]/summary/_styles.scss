@@ -15,7 +15,7 @@ section.section-metrics {
 section.section-charts {
 	margin-top: 15px;
 	display: grid;
-	grid-template-columns: 3fr 2fr;
+	grid-template-columns: 60% 40%;
 	gap: 16px;
 
 	.chart-header {
@@ -92,7 +92,7 @@ section.section-charts {
 			gap: 10px;
 			padding: 0 15px;
 
-			.btn {
+			.btn.mobile-only-icon {
 				min-width: 24px;
 				min-height: 24px;
 				height: 24px;
