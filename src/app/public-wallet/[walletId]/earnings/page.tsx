@@ -9,7 +9,7 @@ export default async function EarningsPagePublic({
 	params,
 }: IProps): Promise<ReactNode> {
 	const { walletId } = params;
-	const [barchartData, detailsData, summaryData] =
+	const [barchartData, detailsData, summaryData, totalMonths] =
 		await getEarningsData(walletId);
 
 	return (
@@ -18,6 +18,7 @@ export default async function EarningsPagePublic({
 			barchartData={barchartData}
 			detailsData={detailsData}
 			summaryData={summaryData}
+			totalMonths={totalMonths}
 		/>
 	);
 }

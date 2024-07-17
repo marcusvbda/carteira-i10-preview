@@ -5,6 +5,7 @@ export const getEarningsData = async (walletId: string): Promise<any> => {
 		fetchServer(`earnings/barchart/${walletId}/received`),
 		fetchServer(`earnings/list/${walletId}`),
 		fetchServer(`earnings/summary-card/${walletId}`),
+		fetchServer(`earnings/summary-card/${walletId}/total-months?qtyMonths=12`),
 	]);
 	return result;
 };

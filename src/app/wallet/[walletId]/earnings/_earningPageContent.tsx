@@ -13,6 +13,7 @@ interface IProps {
 	summaryData: any;
 	barchartData: any;
 	detailsData: any;
+	totalMonths: any;
 }
 
 export default function EarningsPageContent({
@@ -20,12 +21,17 @@ export default function EarningsPageContent({
 	summaryData,
 	barchartData,
 	detailsData,
+	totalMonths,
 }: IProps): ReactNode {
 	return (
 		<section className="earnings-page">
 			<div className="page-container">
 				<div className="container-row">
-					<Summary defaultData={summaryData} />
+					<Summary
+						defaultData={summaryData}
+						totalMonths={totalMonths}
+						detailsData={detailsData}
+					/>
 					<Evolution defaultData={barchartData} walletId={walletId} />
 				</div>
 				<History defaultData={barchartData} />
