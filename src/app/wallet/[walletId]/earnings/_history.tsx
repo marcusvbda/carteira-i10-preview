@@ -22,7 +22,6 @@ const months = [
 export default function Evolution({ defaultData }: any): ReactNode {
 	const rows = useMemo(() => {
 		const items = defaultData;
-		if (!items || !items.length) return [];
 		const values = [];
 		const keys = Object.keys(items);
 		let sum: number = 0;
@@ -45,8 +44,8 @@ export default function Evolution({ defaultData }: any): ReactNode {
 				average,
 				...monthValues,
 			});
-			return values;
 		}
+		return values;
 	}, [defaultData]);
 
 	return (

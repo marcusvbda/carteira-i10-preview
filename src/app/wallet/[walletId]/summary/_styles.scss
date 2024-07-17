@@ -15,7 +15,7 @@ section.section-metrics {
 section.section-charts {
 	margin-top: 15px;
 	display: grid;
-	grid-template-columns: 60% 40%;
+	grid-template-columns: 3fr 2fr;
 	gap: 16px;
 
 	.chart-header {

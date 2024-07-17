@@ -46,6 +46,12 @@
 							grid-template-columns: 2fr 1fr;
 							gap: 8px;
 
+							html[screen-format='mobile'] &,
+							html[screen-format='tablet'] & {
+								margin-top: 10px;
+								margin-left: 0;
+							}
+
 							&.history {
 								grid-template-columns: 2fr 1fr 1fr;
 							}
@@ -133,7 +139,7 @@
 			}
 			.summary {
 				width: min(360px, 100%);
-				html[screen-format='mobile'],
+				html[screen-format='mobile'] &,
 				html[screen-format='tablet'] & {
 					width: 100%;
 				}

@@ -54,6 +54,8 @@ export const fetchServer = async (
 				...settings,
 			},
 		);
+		// console.log(`${envoriment.apiUrl}/api/wallet-app/${url}`, token);
+
 		if (request.ok) return await request.json();
 	} catch (error) {
 		console.log(error);

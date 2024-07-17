@@ -35,9 +35,26 @@ export default function Summary({
 	const { theme } = useContext(ThemeContext);
 
 	const data = useMemo(() => {
-		return (detailsData?.data || []).map((row: any) => ({
-			name: row.name,
-			value: Number(row.value),
+		const values: any = [];
+		for (let i = 0; i < (detailsData?.data || []).length; i++) {
+			const row = detailsData?.data[i];
+			const found = values.find((x: any) => x.name === row.name);
+			if (found) {
+				found.value =
+					found.value +
+					parseFloat(row.value.replace(' ', '').replace(',', '.'));
+				found.value = parseFloat(found.value.toFixed(2));
+			} else {
+				values.push({
+					name: row.name,
+					value: parseFloat(row.value.replace(' ', '').replace(',', '.')),
+				});
+			}
+		}
+		const total = values.reduce((sum: any, item: any) => sum + item.value, 0);
+		return values.map((item: any) => ({
+			name: item.name,
+			value: parseFloat(((item.value / total) * 100).toFixed(2)),
 		}));
 	}, [detailsData]);
 
@@ -86,8 +103,8 @@ export default function Summary({
 	}, [defaultData]);
 
 	const total = useMemo(() => {
-		return defaultData?.total || 0;
-	}, [defaultData]);
+		return detailsData?.total || 0;
+	}, [detailsData]);
 
 	const totalPercentage = useMemo(() => {
 		return totalGoals ? Math.round((total / totalGoals) * 100) : 0;

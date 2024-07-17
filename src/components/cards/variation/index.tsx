@@ -17,26 +17,6 @@ interface IProps {
 	variationAmount: number;
 }
 
-const Title = ({ title, icon }: any): ReactNode => {
-	return (
-		<h4>
-			<Icon icon={`/images/theme/${icon}.svg`} width="14px" opacity="0.7" />
-			{title}
-			<Link href="#" className="variation">
-				Variação
-				<Icon icon="/images/theme/questions.svg" width="14px" />
-			</Link>
-			{/* <Link href="#" className="edit">
-                <Icon
-                    icon="/images/theme/edit.svg"
-                    width="14px"
-                    opacity="0.7"
-                />
-            </Link> */}
-		</h4>
-	);
-};
-
 const Content = ({ profit, variation, variationAmount }: any): ReactNode => {
 	const helpers = useHelpers();
 	let varitionTrendClass = '';
@@ -104,7 +84,15 @@ export default function VariationCard({
 	if (loading) return <Skeleton height="122px" />;
 	return (
 		<DefaultCard className="card-variation" padding="12px">
-			<Title title={title} icon={icon} />
+			<h4 style={{ display: 'flex' }}>
+				<div style={{ display: 'flex', flex: 1, alignItems: 'center', gap: 6 }}>
+					<Icon icon={`/images/theme/${icon}.svg`} width="14px" opacity="0.7" />
+					{title}
+				</div>
+				<Link style={{ flex: 1 }} href="#" className="variation">
+					Variação
+				</Link>
+			</h4>
 			<Content
 				variation={variation}
 				profit={profit}
