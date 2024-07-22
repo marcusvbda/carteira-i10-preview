@@ -5,10 +5,15 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { envoriment } from './constants/environment';
 
 const checkToken = async (token: string) => {
-	const encodedToken = encodeURIComponent(token);
-	const checkRoute = `${envoriment.apiUrl}/api/wallet-app/check-token/${encodedToken}`;
-	const response = await axios.get(checkRoute);
-	return response.data;
+	try {
+		const encodedToken = encodeURIComponent(token);
+		const checkRoute = `${envoriment.apiUrl}/api/wallet-app/check-token/${encodedToken}`;
+		const response = await axios.get(checkRoute);
+		return response.data;
+	} catch (error) {
+		// console.log(error);
+		return null;
+	}
 };
 
 export const authOptions: NextAuthOptions = {
@@ -47,13 +52,15 @@ export const authOptions: NextAuthOptions = {
 		},
 		async jwt({ token, user }: any) {
 			if (user && !token?.user?.user) {
+				console.log('if');
 				token.user = user;
 			} else {
-				if (!token?.user?.user) {
-					const jwtToken = token?.user?.jwt || false;
-					const authData = await checkToken(jwtToken);
-					token.user = authData;
+				const jwtToken = token?.user?.jwt || false;
+				const authData = await checkToken(jwtToken);
+				if (!authData) {
+					return null;
 				}
+				token.user = authData;
 			}
 			return token;
 		},

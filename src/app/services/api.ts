@@ -40,7 +40,7 @@ export const fetchServer = async (
 	apiRoute = false,
 ) => {
 	const session = await getServerSession(authOptions);
-	const token = (session?.user as any).jwt || '';
+	const token = (session?.user as any)?.jwt || '';
 	// const { user } = cx as any;
 	try {
 		const request = await fetch(

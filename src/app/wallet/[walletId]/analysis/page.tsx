@@ -8,10 +8,8 @@ export const metadata: Metadata = seo.analysis;
 
 export default function AnalysisPage(): ReactNode {
 	return (
-		<section className="analysis-section">
-			<div className="page-container">
-				<Fragments />
-			</div>
-		</section>
+		<div className="page-container analysis-section">
+			<Fragments />
+		</div>
 	);
 }

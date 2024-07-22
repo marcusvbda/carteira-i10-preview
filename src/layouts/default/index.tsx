@@ -18,7 +18,7 @@ export default function DefaultLayout({ children }: any): ReactNode {
 	return (
 		<>
 			<NavBar pathname={pathname} />
-			{children}
+			<section className="main-fluid">{children}</section>
 			<Footer />
 			<ScrollToTop />
 		</>

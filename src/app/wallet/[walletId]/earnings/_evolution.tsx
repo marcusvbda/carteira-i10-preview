@@ -5,7 +5,6 @@ import { Dropdown } from 'primereact/dropdown';
 import Icon from '@/components/common/icon';
 import Skeleton from '@/components/common/skeleton';
 import { ThemeContext } from '@/context/themeContext';
-import 'react-select2-wrapper/css/select2.css';
 import { useFetch } from '@/hooks/fetch';
 import { useHelpers } from '@/hooks/helpers';
 

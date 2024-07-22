@@ -213,6 +213,12 @@ body:has(.lock-mouse) {
 	width: 100%;
 }
 
+.main-fluid {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .page-container {
 	@extend .container;
 	@extend .flex-column;
@@ -220,6 +226,8 @@ body:has(.lock-mouse) {
 	padding-top: 140px;
 	padding-bottom: 40px;
 	background-color: var(--bg-color);
+	max-width: 1680px;
+	width: 100%;
 
 	&:has(.goal-list) {
 		padding-top: 120px;

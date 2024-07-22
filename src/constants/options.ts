@@ -1,3 +1,18 @@
+export const months: string[] = [
+	'Jan',
+	'Fev',
+	'Mar',
+	'Abr',
+	'Mai',
+	'Jun',
+	'Jul',
+	'Ago',
+	'Set',
+	'Out',
+	'Nov',
+	'Dez',
+];
+
 export const typeOptions: any[] = [
 	{ value: 'BUY', name: 'Compra' },
 	{ value: 'SELL', name: 'Venda' },

@@ -9,11 +9,9 @@ export const metadata: Metadata = seo.patrimony;
 
 export default function PatrimonyPage(): ReactNode {
 	return (
-		<section className="patrimony-page">
-			<div className="page-container">
-				<Evolution />
-				<ConsolidationChats />
-			</div>
-		</section>
+		<div className="page-container patrimony-page">
+			<Evolution />
+			<ConsolidationChats />
+		</div>
 	);
 }

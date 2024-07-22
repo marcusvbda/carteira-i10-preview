@@ -24,19 +24,17 @@ export default function EarningsPageContent({
 	totalMonths,
 }: IProps): ReactNode {
 	return (
-		<section className="earnings-page">
-			<div className="page-container">
-				<div className="container-row">
-					<Summary
-						defaultData={summaryData}
-						totalMonths={totalMonths}
-						detailsData={detailsData}
-					/>
-					<Evolution defaultData={barchartData} walletId={walletId} />
-				</div>
-				<History defaultData={barchartData} />
-				<Details defaultData={detailsData} />
+		<div className="page-container earnings-page">
+			<div className="container-row">
+				<Summary
+					defaultData={summaryData}
+					totalMonths={totalMonths}
+					detailsData={detailsData}
+				/>
+				<Evolution defaultData={barchartData} walletId={walletId} />
 			</div>
-		</section>
+			<History defaultData={barchartData} />
+			<Details defaultData={detailsData} />
+		</div>
 	);
 }

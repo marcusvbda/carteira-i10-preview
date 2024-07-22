@@ -1,13 +1,32 @@
 #profitabily {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	gap: var(--Spacing-System-spacing-m, 24px);
-	grid-template-columns: 250px minmax(500px, 1fr);
-	grid-template-rows: repeat(4, auto);
-	grid-template-areas:
-		'profitabily chart'
-		'last12 chart'
-		'last4 chart'
-		'table table';
+
+	.flex-row {
+		width: 100%;
+		display: flex;
+		gap: var(--Spacing-System-spacing-m, 24px);
+		.summary {
+			display: flex;
+			flex: 1;
+			flex-direction: column;
+			gap: var(--Spacing-System-spacing-m, 24px);
+			justify-content: space-between;
+		}
+
+		.box-chart-line {
+			flex: 5;
+		}
+	}
+
+	.value-positive {
+		color: var(--text-success);
+	}
+
+	.value-negative {
+		color: var(--text-error);
+	}
 
 	.metric-card {
 		.modal-content {
@@ -33,18 +52,8 @@
 				line-height: 16px; /* 133.333% */
 			}
 		}
-		&.box-profitabily {
-			grid-area: profitabily;
-		}
-		&.box-last12 {
-			grid-area: last12;
-		}
-		&.box-last4 {
-			grid-area: last4;
-		}
 	}
 	.box-chart-line {
-		grid-area: chart;
 		.modal-content {
 			padding: 0 !important;
 			.header {
@@ -93,13 +102,24 @@
 				}
 
 				.actions {
+					max-width: 500px;
 					margin-left: auto;
+					display: grid;
+					grid-template-columns: 2fr 1fr;
+					gap: 8px;
+
+					html[screen-format='mobile'] &,
+					html[screen-format='tablet'] & {
+						margin-top: 10px;
+						margin-left: 0;
+					}
+
+					&.history {
+						grid-template-columns: 2fr 1fr 1fr;
+					}
 				}
 			}
 			tr {
-				td {
-					font-weight: bolder;
-				}
 				td {
 					&.neutral {
 						font-weight: 500;
@@ -118,14 +138,23 @@
 		}
 	}
 
+	html[screen-format='tablet'] &,
 	html[screen-format='mobile'] & {
-		grid-template-columns: 1fr;
-		grid-template-rows: repeat(5, auto);
-		grid-template-areas:
-			'profitabily'
-			'last12'
-			'last4'
-			'chart'
-			'table';
+		flex-direction: column;
+
+		.flex-row {
+			flex-direction: column;
+
+			.summary {
+				flex-direction: row;
+				overflow-x: auto;
+				&::-webkit-scrollbar {
+					height: 0px;
+				}
+				.default-card {
+					min-width: 200px;
+				}
+			}
+		}
 	}
 }
