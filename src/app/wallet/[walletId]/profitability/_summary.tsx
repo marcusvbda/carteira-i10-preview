@@ -30,13 +30,13 @@ export default function Summary({ data }: any) {
 					<small>Rentabilidade</small>
 				</div>
 				<Trend
-					type={data.last_12_month.value > 0 ? 'positive' : 'negative'}
+					type={data.last_12_months.value > 0 ? 'positive' : 'negative'}
 					size="20px"
-					value={`${formatResult(data.last_12_month.value)}%`}
+					value={`${formatResult(data.last_12_months.value)}%`}
 					transparent
 				/>
 				<div>
-					<small>{data.last_12_month.description}</small>
+					<small>{data.last_12_months.description}</small>
 				</div>
 			</DefaultCard>
 			<DefaultCard className="metric-card box-last4">
@@ -45,13 +45,13 @@ export default function Summary({ data }: any) {
 					<small>Rentabilidade</small>
 				</div>
 				<Trend
-					type={data.last_4_month.value > 0 ? 'positive' : 'negative'}
+					type={data.last_4_weeks.value > 0 ? 'positive' : 'negative'}
 					size="20px"
-					value={`${formatResult(data.last_4_month.value)}%`}
+					value={`${formatResult(data.last_4_weeks.value)}%`}
 					transparent
 				/>
 				<div>
-					<small>{data.last_4_month.description}</small>
+					<small>{data.last_4_weeks.description}</small>
 				</div>
 			</DefaultCard>
 		</div>
