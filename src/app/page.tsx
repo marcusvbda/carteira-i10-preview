@@ -7,7 +7,11 @@ export default function Page() {
 	const { walletId } = useContext(WalletContext);
 
 	useEffect(() => {
-		redirect(`/wallet/${walletId}`);
+		if (walletId) {
+			redirect(`/wallet/${walletId}`);
+		} else {
+			redirect('/auth/signin');
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
