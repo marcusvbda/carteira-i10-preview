@@ -40,18 +40,18 @@ export default function Summary({ data }: any) {
 				</div>
 			</DefaultCard>
 			<DefaultCard className="metric-card box-last4">
-				<h4>Últimas 4 semanas</h4>
+				<h4>Último mes</h4>
 				<div>
 					<small>Rentabilidade</small>
 				</div>
 				<Trend
-					type={data.last_4_weeks.value > 0 ? 'positive' : 'negative'}
+					type={data.last_month.value > 0 ? 'positive' : 'negative'}
 					size="20px"
-					value={`${formatResult(data.last_4_weeks.value)}%`}
+					value={`${formatResult(data.last_month.value)}%`}
 					transparent
 				/>
 				<div>
-					<small>{data.last_4_weeks.description}</small>
+					<small>{data.last_month.description}</small>
 				</div>
 			</DefaultCard>
 		</div>

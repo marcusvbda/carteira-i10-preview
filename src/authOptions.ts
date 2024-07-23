@@ -52,7 +52,6 @@ export const authOptions: NextAuthOptions = {
 		},
 		async jwt({ token, user }: any) {
 			if (user && !token?.user?.user) {
-				console.log('if');
 				token.user = user;
 			} else {
 				const jwtToken = token?.user?.jwt || false;
