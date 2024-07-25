@@ -40,7 +40,7 @@ export default function Summary({ data }: any) {
 				</div>
 			</DefaultCard>
 			<DefaultCard className="metric-card box-last4">
-				<h4>Último mes</h4>
+				<h4>Último mês</h4>
 				<div>
 					<small>Rentabilidade</small>
 				</div>

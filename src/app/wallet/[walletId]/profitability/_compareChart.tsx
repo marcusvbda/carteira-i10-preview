@@ -70,62 +70,76 @@ export default function CompareChart({ theme }: any): ReactNode {
 
 	const charLineOps = useMemo(() => {
 		if (!data) return {};
+
 		const legend = Object.keys(data);
+		const longestLegend = legend.reduce(
+			(acc, key) => (data[acc].length < data[key].length ? key : acc),
+			legend[0],
+		);
 
-		let legendIfMoreLengths: any = data[legend[0]];
-		for (let i = 1; i < legend.length; i++) {
-			if (legendIfMoreLengths.length < legend[i].length) {
-				legendIfMoreLengths = data[legend[i]];
-			}
-		}
-		const dates = (legendIfMoreLengths || []).map((x: any) => x.date);
+		const dates = (data[longestLegend] || []).map((x: any) => x.date);
 
-		const series = [];
-		for (let i = 0; i < legend.length; i++) {
-			const serieDates = [];
-			const name = legend[i];
-			for (let j = 0; j < dates.length; j++) {
-				const profitability =
-					(data[name] || []).find((x: any) => x.date === dates[j])
-						?.profitability || 0;
-				serieDates.push(profitability);
-			}
-			series.push({
+		const series = legend.map((name) => {
+			const serieDates = dates.map(
+				(date: any) =>
+					(data[name] || []).find((x: any) => x.date === date)?.profitability ||
+					0,
+			);
+			return {
 				name,
 				type: 'line',
 				stack: 'Total',
 				data: serieDates,
-				areaStyle: {},
+				areaStyle: name === 'Rentabilidade' ? {} : null,
 				emphasis: {
 					focus: 'series',
 				},
 				symbol: 'none',
-			});
-		}
+			};
+		});
+
+		const getTooltipFormatter = (params: any) => `
+			<div class='chartbar-tooltip'>
+				<div class="date">${params[0].name}</div>
+				${params
+					.map(
+						(param: any) => `
+					<div class="label">
+						<div class="color" style="background-color: ${param.color}"></div>
+						<div class="name">${param.seriesName}</div>
+					</div>
+					<div class="value">${param.value.toFixed(2)}%</div>`,
+					)
+					.join('')}
+			</div>`;
 
 		return {
 			backgroundColor: 'transparent',
 			legend: {
-				data: legend,
+				data: [
+					'Rentabilidade',
+					'CDI',
+					'IPCA',
+					'IBOV',
+					'SMLL',
+					'SPX',
+					'IDIV',
+					'IVVB11',
+				],
+				selected: {
+					Rentabilidade: true,
+					CDI: true,
+					IPCA: true,
+					IBOV: false,
+					SMLL: false,
+					SPX: false,
+					IDIV: false,
+					IVVB11: false,
+				},
 			},
 			tooltip: {
 				trigger: 'axis',
-				formatter: (params: any) => {
-					return `
-					<div class='chartbar-tooltip'>
-						<div class="date">${params[0].name}</div>
-						${params
-							.map((param: any) => {
-								return `
-								<div class="label">
-									<div class="color" style="background-color: ${param.color}"></div>
-									<div class="name">${param.seriesName}</div>
-								</div>
-								<div class="value">${param.value.toFixed(2)}%</div>`;
-							})
-							.join('')}
-					</div>`;
-				},
+				formatter: getTooltipFormatter,
 			},
 			grid: {
 				left: '3%',
@@ -141,7 +155,18 @@ export default function CompareChart({ theme }: any): ReactNode {
 			yAxis: {
 				type: 'value',
 			},
-			series,
+			series: series.filter((s) =>
+				[
+					'Rentabilidade',
+					'CDI',
+					'IPCA',
+					'IBOV',
+					'SMLL',
+					'SPX',
+					'IDIV',
+					'IVVB11',
+				].includes(s.name),
+			),
 		};
 	}, [data]);
 

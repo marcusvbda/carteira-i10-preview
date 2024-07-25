@@ -23,8 +23,10 @@ export default function TableList({ tableData, theme }: any) {
 				const monthNumber = j + 1 < 10 ? `0${j + 1}` : `${j + 1}`;
 				const month = months[j];
 				const year = fullYear.slice(-2);
-				const value = rowsItems[`${monthNumber}/${year}`] || 0;
-				monthValues[month] = parseFloat(parseFloat(value).toFixed(2));
+				const value = rowsItems[`${monthNumber}/${year}`];
+				monthValues[month] = value
+					? parseFloat(parseFloat(value).toFixed(2))
+					: null;
 			}
 			values.push({
 				year: fullYear,
@@ -65,12 +67,9 @@ export default function TableList({ tableData, theme }: any) {
 						key={key}
 						body={(x: any) => {
 							const val = x.monthValues[month];
-							const className =
-								val > 0 ? 'value-positive' : val === 0 ? '' : 'value-negative';
-
-							return (
-								<span className={className}>{val === 0 ? '-' : `${val}%`}</span>
-							);
+							if (val === null) return '-';
+							const className = val >= 0 ? 'value-positive' : 'value-negative';
+							return <span className={className}>{val}%</span>;
 						}}
 					/>
 				))}
