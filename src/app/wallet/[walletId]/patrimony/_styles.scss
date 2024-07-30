@@ -47,6 +47,59 @@
 					}
 				}
 			}
+
+			.charts-row {
+				&.ideal {
+					display: grid;
+					gap: var(--Spacing-System-spacing-m, 24px);
+					grid-template-columns: 1fr 1fr;
+				}
+			}
+		}
+	}
+
+	.complete-chart-content {
+		display: grid;
+		grid-template-columns: 3fr 2fr;
+		gap: 10px;
+
+		.chart-legend {
+			max-height: 450px;
+			overflow-y: auto;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			justify-content: center;
+
+			.legend-row {
+				display: flex;
+				gap: 12px;
+				align-items: center;
+				.value,
+				.name {
+					font-family: var(--font-figtree);
+					font-size: 12px;
+					font-weight: 500;
+					line-height: 16px;
+					text-align: left;
+					color: var(--Color-System-Text-text-secondary, #778698);
+				}
+
+				.name {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					gap: 5px;
+					&:before {
+						content: '';
+						display: block;
+						width: 12px;
+						height: 12px;
+						border-radius: 2px;
+						background-color: var(--legend-color);
+					}
+				}
+			}
 		}
 	}
 }

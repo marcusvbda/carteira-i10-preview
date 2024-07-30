@@ -10,6 +10,7 @@ interface IProps {
 	title?: ReactNode;
 	footer?: ReactNode;
 	style?: CSSProperties;
+	modalContentStyles?: CSSProperties;
 }
 
 export default function DefaultCard({
@@ -21,6 +22,7 @@ export default function DefaultCard({
 	title,
 	footer,
 	style,
+	modalContentStyles,
 }: IProps) {
 	const paddingValue = padding ? padding : '12px 24px';
 
@@ -50,6 +52,7 @@ export default function DefaultCard({
 				className="modal-content"
 				style={{
 					padding: paddingValue,
+					...(modalContentStyles || {}),
 				}}
 			>
 				{children}

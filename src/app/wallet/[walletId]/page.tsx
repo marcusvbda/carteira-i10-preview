@@ -23,8 +23,7 @@ export default async function WalletPage({
 		return <EmptyState walletId={walletId} />;
 	}
 
-	const [alertsData, infoData, donutChartData, defaultBarChartData] =
-		await getSummaryData(walletId);
+	const [alertsData, infoData, donutChartData] = await getSummaryData(walletId);
 
 	return (
 		<SummaryPage
@@ -32,7 +31,6 @@ export default async function WalletPage({
 			metricsData={metricsData}
 			alertsData={alertsData}
 			donutChartData={donutChartData}
-			defaultBarChartData={defaultBarChartData}
 		/>
 	);
 }

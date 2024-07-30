@@ -36,6 +36,7 @@ export default function BarChart({
 	}, [width, height, yAxesWidth]);
 
 	const options = {
+		responsive: true,
 		backgroundColor: 'transparent',
 		tooltip: {
 			trigger: 'axis',
@@ -79,7 +80,11 @@ export default function BarChart({
 				<Skeleton width={sizes[0]} height={sizes[1]} />
 			) : (
 				<div className="chartbar-content" style={{ height: sizes[1] }}>
-					<ReactECharts option={options} theme={theme} />
+					<ReactECharts
+						option={options}
+						theme={theme}
+						style={{ height: sizes[1], width: sizes[0] }}
+					/>
 				</div>
 			)}
 		</DefaultCard>

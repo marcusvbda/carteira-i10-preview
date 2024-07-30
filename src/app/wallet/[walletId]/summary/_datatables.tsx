@@ -4,33 +4,6 @@ import { useMemo } from 'react';
 import CollapseDatatable from './_collapseDatatable';
 
 export default function Datatables({ infoData }: any) {
-	// const totalFund = useMemo(() => {
-	// return fundData?.total || 0;
-	// }, [fundData]);
-
-	// const totalCrypto = useMemo(() => {
-	// 	return cryptoData?.total || 0;
-	// }, [cryptoData]);
-
-	// const totalTicker = useMemo(() => {
-	// 	return tickerData?.total || 0;
-	// }, [tickerData]);
-
-	// const totalFiis = useMemo(() => {
-	// 	return fiiData?.total || 0;
-	// }, [fiiData]);
-
-	// const tickerInfo = useMemo(() => {
-	// 	return infoData.tickers.find((x: any) => x.type === 'Ticker');
-	// }, [infoData]);
-
-	// const fiiInfo = useMemo(() => {
-	// 	return infoData.tickers.find((x: any) => x.type === 'Fii');
-	// }, [infoData]);
-
-	// const cryptoInfo = useMemo(() => {
-	// 	return infoData.tickers.find((x: any) => x.type === 'Crypto');
-	// }, [infoData]);
 	const types = useMemo(() => {
 		return infoData?.tickers || [];
 		// eslint-disable-next-line react-hooks/exhaustive-deps

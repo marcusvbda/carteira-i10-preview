@@ -54,14 +54,12 @@ export default function TableList({ tableData, theme }: any) {
 				emptyMessage="Nenhum registro."
 			>
 				<Column
-					sortable
 					field="year"
 					header="Ano"
 					body={(x: any) => <strong>{x.year}</strong>}
 				/>
 				{months.map((month, key) => (
 					<Column
-						sortable
 						field={`monthValues.${month}`}
 						header={month}
 						key={key}
@@ -75,14 +73,12 @@ export default function TableList({ tableData, theme }: any) {
 				))}
 				<Column
 					header="Ano"
-					sortable
 					field="yearly"
 					style={highlightColumnStyle}
 					body={(x: any) => `${x.yearly}%`}
 				/>
 				<Column
 					header="Acumulado"
-					sortable
 					field="accumulated_data"
 					style={highlightColumnStyle}
 					body={(x: any) => `${x.accumulated_data}%`}

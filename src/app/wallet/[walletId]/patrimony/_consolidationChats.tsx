@@ -1,19 +1,36 @@
 'use client';
-import { ReactNode, useContext, useMemo, useState } from 'react';
+import {
+	CSSProperties,
+	ReactNode,
+	useContext,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 import ReactECharts from 'echarts-for-react';
 import DefaultCard from '@/components/cards/default';
 import Icon from '@/components/common/icon';
+import Skeleton from '@/components/common/skeleton';
 import InputSwitch from '@/components/inputSwitch/inputSwitch';
 import RadioTab from '@/components/radioTab/radioTab';
 import { ThemeContext } from '@/context/themeContext';
+import { WalletContext } from '@/context/walletContext';
+import { useFetch } from '@/hooks/fetch';
 
-const CardTitle = ({ title }: any): ReactNode => {
-	const [selectedOption, setSelectedOption] = useState(0);
+const CardTitle = ({
+	title,
+	setShowIdeal,
+	showIdeal,
+	selectedOption,
+	setSelectedOption,
+	options,
+}: any): ReactNode => {
 	return (
 		<div className="header-title">
-			<h4>{title}</h4>
+			<h4 dangerouslySetInnerHTML={{ __html: title }} />
 			<RadioTab
-				options={['Tipo de ativos', 'Ativos', 'Exposição ao exterior']}
+				options={options}
 				value={selectedOption}
 				onChange={setSelectedOption}
 			/>
@@ -21,35 +38,99 @@ const CardTitle = ({ title }: any): ReactNode => {
 				<div className="switch-position">
 					Exibir posição ideal
 					<Icon icon={'/images/theme/question.svg'} width="20px" />
-					<InputSwitch />
+					<InputSwitch value={showIdeal} onChange={setShowIdeal} />
 				</div>
 			</div>
 		</div>
 	);
 };
 
-const ActiveCard = ({ title }: any): ReactNode => {
-	const { theme } = useContext(ThemeContext);
+const CompleteChart = ({ theme, option, showIdeal }: any) => {
+	const [modelOptions, setModelOptions] = useState([]);
+	const chartRef = useRef(null);
+	useEffect(() => {
+		if (chartRef.current) {
+			const model = (chartRef.current as any).getEchartsInstance().getModel();
+			console.log(model.option);
+			const colors = model.option.color;
+			setModelOptions(
+				(model.option.series[0]?.data || []).map((x: any, key: number) => {
+					return {
+						...x,
+						color: colors[key],
+					};
+				}),
+			);
+		}
+	}, [chartRef]);
 
-	const option = useMemo(
-		() => ({
+	return (
+		<div className="complete-chart-content">
+			<ReactECharts
+				ref={chartRef}
+				theme={theme}
+				option={option}
+				style={{ height: showIdeal ? 300 : 450, width: '100%' }}
+			/>
+			<div className="chart-legend">
+				{modelOptions.map((x: any, key: number) => {
+					return (
+						<div key={key} className="legend-row">
+							<div className="value">
+								{x.percent
+									? `${parseFloat(x.percent.toFixed(2))}%`
+									: `${parseFloat(x.value.toFixed(2))}`}
+							</div>
+							<div
+								className="name"
+								style={{ '--legend-color': x.color } as CSSProperties}
+							>
+								{x.name}
+							</div>
+						</div>
+					);
+				})}
+			</div>
+		</div>
+	);
+};
+
+const ActiveCard = ({
+	title,
+	type,
+	setSelectedOption,
+	selectedOption,
+	options,
+}: any): ReactNode => {
+	const { walletId } = useContext(WalletContext);
+	const { theme } = useContext(ThemeContext);
+	const [showIdeal, setShowIdeal] = useState(true);
+
+	const {
+		data,
+		loading,
+		fetch: fetchData,
+	} = useFetch({
+		autoDispatch: false,
+	});
+
+	useEffect(() => {
+		fetchData({ route: `/api/patrimony/${walletId}/consolidation/${type}` });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [type]);
+
+	const calculateOptions = (values: any) => {
+		values = !Array.isArray(values) ? [] : values;
+		return {
 			backgroundColor: 'transparent',
 			tooltip: {
 				trigger: 'item',
 			},
-			legend: {
-				type: 'scroll',
-				orient: 'vertical',
-				right: 10,
-				top: 20,
-				bottom: 20,
-				data: ['Search Engine', 'Direct', 'Email', 'Union Ads', 'Video Ads'],
-			},
 			series: [
 				{
 					type: 'pie',
-					radius: ['65%', '90%'],
-					center: ['25%', '50%'],
+					radius: ['50%', '70%'],
+					center: ['40%', '50%'],
 					avoidLabelOverlap: false,
 					emphasis: {
 						itemStyle: {
@@ -58,40 +139,131 @@ const ActiveCard = ({ title }: any): ReactNode => {
 							shadowColor: 'rgba(0, 0, 0, 0.5)',
 						},
 					},
-					data: [
-						{ value: 1048, name: 'Search Engine' },
-						{ value: 735, name: 'Direct' },
-						{ value: 580, name: 'Email' },
-						{ value: 484, name: 'Union Ads' },
-						{ value: 300, name: 'Video Ads' },
-					],
+					data: values.map((item: any) => {
+						return {
+							...item,
+							value: parseFloat(item.value.toFixed(2)),
+						};
+					}),
+					label: {
+						show: !showIdeal,
+					},
 				},
 			],
-		}),
-		[],
-	);
+		};
+	};
+
+	const option = useMemo(() => {
+		return calculateOptions(data?.values || []);
+	}, [data]);
+
+	const optionIdeal = useMemo(() => {
+		return calculateOptions(data?.ideal || []);
+	}, [data]);
 
 	return (
-		<DefaultCard className="active-card" title={<CardTitle title={title} />}>
-			<div style={{ height: 450, padding: '50px 0' }}>
-				<ReactECharts
-					theme={theme}
-					option={option}
-					style={{ height: '100%' }}
+		<DefaultCard
+			className="active-card"
+			modalContentStyles={{ minHeight: 512 }}
+			title={
+				<CardTitle
+					title={title}
+					showIdeal={showIdeal}
+					setShowIdeal={setShowIdeal}
+					setSelectedOption={setSelectedOption}
+					selectedOption={selectedOption}
+					options={options}
 				/>
+			}
+		>
+			<div style={{ height: 450, padding: '50px 0' }}>
+				{loading || !data ? (
+					<Skeleton width="100%" height="100%" />
+				) : (
+					<div className={`charts-row ${showIdeal && 'ideal'}`}>
+						<CompleteChart
+							theme={theme}
+							option={option}
+							style={{ height: showIdeal ? 300 : 450, width: '100%' }}
+						/>
+						{showIdeal && (
+							<CompleteChart
+								theme={theme}
+								option={optionIdeal}
+								style={{ height: 300, width: '100%' }}
+							/>
+						)}
+					</div>
+				)}
 			</div>
 		</DefaultCard>
 	);
 };
 
-export default function ConsolidationChats(): ReactNode {
+const TickersRow = ({ row }: any) => {
+	const [selectedOption, setSelectedOption] = useState(0);
+
+	const makeIndex = (index: any = null) => {
+		const typeFetch = (row.type || '').toLowerCase();
+		if (typeFetch === 'ticker') {
+			return index ? `${index},ideal-${index}` : `${typeFetch},ideal`;
+		}
+		return index
+			? `${typeFetch}-${index},${index}-ideal-${typeFetch}`
+			: `${typeFetch},${typeFetch}-ideal`;
+	};
+
+	const type = useMemo(() => {
+		const options = [
+			makeIndex(),
+			makeIndex('per-sector'),
+			makeIndex('per-segment'),
+		];
+		return options[selectedOption];
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedOption]);
+
 	return (
-		<div className="consolidation-chats">
-			<h4 className="principal-title ">Consolidação do patrimônio</h4>
-			<ActiveCard title="Consolidação" />
-			<ActiveCard title="Ações" />
-			<ActiveCard title="FIIs" />
-			<ActiveCard title="Criptomoedas" />
-		</div>
+		<ActiveCard
+			title={row.class}
+			type={type}
+			selectedOption={selectedOption}
+			setSelectedOption={setSelectedOption}
+			options={
+				row.type === 'Ticker'
+					? ['Consolidado', 'Por setor', 'Por segmento']
+					: []
+			}
+		/>
+	);
+};
+
+export default function ConsolidationChats({ infoData }: any): ReactNode {
+	const [selectedOption, setSelectedOption] = useState(0);
+	const type = useMemo(() => {
+		const options = [
+			'all,ideal-per-type',
+			'tickers,ideal',
+			'exterior,exterior-ideal',
+		];
+		return options[selectedOption];
+	}, [selectedOption]);
+
+	return (
+		<>
+			<div className="consolidation-chats">
+				<h4 className="principal-title ">Consolidação do patrimônio</h4>
+				<ActiveCard
+					title="Tipo de ativos"
+					type={type}
+					selectedOption={selectedOption}
+					setSelectedOption={setSelectedOption}
+					options={['Tipo de ativos', 'Ativos', 'Exposição ao exterior']}
+				/>
+				{(infoData.tickers || []).map((x: any, key: number) => (
+					<TickersRow key={key} row={x} />
+				))}
+			</div>
+		</>
 	);
 }

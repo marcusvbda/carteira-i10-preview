@@ -1,9 +1,13 @@
 'use client';
 import './_styles.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function InputSwitch() {
-	const [checked, setChecked] = useState(false);
+export default function InputSwitch({ value = false, onChange = null }: any) {
+	const [checked, setChecked] = useState(value);
+
+	useEffect(() => {
+		onChange && onChange(checked);
+	}, [checked, onChange]);
 
 	return (
 		<label

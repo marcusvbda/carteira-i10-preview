@@ -896,3 +896,30 @@ button {
 		cursor: not-allowed;
 	}
 }
+
+.chart-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	margin-top: 12px;
+	border-bottom: 1px solid var(--border-subtle);
+	border-bottom: 1px solid var(--border-subtle);
+	padding-bottom: 16px;
+	margin-top: 0;
+
+	.chart-header__title {
+		color: var(--text-primary);
+		font-family: var(--font-figtree);
+		font-size: 18px;
+		font-style: normal;
+		font-weight: 500;
+	}
+
+	.chart-header__filter {
+		margin-left: auto;
+		display: flex;
+		gap: 8px;
+		align-items: center;
+	}
+}
