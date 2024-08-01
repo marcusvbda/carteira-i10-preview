@@ -1,67 +1,87 @@
 .card-variation {
-    h4 {
-        color: var(--text-secondary);
+	.modal-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		.icon-ball-gray {
+			background-color: var(
+				--Color-System-Background-surface-secondary,
+				#f6f7f9
+			);
+			height: 24px;
+			width: 24px;
+			border-radius: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 
-        font-size: 14px;
-        font-weight: 500;
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        margin-bottom: 24px;
+			html[data-theme='dark'] & {
+				background-color: unset;
+			}
+		}
+		h4 {
+			color: var(--text-secondary);
 
-        .variation {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-secondary);
+			font-size: 14px;
+			font-weight: 500;
+			display: flex;
+			gap: 8px;
+			align-items: center;
+			margin-bottom: 24px;
 
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: unset;
-            transition: 0.5s;
-            margin-left: 30px;
-            flex: 1;
+			.variation {
+				display: flex;
+				align-items: center;
+				gap: 4px;
+				color: var(--text-secondary);
 
-            &:hover {
-                filter: brightness(0.9);
-            }
-        }
+				font-size: 14px;
+				font-weight: 500;
+				text-decoration: unset;
+				transition: 0.5s;
+				margin-left: 30px;
+				flex: 1;
 
-        .edit {
-            margin-left: auto;
-            transition: 0.5s;
+				&:hover {
+					filter: brightness(0.9);
+				}
+			}
 
-            &:hover {
-                filter: brightness(0.9);
-            }
-        }
-    }
+			.edit {
+				margin-left: auto;
+				transition: 0.5s;
 
-    .card-variation--content {
-        padding-left: 32px;
-        padding-right: 32px;
-        display: flex;
-        gap: 30px;
+				&:hover {
+					filter: brightness(0.9);
+				}
+			}
+		}
 
-        .card-variation--content-col {
-            flex: 1;
-            small {
-                color: var(--text-primary);
+		.card-variation--content {
+			padding-left: 32px;
+			padding-right: 32px;
+			display: flex;
+			gap: 30px;
 
-                font-size: 12px;
-                font-weight: 400;
-            }
-        }
-    }
+			.card-variation--content-col {
+				flex: 1;
+				small {
+					color: var(--text-primary);
+
+					font-size: 12px;
+					font-weight: 400;
+				}
+			}
+		}
+	}
 }
 
 html[data-theme='dark'] {
-    .card-variation {
-        h4 {
-            .card-variation--icon {
-                opacity: 1;
-                filter: brightness(1.5);
-            }
-        }
-    }
+	.card-variation {
+		h4 {
+			.card-variation--icon {
+				opacity: 1;
+				filter: brightness(1.5);
+			}
+		}
+	}
 }
