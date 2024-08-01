@@ -67,7 +67,8 @@ export default function ModalEntries({
 	const [showAlert, setShowAlert] = useState(false);
 
 	const closeModal = () => {
-		if (showAlert) window.location.reload();
+		if (showAlert) return window.location.reload();
+		setModalVisible(false);
 	};
 
 	return (

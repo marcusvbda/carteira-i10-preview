@@ -10,14 +10,12 @@ export const metadata: Metadata = seo.summary;
 interface IProps {
 	metricsData: any[];
 	alertsData: any[];
-	donutChartData: any[];
 	infoData: any;
 }
 
 export default function SummaryPage({
 	metricsData,
 	alertsData,
-	donutChartData,
 	infoData,
 }: IProps): ReactNode {
 	return (
@@ -26,7 +24,7 @@ export default function SummaryPage({
 			style={{ '--bg-color': 'var(--surface-secondary)' } as CSSProperties}
 		>
 			<Metrics data={metricsData} alerts={alertsData} />
-			<Charts donutChartData={donutChartData} />
+			<Charts />
 			<Datatables infoData={infoData} />
 		</div>
 	);

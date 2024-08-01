@@ -26,7 +26,7 @@ section.section-charts {
 			align-items: flex-start;
 		}
 		gap: 16px;
-		margin-top: 12px;
+		// margin-top: 12px;
 		border-bottom: 1px solid var(--border-subtle);
 		padding-bottom: 16px;
 
@@ -76,9 +76,17 @@ section.section-charts {
 	html[screen-format='mobile'] & {
 		.chartbar {
 			order: 1;
+
+			.modal-content {
+				padding: 20px 10px !important;
+			}
 		}
 		.donut-chart {
 			order: 0;
+
+			.modal-content {
+				padding: 20px 10px !important;
+			}
 		}
 	}
 }
@@ -92,6 +100,17 @@ section.section-charts {
 			gap: 10px;
 			padding: 0 15px;
 
+			html[screen-format='mobile'] &,
+			html[screen-format='tablet'] & {
+				padding-right: 0;
+				flex-wrap: wrap;
+				gap: 5px;
+				.collapse-btn {
+					height: 24px;
+					width: 24px;
+				}
+			}
+
 			.btn.mobile-only-icon {
 				min-width: 24px;
 				min-height: 24px;
@@ -101,6 +120,14 @@ section.section-charts {
 					display: none;
 				}
 			}
+		}
+
+		html[screen-format='mobile'] &,
+		html[screen-format='tablet'] & {
+			padding-right: 0;
+			margin-bottom: 20px;
+			flex-wrap: wrap;
+			font-size: 1rem;
 		}
 	}
 }
@@ -173,20 +200,6 @@ section.section-actives {
 	.datatable-card {
 		.collapse-btn {
 			position: relative;
-
-			html[screen-format='tablet'] & {
-				top: 5px;
-				align-self: flex-start;
-				height: 16px;
-				width: 16px;
-			}
-
-			html[screen-format='mobile'] & {
-				top: 5px;
-				align-self: flex-start;
-				height: 16px;
-				width: 16px;
-			}
 		}
 		.datatable-footer {
 			display: grid;

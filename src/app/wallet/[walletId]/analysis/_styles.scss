@@ -69,6 +69,7 @@
 		}
 		.collapse-component--source {
 			padding: var(--Spacing-System-spacing-s, 16px) !important;
+
 			.title {
 				color: var(--button-label-dark);
 				html[data-theme='dark'] & {

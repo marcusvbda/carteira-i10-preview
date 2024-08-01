@@ -4,7 +4,6 @@ export const getSummaryData = async (walletId: string): Promise<any> => {
 	const result = await Promise.all([
 		fetchServer(`summary/alerts/${walletId}`),
 		fetchServer(`summary/info/${walletId}`),
-		fetchServer(`summary/donutchart/${walletId}`),
 	]);
 	return result;
 };

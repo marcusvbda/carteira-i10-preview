@@ -4,24 +4,11 @@
 		align-items: center;
 		justify-content: space-between;
 		cursor: pointer;
-		.collapse-btn {
-			cursor: pointer;
-			width: 30px;
-			height: 30px;
-			border: none;
-			border-radius: 100%;
-			background-color: var(--border-subtle);
-			html[data-theme='dark'] & {
-				background-color: var(--surface-secondary);
-			}
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			transition: 0.3s;
 
-			&.collapsed {
-				transform: rotate(180deg);
-			}
+		html[screen-format='mobile'] &,
+		html[screen-format='tablet'] & {
+			padding-left: 10px !important;
+			padding-right: 10px !important;
 		}
 	}
 
@@ -32,6 +19,28 @@
 		html[screen-format='mobile'] &,
 		html[screen-format='tablet'] & {
 			padding-bottom: 0;
+		}
+	}
+
+	.collapse-btn {
+		cursor: pointer;
+		width: 30px;
+		height: 30px;
+		border: none;
+		border-radius: 100%;
+		background-color: var(--border-subtle);
+		html[data-theme='dark'] & {
+			background-color: var(--surface-secondary);
+		}
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: 0.3s;
+	}
+
+	&.opened {
+		.collapse-btn {
+			transform: rotate(180deg);
 		}
 	}
 }

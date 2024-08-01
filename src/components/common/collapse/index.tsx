@@ -1,7 +1,8 @@
 'use client';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import './_styles.scss';
 import If from '@/components/common/if';
+import { ThemeContext } from '@/context/themeContext';
 import Icon from '../icon';
 
 interface IProps {
@@ -13,11 +14,9 @@ interface IProps {
 	onChange?: (value: boolean) => void;
 }
 
-const CollapseBtn = ({ visible }: any) => {
+export const CollapseBtn = () => {
 	return (
-		<button
-			className={`collapse-btn ${!visible ? 'collapsed' : 'uncollapsed'}`}
-		>
+		<button className="collapse-btn">
 			<Icon icon="/images/theme/secondary-arrow-down.svg" width="16px" />
 		</button>
 	);
@@ -32,20 +31,23 @@ export default function Collapse({
 	onChange,
 }: IProps) {
 	const [visible, setVisible] = useState(defaultCollapsed ?? false);
+	const { screenFormat } = useContext(ThemeContext);
 
 	useEffect(() => {
 		onChange && onChange(visible);
 	}, [visible, onChange]);
 
 	return (
-		<div className={`collapse-component ${className || ''}`}>
+		<div
+			className={`collapse-component ${className || ''} ${visible ? 'opened' : ''}`}
+		>
 			<div
 				className="collapse-component--source"
 				onClick={() => setVisible(!visible)}
 				style={{ padding: paddingSource ? paddingSource : '12px 24px' }}
 			>
 				{source}
-				<CollapseBtn visible={visible} />
+				{['desktop'].includes(screenFormat) && <CollapseBtn />}
 			</div>
 			<If condition={visible}>
 				<div className="collapse-component--content">

@@ -9,11 +9,9 @@ import {
 } from 'react';
 import { envoriment } from '@/constants/environment';
 import { usePersistentState } from '@/hooks/persistentState';
-import useDebouce from '@/hooks/useDebouce';
 export const ThemeContext = createContext<any>({});
 
 export const ThemeProvider = ({ children }: any): ReactNode => {
-	const [visible, setVisible] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 	const [initialized, setInitialized] = useState(false);
 	const [screenPosition, setScreenPosition] = useState(0);
@@ -45,18 +43,6 @@ export const ThemeProvider = ({ children }: any): ReactNode => {
 		window.addEventListener('scroll', handlePageScroll);
 		handleResize();
 		setInitialized(true);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	const reloadPageDebouce = useDebouce(() => {
-		setVisible(false);
-		setTimeout(() => {
-			setVisible(true);
-		}, 100);
-	}, 500);
-	useEffect(() => {
-		const handleResize = () => reloadPageDebouce();
-		window.addEventListener('resize', handleResize);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -93,7 +79,6 @@ export const ThemeProvider = ({ children }: any): ReactNode => {
 	}, [screenPosition]);
 
 	if (!initialized) return <></>;
-	if (!visible) return <></>;
 
 	return (
 		<ThemeContext.Provider

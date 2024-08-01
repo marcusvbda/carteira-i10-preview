@@ -5,7 +5,7 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import DefaultCard from '@/components/cards/default';
 import './_styles.scss';
-import Collapse from '@/components/common/collapse';
+import Collapse, { CollapseBtn } from '@/components/common/collapse';
 import { ThemeContext } from '@/context/themeContext';
 import Icon from '../icon';
 
@@ -82,7 +82,10 @@ export function Datatable({
 							<>
 								{title}
 								{!['desktop'].includes(screenFormat) && (
-									<div className="actions-row">{actions}</div>
+									<div className="actions-row">
+										{actions}
+										<CollapseBtn />
+									</div>
 								)}
 							</>
 						}

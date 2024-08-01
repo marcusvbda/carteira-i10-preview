@@ -65,6 +65,10 @@
 			flex: 1;
 			gap: 4px;
 
+			.p-inputnumber-input {
+				width: 100%;
+			}
+
 			&.center-y {
 				justify-content: center;
 
