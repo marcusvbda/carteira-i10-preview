@@ -23,14 +23,13 @@ export default async function WalletPage({
 		return <EmptyState walletId={walletId} />;
 	}
 
-	const [alertsData, infoData, donutChartData] = await getSummaryData(walletId);
+	const [alertsData, infoData] = await getSummaryData(walletId);
 
 	return (
 		<SummaryPage
 			infoData={infoData}
 			metricsData={metricsData}
 			alertsData={alertsData}
-			donutChartData={donutChartData}
 		/>
 	);
 }
