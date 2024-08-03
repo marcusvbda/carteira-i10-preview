@@ -6,15 +6,7 @@ import Modal from '@/components/common/modal';
 import { WalletContext } from '@/context/walletContext';
 import { useSwal } from '@/hooks/swal';
 import 'react-select2-wrapper/css/select2.css';
-
-const formatNumber = (number: number) => {
-	if (number.toString().includes('.')) {
-		const val = number.toFixed(2);
-		if (val.endsWith('.00')) return val.replace('.00', '');
-		return val;
-	}
-	return number.toString();
-};
+import { useHelpers } from '@/hooks/helpers';
 
 const NewTypes = ({ types, setTypes }: any): ReactNode => {
 	const [visible, setVisible] = useState(false);
@@ -177,6 +169,7 @@ const Total = ({ total }: any): ReactNode => {
 };
 
 const FormPercentage = ({ setModalVisible, infoData }: any) => {
+	const { formatNumber } = useHelpers();
 	const [loading, setLoading] = useState(false);
 	const { walletId } = useContext(WalletContext);
 	const defaultValues: any = {};
@@ -263,6 +256,7 @@ export default function PercentageInWallet({
 	infoData,
 }: any): ReactNode {
 	const [modalVisible, setModalVisible] = useState(false);
+	const { formatNumber } = useHelpers();
 
 	return (
 		<>

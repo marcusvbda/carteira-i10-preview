@@ -1,5 +1,17 @@
 export const useHelpers = () => {
 	return {
+		formatNumber: (value: number | string): string => {
+			try {
+				const val = new Intl.NumberFormat('pt-BR', {
+					style: 'currency',
+					currency: 'BRL',
+				}).format(typeof value === 'string' ? parseFloat(value) : value);
+
+				return val.replace('R$', '').replace(',00', '');
+			} catch (error) {
+				return '0';
+			}
+		},
 		formatMoney: (value: number, params: any = {}): string => {
 			const currency = params.currency || 'BRL';
 			try {

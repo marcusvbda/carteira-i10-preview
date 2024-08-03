@@ -27,6 +27,7 @@ export default function Trend({
 	if (formatedValue === 0) {
 		formateType = '';
 	}
+
 	return (
 		<div className="flex">
 			<span

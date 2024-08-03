@@ -169,10 +169,7 @@ export default function CollapseDatatable({
 				if (value !== 0) {
 					type = value > 0 ? 'positive' : 'negative';
 					if (type === 'negative') value *= -1;
-					value = value.toFixed(2);
-					if (value.endsWith('.00')) {
-						value = value.replace('.00', '');
-					}
+					value = helpers.formatNumber(value);
 				}
 				return <Trend type={type} size="14px" value={`${value}%`} />;
 			},
@@ -217,9 +214,12 @@ export default function CollapseDatatable({
 				);
 			},
 			group: 'Dados básicos',
-			body: (row: any): ReactNode => (
-				<LockedComponent content={helpers.formatMoney(row.bazin)} />
-			),
+			body: (row: any): ReactNode =>
+				row.graham ? (
+					' - '
+				) : (
+					<LockedComponent content={helpers.formatMoney(row.graham)} />
+				),
 		},
 		{
 			field: 'bazin',
@@ -245,9 +245,12 @@ export default function CollapseDatatable({
 				);
 			},
 			group: 'Dados básicos',
-			body: (row: any): ReactNode => (
-				<LockedComponent content={helpers.formatMoney(row.bazin)} />
-			),
+			body: (row: any): ReactNode =>
+				row.bazin ? (
+					' - '
+				) : (
+					<LockedComponent content={helpers.formatMoney(row.bazin)} />
+				),
 		},
 		{
 			field: 'score',
@@ -273,7 +276,7 @@ export default function CollapseDatatable({
 			body: (row: any): ReactNode => (
 				<ScoreComponent
 					row={row as any}
-					type={type}
+					type={type?.type}
 					onSubmit={(val: any) => (row.raw_rating = val)}
 				/>
 			),
@@ -285,12 +288,11 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('percent_wallet'),
 			sortable: true,
 			body: (row: any): ReactNode => {
-				const percentage = row.percent_wallet;
-				let value = percentage.toFixed(2);
-				if (value.endsWith('.00')) {
-					value = value.replace('.00', '');
-				}
-				return <div className="datatable-cell-row">{value}%</div>;
+				return (
+					<div className="datatable-cell-row">
+						{helpers.formatNumber(row.percent_wallet)}%
+					</div>
+				);
 			},
 		},
 		{
@@ -300,10 +302,11 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('percent_ideal'),
 			sortable: true,
 			body: (row: any): ReactNode => {
-				const percentage = row.percent_ideal;
-				let value = percentage.toFixed(2);
-				if (value.endsWith('.00')) value = value.replace('.00', '');
-				return <div className="datatable-cell-row">{value}%</div>;
+				return (
+					<div className="datatable-cell-row">
+						{helpers.formatNumber(row.percent_ideal)}%
+					</div>
+				);
 			},
 		},
 		{
@@ -341,7 +344,8 @@ export default function CollapseDatatable({
 			group: 'Dados fundamentais',
 			sortable: true,
 			visible: checkIsVisible('payout'),
-			body: (row: any) => `${Number(row.payout || 0).toFixed(2)}%`,
+			body: (row: any) =>
+				row.payout ? ' - ' : `${helpers.formatNumber(row.payout)}%`,
 		},
 		{
 			field: 'dy',
@@ -349,7 +353,7 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('dy'),
 			sortable: true,
 			group: 'Dados fundamentais',
-			body: (row: any) => `${row.dy}%`,
+			body: (row: any) => (row.dy ? ' - ' : `${helpers.formatNumber(row.dy)}%`),
 		},
 		{
 			field: 'pvp',
@@ -357,7 +361,7 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('pvp'),
 			sortable: true,
 			group: 'Dados fundamentais',
-			body: (row: any) => `${row.p_vp}%`,
+			body: (row: any) => `${helpers.formatNumber(row.p_vp)}%`,
 		},
 		{
 			field: 'p_l',
@@ -365,7 +369,7 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('p_l'),
 			sortable: true,
 			group: 'Dados fundamentais',
-			body: (row: any) => `${row.p_l}%`,
+			body: (row: any) => `${helpers.formatNumber(row.p_l)}%`,
 		},
 		{
 			field: 'yoc',
@@ -373,6 +377,7 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('yoc'),
 			group: 'Dados fundamentais',
 			sortable: true,
+			body: (row: any) => helpers.formatNumber(row.yoc),
 		},
 		{
 			field: 'net_margin',
@@ -380,7 +385,7 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('net_margin'),
 			group: 'Dados fundamentais',
 			sortable: true,
-			body: (row: any) => `${row.net_margin}%`,
+			body: (row: any) => `${helpers.formatNumber(row.net_margin)}%`,
 		},
 		{
 			field: 'roe',
@@ -388,7 +393,6 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('roe'),
 			group: 'Dados fundamentais',
 			sortable: true,
-			body: (row: any) => `${row.roe}%`,
 		},
 		{
 			field: 'gross_margin',
@@ -396,7 +400,7 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('gross_margin'),
 			group: 'Dados fundamentais',
 			sortable: true,
-			body: (row: any) => `${row.gross_margin}%`,
+			body: (row: any) => `${helpers.formatNumber(row.gross_margin)}%`,
 		},
 		{
 			field: 'gnr',
@@ -404,19 +408,21 @@ export default function CollapseDatatable({
 			visible: checkIsVisible('gnr'),
 			sortable: true,
 			group: 'Dados fundamentais',
-			body: (row: any) => `${row.gnr}%`,
+			body: (row: any) => (row.gnr ? '-' : `${helpers.formatNumber(row.gnr)}%`),
 		},
 		{
-			field: 'growth_net_profit_last_5_years',
+			field: 'gnp',
 			title: 'CAGR Lucros (5 anos) ',
-			visible: checkIsVisible('growth_net_profit_last_5_years'),
+			visible: checkIsVisible('gnp'),
 			sortable: true,
 			group: 'Dados fundamentais',
-			body: (row: any) => `${row.growth_net_profit_last_5_years}%`,
+			body: (row: any) => (row.gnp ? '-' : `${helpers.formatNumber(row.gnp)}%`),
 		},
 		{
 			field: 'options',
 			title: 'Opções',
+			group: 'settings',
+
 			visible: true,
 			body: (row: any): ReactNode => {
 				return (

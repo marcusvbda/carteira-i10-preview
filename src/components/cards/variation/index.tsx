@@ -111,7 +111,13 @@ export default function VariationCard({
 				<ContentProfit profit={profit} />
 			</div>
 			<div>
-				<h4 style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+				<h4
+					style={{
+						display: 'flex',
+						gap: 6,
+						alignItems: 'center',
+					}}
+				>
 					Variação
 					<Tooltip
 						content={

@@ -125,20 +125,25 @@ const EditColumns = ({ columns, setColumns, defaultColumns }: any) => {
 			content={
 				<>
 					<div className="fields-edit-list">
-						{Object.keys(columnsGrouped).map((group, index) => (
-							<div key={index} style={{ marginBottom: 50 }}>
-								<h6>{group}</h6>
-								<div className="input-list">
-									{columnsGrouped[group].map((column: any, index: number) => (
-										<ColumnSwitch
-											key={index}
-											column={column}
-											onClick={(field: any) => clicked(group, field)}
-										/>
-									))}
-								</div>
-							</div>
-						))}
+						{Object.keys(columnsGrouped).map(
+							(group, index) =>
+								group !== 'settings' && (
+									<div key={index} style={{ marginBottom: 50 }}>
+										<h6>{group}</h6>
+										<div className="input-list">
+											{columnsGrouped[group].map(
+												(column: any, index: number) => (
+													<ColumnSwitch
+														key={index}
+														column={column}
+														onClick={(field: any) => clicked(group, field)}
+													/>
+												),
+											)}
+										</div>
+									</div>
+								),
+						)}
 					</div>
 				</>
 			}

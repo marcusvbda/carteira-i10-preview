@@ -53,7 +53,7 @@ export default function Evolution({ defaultData }: any): ReactNode {
 			>
 				<Column sortable field="year" header="Ano" body={(x: any) => x.year} />
 				{months.map((month, key) => (
-					<Column sortable field={month} header={month} key={key} />
+					<Column field={month} header={month} key={key} />
 				))}
 				<Column header="Média" sortable field="average" />
 				<Column
