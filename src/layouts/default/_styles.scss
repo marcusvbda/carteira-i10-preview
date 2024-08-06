@@ -203,9 +203,11 @@ body:has(.lock-mouse) {
 	padding-left: 32px;
 	padding-right: 32px;
 
-	html[screen-format='mobile'] & {
-		padding-left: 16px;
-		padding-right: 16px;
+	&:has(.section-metrics.trends) {
+		html[screen-format='mobile'] & {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
 }
 
@@ -288,6 +290,11 @@ body:has(.lock-mouse) {
 		img {
 			height: 32px;
 			width: 32px;
+
+			html[screen-format='mobile'] & {
+				height: 20px;
+				width: 20px;
+			}
 		}
 
 		.border {
@@ -298,6 +305,10 @@ body:has(.lock-mouse) {
 
 		.name {
 			color: var(--text-primary);
+
+			html[screen-format='mobile'] & {
+				font-size: 12px;
+			}
 		}
 	}
 }
@@ -468,7 +479,6 @@ html[data-theme='dark'] {
 			th {
 				border-top: 1px solid #5656561c;
 				padding: 16px;
-
 				font-size: 14px;
 				font-weight: 400;
 				color: var(--text-secondary);
@@ -483,6 +493,12 @@ html[data-theme='dark'] {
 							fill: var(--text-secondary);
 						}
 					}
+				}
+
+				html[screen-format='mobile'] & {
+					font-size: 14px;
+					padding: 5px 16px;
+					font-size: 12px;
 				}
 			}
 		}
@@ -499,6 +515,11 @@ html[data-theme='dark'] {
 					display: flex;
 					align-items: center;
 					gap: 12px;
+				}
+				html[screen-format='mobile'] & {
+					font-size: 14px;
+					padding: 5px 16px;
+					font-size: 12px;
 				}
 			}
 		}
@@ -921,5 +942,12 @@ button {
 		display: flex;
 		gap: 8px;
 		align-items: center;
+	}
+}
+
+.select-dropdown-label {
+	html[screen-format='mobile'] & {
+		padding: 6px 14px !important;
+		font-size: 12px !important;
 	}
 }

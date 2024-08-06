@@ -33,7 +33,10 @@ export const LoadingContent = (): ReactNode => {
 				</div>
 			)}
 			{!['desktop'].includes(screenFormat) && (
-				<div className="page-container">
+				<div
+					className="page-container"
+					style={{ paddingRight: 16, paddingLeft: 16 }}
+				>
 					<div className="flex-row gap-10">
 						<Skeleton width="100%" height="50px" />
 					</div>

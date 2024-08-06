@@ -8,9 +8,15 @@ import React, {
 	useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import AspectRatio from '@/components/common/aspectRatio';
 import { Datatable } from '@/components/common/datatable';
 import Icon from '@/components/common/icon';
+import Modal from '@/components/common/modal';
 import SensitiveContent from '@/components/common/sensitiveContent';
+import Skeleton from '@/components/common/skeleton';
 import Tooltip from '@/components/common/tooltip';
 import Trend from '@/components/common/trend';
 import YesOrNo from '@/components/common/yesOrNo';
@@ -19,6 +25,7 @@ import LockedComponent from '@/components/locked';
 import ScoreComponent from '@/components/score';
 import { envoriment } from '@/constants/environment';
 import { WalletContext } from '@/context/walletContext';
+import { useFetch } from '@/hooks/fetch';
 import { useHelpers } from '@/hooks/helpers';
 import DatatableInfo from './_datatableInfo';
 import DatatablePostTitle from './_datatablePostTitle';
@@ -46,6 +53,8 @@ export default function CollapseDatatable({
 	const router = useRouter();
 	const [loading, setLoading] = useState(true);
 	const [rows, setRows] = useState<any[]>([]);
+	const [obsModalVisible, setObsModalVisible] = useState(false);
+	const [rowObs, setRowObs] = useState<any>(null);
 
 	const title = useMemo(() => {
 		const classValue = (type?.class || '') as string;
@@ -437,6 +446,10 @@ export default function CollapseDatatable({
 								action: () =>
 									router.push(`${envoriment.apiUrl}/acoes/${row.ticker_name}`),
 							},
+							{
+								label: 'Minhas observações',
+								action: () => [setRowObs(row), setObsModalVisible(true)],
+							},
 						]}
 					/>
 				);
@@ -457,32 +470,199 @@ export default function CollapseDatatable({
 	}, []);
 
 	return (
-		<Datatable
-			title={title}
-			defaultCollapsed={defaultCollapsed === true}
-			pagination={false}
-			loading={loading}
-			actions={
-				<DatatablePostTitle
-					rows={rows}
-					columns={columns}
-					setColumns={setColumns}
-					tickerType={type}
-					defaultColumns={defaultColumns}
-				/>
-			}
-			summary={
-				<DatatableInfo
-					qty={total}
-					totalAmount={totalAmount}
-					percent={percent}
-					profitability={rentability}
-					percentageIdeal={balancing}
-					infoData={infoData}
-				/>
-			}
-			columns={columns.filter((x: any) => x.visible)}
-			rows={rows}
-		/>
+		<>
+			<Datatable
+				title={title}
+				defaultCollapsed={defaultCollapsed === true}
+				pagination={false}
+				loading={loading}
+				actions={
+					<DatatablePostTitle
+						rows={rows}
+						columns={columns}
+						setColumns={setColumns}
+						tickerType={type}
+						defaultColumns={defaultColumns}
+					/>
+				}
+				summary={
+					<DatatableInfo
+						qty={total}
+						totalAmount={totalAmount}
+						percent={percent}
+						profitability={rentability}
+						percentageIdeal={balancing}
+						infoData={infoData}
+					/>
+				}
+				columns={columns.filter((x: any) => x.visible)}
+				rows={rows}
+			/>
+			<ObsModal
+				row={rowObs}
+				modalVisible={obsModalVisible}
+				setModalVisible={setObsModalVisible}
+			/>
+		</>
 	);
 }
+
+const ObsForm = ({ ticker, setModalVisible }: any) => {
+	const { walletId } = useContext(WalletContext);
+	const { loading, data } = useFetch({
+		route: `/api/notes/${walletId}/${ticker.id}`,
+	});
+
+	const saveNewNote = (e: any, value: string, id?: number) => {
+		e.preventDefault();
+		setModalVisible && setModalVisible(false);
+		Swal.fire({
+			title: 'Confirmação',
+			text: 'Tem certeza que deseja salvar ?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Sim, salvar',
+			cancelButtonText: 'Cancelar',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setModalVisible && setModalVisible(false);
+				fetch(`/api/notes/${walletId}/${ticker.id}`, {
+					method: 'POST',
+					body: JSON.stringify({
+						note: value,
+						note_id: id,
+					}),
+				});
+			}
+		});
+	};
+
+	const deleteNote = (e: any, id: number) => {
+		e.preventDefault();
+		Swal.fire({
+			title: 'Confirmação',
+			text: 'Tem certeza que deseja deletar ?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Sim, deletar',
+			cancelButtonText: 'Cancelar',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setModalVisible && setModalVisible(false);
+				fetch(`/api/notes/${walletId}/delete/${id}`, {
+					method: 'DELETE',
+				});
+			}
+		});
+	};
+
+	if (loading) return <Skeleton width="100%" height="300px" />;
+
+	return (
+		<>
+			<div className="obs-list">
+				{(data || [])?.map &&
+					(data || []).map((item: any, key: number) => (
+						<Accordion key={key} className="obs-item">
+							<AccordionSummary
+								className="obs-title"
+								expandIcon={
+									<div className="obs-icon">
+										<ExpandMoreIcon />
+									</div>
+								}
+							>
+								{new Date(item.created_at).toLocaleDateString('pt-BR')}
+							</AccordionSummary>
+							<AccordionDetails>
+								<textarea rows={6} id={`obs-value-${item.id}`}>
+									{item.note}
+								</textarea>
+								<div className="obs-actions">
+									<a
+										href="#"
+										className="delete"
+										onClick={(e: any) => deleteNote(e, item.id)}
+									>
+										<AspectRatio
+											src="/images/theme/trash-red.svg"
+											size={{ width: 16 }}
+										/>
+										Deletar observação
+									</a>
+									<button
+										className="btn primary"
+										onClick={(e: any) =>
+											saveNewNote(
+												e,
+												(document.querySelector(`#obs-value-${item.id}`) as any)
+													?.value,
+												item.id,
+											)
+										}
+									>
+										Salvar alterações
+									</button>
+								</div>
+							</AccordionDetails>
+						</Accordion>
+					))}
+			</div>
+			<div className="obs-list">
+				<Accordion className="obs-item" defaultExpanded>
+					<AccordionSummary
+						className="obs-title"
+						expandIcon={
+							<div className="obs-icon">
+								<ExpandMoreIcon />
+							</div>
+						}
+					>
+						{new Date().toLocaleDateString('pt-BR')}
+					</AccordionSummary>
+					<AccordionDetails>
+						<textarea rows={6} id="new-obs-value" />
+						<div className="obs-actions">
+							<a
+								href="#"
+								onClick={(e: any) => [
+									e.preventDefault(),
+									setModalVisible(false),
+								]}
+								className="cancel"
+							>
+								Cancelar
+							</a>
+							<button
+								className="btn primary"
+								onClick={(e: any) =>
+									saveNewNote(
+										e,
+										(document.querySelector(`#new-obs-value`) as any)?.value,
+									)
+								}
+							>
+								Salvar alterações
+							</button>
+						</div>
+					</AccordionDetails>
+				</Accordion>
+			</div>
+		</>
+	);
+};
+
+const ObsModal = ({ row, modalVisible, setModalVisible }: any) => {
+	return (
+		<div className="flex rating-component">
+			<Modal
+				modalVisible={modalVisible}
+				setModalVisible={setModalVisible}
+				size="650px"
+				title={`Minhas observações (${row?.ticker_name || ''})`}
+				source={<></>}
+				content={<ObsForm ticker={row} setModalVisible={setModalVisible} />}
+			/>
+		</div>
+	);
+};

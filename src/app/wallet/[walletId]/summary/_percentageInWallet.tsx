@@ -3,10 +3,11 @@ import { ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import Select2 from 'react-select2-wrapper';
 import Icon from '@/components/common/icon';
 import Modal from '@/components/common/modal';
+import { ThemeContext } from '@/context/themeContext';
 import { WalletContext } from '@/context/walletContext';
+import { useHelpers } from '@/hooks/helpers';
 import { useSwal } from '@/hooks/swal';
 import 'react-select2-wrapper/css/select2.css';
-import { useHelpers } from '@/hooks/helpers';
 
 const NewTypes = ({ types, setTypes }: any): ReactNode => {
 	const [visible, setVisible] = useState(false);
@@ -257,12 +258,18 @@ export default function PercentageInWallet({
 }: any): ReactNode {
 	const [modalVisible, setModalVisible] = useState(false);
 	const { formatNumber } = useHelpers();
+	const { screenFormat } = useContext(ThemeContext);
 
 	return (
 		<>
 			<strong>% na carteira</strong>
 			<div className="percentage-ticker">
-				<div className="muted">{formatNumber(percentage)}%</div>
+				<div className="muted">
+					{formatNumber(percentage, {
+						hideDecimal: screenFormat !== 'desktop',
+					})}
+					%
+				</div>
 				<div className="dark dash">/</div>
 				<Modal
 					size="40%"

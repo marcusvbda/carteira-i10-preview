@@ -18,6 +18,9 @@ section.section-actives {
 					color: var(--text-secondary);
 					margin-bottom: var(--Spacing-System-spacing-xxs);
 					font-size: 14px;
+					html[screen-format='mobile'] & {
+						font-size: 11px !important;
+					}
 					font-style: normal;
 					font-weight: 500;
 				}
@@ -25,8 +28,20 @@ section.section-actives {
 				div {
 					color: var(--text-primary);
 					font-size: 16px;
+					html[screen-format='mobile'] & {
+						font-size: 12px !important;
+					}
 					font-style: normal;
 					font-weight: 500;
+
+					.trend-value {
+						html[screen-format='mobile'] & {
+							font-size: 12px !important;
+							max-height: 14px !important;
+							display: flex !important;
+							align-items: center !important;
+						}
+					}
 				}
 			}
 		}
